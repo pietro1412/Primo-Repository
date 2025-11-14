@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { createClient } from '@vercel/postgres';
 import jwt from 'jsonwebtoken';
 
 function verifyToken(req) {
@@ -23,6 +23,9 @@ export default async function handler(req, res) {
     return;
   }
 
+  const client = createClient();
+  await client.connect();
+
   try {
     const decoded = verifyToken(req);
     const userId = decoded.userId;
@@ -32,17 +35,17 @@ export default async function handler(req, res) {
       // Update task
       const { title, description, status, scheduledDate, completedAt } = req.body;
 
-      const result = await sql`
-        UPDATE tasks
-        SET
-          title = COALESCE(${title}, title),
-          description = COALESCE(${description}, description),
-          status = COALESCE(${status}, status),
-          scheduled_date = COALESCE(${scheduledDate}, scheduled_date),
-          completed_at = COALESCE(${completedAt}, completed_at)
-        WHERE id = ${taskId} AND user_id = ${userId}
-        RETURNING id, title, description, status, scheduled_date, created_at, completed_at, updated_at
-      `;
+      const result = await client.query(
+        `UPDATE tasks SET
+          title = COALESCE($1, title),
+          description = COALESCE($2, description),
+          status = COALESCE($3, status),
+          scheduled_date = COALESCE($4, scheduled_date),
+          completed_at = COALESCE($5, completed_at)
+        WHERE id = $6 AND user_id = $7
+        RETURNING id, title, description, status, scheduled_date, created_at, completed_at, updated_at`,
+        [title, description, status, scheduledDate, completedAt, taskId, userId]
+      );
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: 'Task not found' });
@@ -51,11 +54,10 @@ export default async function handler(req, res) {
       res.status(200).json(result.rows[0]);
     } else if (req.method === 'DELETE') {
       // Delete task
-      const result = await sql`
-        DELETE FROM tasks
-        WHERE id = ${taskId} AND user_id = ${userId}
-        RETURNING id
-      `;
+      const result = await client.query(
+        'DELETE FROM tasks WHERE id = $1 AND user_id = $2 RETURNING id',
+        [taskId, userId]
+      );
 
       if (result.rows.length === 0) {
         return res.status(404).json({ error: 'Task not found' });
@@ -72,5 +74,7 @@ export default async function handler(req, res) {
     } else {
       res.status(500).json({ error: 'Internal server error' });
     }
+  } finally {
+    await client.end();
   }
 }

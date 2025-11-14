@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { createClient } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -18,6 +18,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  const client = createClient();
+  await client.connect();
+
   try {
     const { email, password } = req.body;
 
@@ -30,9 +33,10 @@ export default async function handler(req, res) {
     }
 
     // Check if user already exists
-    const existingUser = await sql`
-      SELECT id FROM users WHERE email = ${email}
-    `;
+    const existingUser = await client.query(
+      'SELECT id FROM users WHERE email = $1',
+      [email]
+    );
 
     if (existingUser.rows.length > 0) {
       return res.status(400).json({ error: 'User already exists' });
@@ -42,11 +46,10 @@ export default async function handler(req, res) {
     const passwordHash = await bcrypt.hash(password, 10);
 
     // Create user
-    const result = await sql`
-      INSERT INTO users (email, password_hash)
-      VALUES (${email}, ${passwordHash})
-      RETURNING id, email, created_at
-    `;
+    const result = await client.query(
+      'INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email, created_at',
+      [email, passwordHash]
+    );
 
     const user = result.rows[0];
 
@@ -68,5 +71,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    await client.end();
   }
 }

@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { createClient } from '@vercel/postgres';
 import jwt from 'jsonwebtoken';
 
 function verifyToken(req) {
@@ -23,18 +23,19 @@ export default async function handler(req, res) {
     return;
   }
 
+  const client = createClient();
+  await client.connect();
+
   try {
     const decoded = verifyToken(req);
     const userId = decoded.userId;
 
     if (req.method === 'GET') {
       // Get all tasks for the user
-      const result = await sql`
-        SELECT id, title, description, status, scheduled_date, created_at, completed_at, updated_at
-        FROM tasks
-        WHERE user_id = ${userId}
-        ORDER BY created_at DESC
-      `;
+      const result = await client.query(
+        'SELECT id, title, description, status, scheduled_date, created_at, completed_at, updated_at FROM tasks WHERE user_id = $1 ORDER BY created_at DESC',
+        [userId]
+      );
 
       res.status(200).json(result.rows);
     } else if (req.method === 'POST') {
@@ -45,11 +46,10 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Title is required' });
       }
 
-      const result = await sql`
-        INSERT INTO tasks (user_id, title, description, scheduled_date, status)
-        VALUES (${userId}, ${title}, ${description || null}, ${scheduledDate || null}, 'pending')
-        RETURNING id, title, description, status, scheduled_date, created_at, completed_at, updated_at
-      `;
+      const result = await client.query(
+        'INSERT INTO tasks (user_id, title, description, scheduled_date, status) VALUES ($1, $2, $3, $4, $5) RETURNING id, title, description, status, scheduled_date, created_at, completed_at, updated_at',
+        [userId, title, description || null, scheduledDate || null, 'pending']
+      );
 
       res.status(201).json(result.rows[0]);
     } else {
@@ -62,5 +62,7 @@ export default async function handler(req, res) {
     } else {
       res.status(500).json({ error: 'Internal server error' });
     }
+  } finally {
+    await client.end();
   }
 }
