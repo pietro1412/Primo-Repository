@@ -13,7 +13,6 @@ import {
   subWeeks,
   addMonths,
   subMonths,
-  isToday,
 } from 'date-fns';
 import type { DragEndEvent } from '@dnd-kit/core';
 import {
@@ -24,10 +23,11 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { SortableContext } from '@dnd-kit/sortable';
 import { TaskCard } from './TaskCard';
 import { TaskStats } from './TaskStats';
 import { TaskFilters } from './TaskFilters';
+import { CalendarDay } from './CalendarDay';
+import { UnscheduledArea } from './UnscheduledArea';
 
 interface CalendarProps {
   tasks: Task[];
@@ -232,72 +232,30 @@ export const Calendar = ({
           {days.map((day) => {
             const dayTasks = getTasksForDate(day);
             const dateStr = format(day, 'yyyy-MM-dd');
-            const droppableId = `day-${dateStr}`;
             const isOtherMonth = viewMode === 'month' && !isCurrentMonth(day);
 
             return (
-              <SortableContext
+              <CalendarDay
                 key={dateStr}
-                id={droppableId}
-                items={dayTasks.map((t) => t.id)}
-              >
-                <div
-                  id={droppableId}
-                  className={`calendar-day ${isToday(day) ? 'today' : ''} ${
-                    isOtherMonth ? 'opacity-40' : ''
-                  } ${viewMode === 'month' ? 'min-h-[100px]' : ''}`}
-                >
-                  <div className="font-semibold text-sm mb-2 text-center">
-                    {viewMode === 'week' && (
-                      <div className="text-gray-500">{format(day, 'EEE')}</div>
-                    )}
-                    <div
-                      className={
-                        isToday(day) ? 'text-primary-600' : 'text-gray-900'
-                      }
-                    >
-                      {format(day, 'd')}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    {dayTasks.map((task) => (
-                      <TaskCard
-                        key={task.id}
-                        task={task}
-                        onComplete={onCompleteTask}
-                        onDelete={onDeleteTask}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </SortableContext>
+                date={day}
+                tasks={dayTasks}
+                dateStr={dateStr}
+                isOtherMonth={isOtherMonth}
+                viewMode={viewMode}
+                onComplete={onCompleteTask}
+                onDelete={onDeleteTask}
+              />
             );
           })}
         </div>
 
         {/* Unscheduled Tasks */}
         {unscheduledTasks.length > 0 && (
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-3">
-              Unscheduled Tasks ({unscheduledTasks.length})
-            </h3>
-            <SortableContext
-              id="unscheduled"
-              items={unscheduledTasks.map((t) => t.id)}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                {unscheduledTasks.map((task) => (
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    onComplete={onCompleteTask}
-                    onDelete={onDeleteTask}
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </div>
+          <UnscheduledArea
+            tasks={unscheduledTasks}
+            onComplete={onCompleteTask}
+            onDelete={onDeleteTask}
+          />
         )}
       </div>
 
