@@ -1,4 +1,4 @@
-import { createClient } from '@vercel/postgres';
+import { prisma } from '../../lib/prisma.js';
 import jwt from 'jsonwebtoken';
 
 function verifyToken(req) {
@@ -23,45 +23,61 @@ export default async function handler(req, res) {
     return;
   }
 
-  const client = createClient({
-    connectionString: process.env.POSTGRES_URL
-  });
-  await client.connect();
-
   try {
     const decoded = verifyToken(req);
     const userId = decoded.userId;
-    const taskId = req.query.id;
+    const taskId = parseInt(req.query.id);
 
     if (req.method === 'PUT') {
       // Update task
       const { title, description, status, scheduledDate, completedAt } = req.body;
 
-      const result = await client.query(
-        `UPDATE tasks SET
-          title = COALESCE($1, title),
-          description = COALESCE($2, description),
-          status = COALESCE($3, status),
-          scheduled_date = COALESCE($4, scheduled_date),
-          completed_at = COALESCE($5, completed_at)
-        WHERE id = $6 AND user_id = $7
-        RETURNING id, title, description, status, scheduled_date, created_at, completed_at, updated_at`,
-        [title, description, status, scheduledDate, completedAt, taskId, userId]
-      );
+      const updateData = {};
+      if (title !== undefined) updateData.title = title;
+      if (description !== undefined) updateData.description = description;
+      if (status !== undefined) updateData.status = status;
+      if (scheduledDate !== undefined) updateData.scheduledDate = scheduledDate ? new Date(scheduledDate) : null;
+      if (completedAt !== undefined) updateData.completedAt = completedAt ? new Date(completedAt) : null;
 
-      if (result.rows.length === 0) {
+      const task = await prisma.task.updateMany({
+        where: {
+          id: taskId,
+          userId: userId,
+        },
+        data: updateData,
+      });
+
+      if (task.count === 0) {
         return res.status(404).json({ error: 'Task not found' });
       }
 
-      res.status(200).json(result.rows[0]);
+      // Fetch updated task
+      const updatedTask = await prisma.task.findUnique({
+        where: { id: taskId },
+      });
+
+      const formattedTask = {
+        id: updatedTask.id,
+        title: updatedTask.title,
+        description: updatedTask.description,
+        status: updatedTask.status,
+        scheduled_date: updatedTask.scheduledDate ? updatedTask.scheduledDate.toISOString().split('T')[0] : null,
+        created_at: updatedTask.createdAt.toISOString(),
+        completed_at: updatedTask.completedAt ? updatedTask.completedAt.toISOString() : null,
+        updated_at: updatedTask.updatedAt.toISOString(),
+      };
+
+      res.status(200).json(formattedTask);
     } else if (req.method === 'DELETE') {
       // Delete task
-      const result = await client.query(
-        'DELETE FROM tasks WHERE id = $1 AND user_id = $2 RETURNING id',
-        [taskId, userId]
-      );
+      const result = await prisma.task.deleteMany({
+        where: {
+          id: taskId,
+          userId: userId,
+        },
+      });
 
-      if (result.rows.length === 0) {
+      if (result.count === 0) {
         return res.status(404).json({ error: 'Task not found' });
       }
 
@@ -76,7 +92,5 @@ export default async function handler(req, res) {
     } else {
       res.status(500).json({ error: 'Internal server error' });
     }
-  } finally {
-    await client.end();
   }
 }

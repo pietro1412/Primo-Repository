@@ -1,4 +1,4 @@
-import { createClient } from '@vercel/postgres';
+import { prisma } from '../../lib/prisma.js';
 import jwt from 'jsonwebtoken';
 
 function verifyToken(req) {
@@ -23,23 +23,30 @@ export default async function handler(req, res) {
     return;
   }
 
-  const client = createClient({
-    connectionString: process.env.POSTGRES_URL
-  });
-  await client.connect();
-
   try {
     const decoded = verifyToken(req);
     const userId = decoded.userId;
 
     if (req.method === 'GET') {
       // Get all tasks for the user
-      const result = await client.query(
-        'SELECT id, title, description, status, scheduled_date, created_at, completed_at, updated_at FROM tasks WHERE user_id = $1 ORDER BY created_at DESC',
-        [userId]
-      );
+      const tasks = await prisma.task.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+      });
 
-      res.status(200).json(result.rows);
+      // Convert to API format
+      const formattedTasks = tasks.map(task => ({
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        scheduled_date: task.scheduledDate ? task.scheduledDate.toISOString().split('T')[0] : null,
+        created_at: task.createdAt.toISOString(),
+        completed_at: task.completedAt ? task.completedAt.toISOString() : null,
+        updated_at: task.updatedAt.toISOString(),
+      }));
+
+      res.status(200).json(formattedTasks);
     } else if (req.method === 'POST') {
       // Create a new task
       const { title, description, scheduledDate } = req.body;
@@ -48,12 +55,28 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Title is required' });
       }
 
-      const result = await client.query(
-        'INSERT INTO tasks (user_id, title, description, scheduled_date, status) VALUES ($1, $2, $3, $4, $5) RETURNING id, title, description, status, scheduled_date, created_at, completed_at, updated_at',
-        [userId, title, description || null, scheduledDate || null, 'pending']
-      );
+      const task = await prisma.task.create({
+        data: {
+          userId,
+          title,
+          description: description || null,
+          scheduledDate: scheduledDate ? new Date(scheduledDate) : null,
+          status: 'pending',
+        },
+      });
 
-      res.status(201).json(result.rows[0]);
+      const formattedTask = {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        scheduled_date: task.scheduledDate ? task.scheduledDate.toISOString().split('T')[0] : null,
+        created_at: task.createdAt.toISOString(),
+        completed_at: task.completedAt ? task.completedAt.toISOString() : null,
+        updated_at: task.updatedAt.toISOString(),
+      };
+
+      res.status(201).json(formattedTask);
     } else {
       res.status(405).json({ error: 'Method not allowed' });
     }
@@ -64,7 +87,5 @@ export default async function handler(req, res) {
     } else {
       res.status(500).json({ error: 'Internal server error' });
     }
-  } finally {
-    await client.end();
   }
 }

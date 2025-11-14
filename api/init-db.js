@@ -1,4 +1,4 @@
-import { createClient } from '@vercel/postgres';
+import { prisma } from '../lib/prisma.js';
 
 export default async function handler(req, res) {
   // Set CORS headers
@@ -16,14 +16,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const client = createClient({
-    connectionString: process.env.POSTGRES_URL
-  });
-  await client.connect();
-
   try {
-    // Create users table
-    await client.query(`
+    // Use Prisma's $executeRawUnsafe to run raw SQL
+    // This creates tables if they don't exist
+
+    await prisma.$executeRawUnsafe(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
@@ -32,8 +29,7 @@ export default async function handler(req, res) {
       )
     `);
 
-    // Create tasks table
-    await client.query(`
+    await prisma.$executeRawUnsafe(`
       CREATE TABLE IF NOT EXISTS tasks (
         id SERIAL PRIMARY KEY,
         user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -47,13 +43,11 @@ export default async function handler(req, res) {
       )
     `);
 
-    // Create indexes
-    await client.query('CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON tasks(user_id)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_tasks_scheduled_date ON tasks(scheduled_date)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
+    await prisma.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON tasks(user_id)`);
+    await prisma.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS idx_tasks_scheduled_date ON tasks(scheduled_date)`);
+    await prisma.$executeRawUnsafe(`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`);
 
-    // Create function for updated_at trigger
-    await client.query(`
+    await prisma.$executeRawUnsafe(`
       CREATE OR REPLACE FUNCTION update_updated_at_column()
       RETURNS TRIGGER AS $$
       BEGIN
@@ -63,9 +57,8 @@ export default async function handler(req, res) {
       $$ language 'plpgsql'
     `);
 
-    // Create trigger
-    await client.query('DROP TRIGGER IF EXISTS update_tasks_updated_at ON tasks');
-    await client.query(`
+    await prisma.$executeRawUnsafe(`DROP TRIGGER IF EXISTS update_tasks_updated_at ON tasks`);
+    await prisma.$executeRawUnsafe(`
       CREATE TRIGGER update_tasks_updated_at
           BEFORE UPDATE ON tasks
           FOR EACH ROW
@@ -82,7 +75,5 @@ export default async function handler(req, res) {
       error: 'Failed to initialize database',
       details: error.message
     });
-  } finally {
-    await client.end();
   }
 }
