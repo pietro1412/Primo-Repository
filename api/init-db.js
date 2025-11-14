@@ -16,7 +16,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const client = createClient();
+  const client = createClient({
+    connectionString: process.env.POSTGRES_URL
+  });
   await client.connect();
 
   try {
