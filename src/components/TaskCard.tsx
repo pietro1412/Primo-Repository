@@ -1,5 +1,5 @@
 import type { Task } from '../types';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, differenceInHours, differenceInDays } from 'date-fns';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
@@ -34,6 +34,31 @@ export const TaskCard = ({
     opacity: isDragging ? 0.5 : 1,
   };
 
+  // Calculate duration for completed tasks
+  const getDuration = () => {
+    if (task.status === 'completed' && task.completedAt && task.createdAt) {
+      const hours = differenceInHours(
+        parseISO(task.completedAt),
+        parseISO(task.createdAt)
+      );
+      const days = differenceInDays(
+        parseISO(task.completedAt),
+        parseISO(task.createdAt)
+      );
+
+      if (days > 0) {
+        return `${days}d`;
+      } else if (hours > 0) {
+        return `${hours}h`;
+      } else {
+        return '< 1h';
+      }
+    }
+    return null;
+  };
+
+  const duration = getDuration();
+
   return (
     <div
       ref={setNodeRef}
@@ -56,11 +81,26 @@ export const TaskCard = ({
           {task.description && (
             <p className="text-xs text-gray-500 mt-1">{task.description}</p>
           )}
-          {task.scheduledDate && (
-            <p className="text-xs text-primary-600 mt-1">
-              {format(parseISO(task.scheduledDate), 'MMM d, yyyy')}
+
+          {/* Date Information */}
+          <div className="mt-2 space-y-1">
+            <p className="text-xs text-gray-400">
+              Created: {format(parseISO(task.createdAt), 'MMM d, HH:mm')}
             </p>
-          )}
+
+            {task.status === 'completed' && task.completedAt && (
+              <div className="flex items-center gap-2">
+                <p className="text-xs text-green-600">
+                  Completed: {format(parseISO(task.completedAt), 'MMM d, HH:mm')}
+                </p>
+                {duration && (
+                  <span className="text-xs font-semibold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">
+                    {duration}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex gap-1 flex-shrink-0">

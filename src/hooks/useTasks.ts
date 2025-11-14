@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Task, DailyReviewState } from '../types';
-import { isToday, parseISO, startOfDay, format } from 'date-fns';
+import { isToday, parseISO, startOfDay, format, isBefore } from 'date-fns';
 
 const TASKS_KEY = 'daily-todo-tasks';
 const REVIEW_KEY = 'daily-todo-review';
@@ -32,11 +32,15 @@ export const useTasks = () => {
         : null;
 
       if (!lastReview || !isToday(lastReview)) {
-        // Find pending unscheduled tasks
+        // Find pending overdue tasks (scheduled for past days) or unscheduled tasks
         const loadedTasks: Task[] = storedTasks ? JSON.parse(storedTasks) : [];
-        const pendingTasks = loadedTasks.filter(
-          t => t.status === 'pending' && !t.scheduledDate
-        );
+        const today = startOfDay(new Date());
+        const pendingTasks = loadedTasks.filter(t => {
+          if (t.status !== 'pending') return false;
+          if (!t.scheduledDate) return true; // Unscheduled tasks
+          const scheduledDate = parseISO(t.scheduledDate);
+          return isBefore(scheduledDate, today); // Overdue tasks
+        });
 
         if (pendingTasks.length > 0) {
           setDailyReview({
@@ -47,11 +51,15 @@ export const useTasks = () => {
         }
       }
     } else {
-      // First time - check for pending tasks
+      // First time - check for pending overdue or unscheduled tasks
       const loadedTasks: Task[] = storedTasks ? JSON.parse(storedTasks) : [];
-      const pendingTasks = loadedTasks.filter(
-        t => t.status === 'pending' && !t.scheduledDate
-      );
+      const today = startOfDay(new Date());
+      const pendingTasks = loadedTasks.filter(t => {
+        if (t.status !== 'pending') return false;
+        if (!t.scheduledDate) return true; // Unscheduled tasks
+        const scheduledDate = parseISO(t.scheduledDate);
+        return isBefore(scheduledDate, today); // Overdue tasks
+      });
 
       if (pendingTasks.length > 0) {
         setDailyReview({
@@ -81,7 +89,7 @@ export const useTasks = () => {
       title,
       description,
       status: 'pending',
-      scheduledDate: null,
+      scheduledDate: format(startOfDay(new Date()), 'yyyy-MM-dd'), // Default to today
       createdAt: new Date().toISOString(),
     };
 
