@@ -19,16 +19,29 @@ This guide explains how to deploy the Daily Todo application to Vercel with Post
 
 ## Step 2: Initialize Database Schema
 
-After creating the database, you need to run the schema SQL to create the tables:
+Hai **due opzioni** per inizializzare il database:
 
-1. In the Vercel Postgres dashboard, go to the **Query** tab
-2. Copy the contents of `schema.sql` from this repository
-3. Paste it into the query editor
-4. Click **Run Query**
+### Opzione A: Automatica (Consigliata) ✅
 
-This will create:
-- `users` table (for authentication)
-- `tasks` table (for todo items)
+Dopo il deploy (Step 4), visita semplicemente questo URL nel browser:
+```
+https://your-app-name.vercel.app/api/init-db
+```
+
+Vedrai un messaggio di successo JSON. Le tabelle verranno create automaticamente!
+
+### Opzione B: Manuale
+
+Se hai `psql` installato localmente, puoi eseguire:
+```bash
+psql "YOUR_POSTGRES_URL" < schema.sql
+```
+
+**Cosa viene creato:**
+- Tabella `users` (per autenticazione)
+- Tabella `tasks` (per i todo)
+- Indici per performance
+- Trigger per aggiornamenti automatici
 
 ## Step 3: Configure Environment Variables
 
@@ -65,8 +78,14 @@ This will create:
 
 The application uses the following serverless API routes:
 
+**Setup:**
+- `GET /api/init-db` - Initialize database schema (call once after deploy)
+
+**Authentication:**
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
+
+**Tasks:**
 - `GET /api/tasks` - Get all tasks for authenticated user
 - `POST /api/tasks` - Create a new task
 - `PUT /api/tasks/[id]` - Update a task
