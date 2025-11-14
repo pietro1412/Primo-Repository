@@ -28,12 +28,14 @@ import { TaskStats } from './TaskStats';
 import { TaskFilters } from './TaskFilters';
 import { CalendarDay } from './CalendarDay';
 import { UnscheduledArea } from './UnscheduledArea';
+import { TaskModal } from './TaskModal';
 
 interface CalendarProps {
   tasks: Task[];
   onScheduleTask: (taskId: string, date: Date | null) => void;
   onCompleteTask: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
+  onUpdateTask: (taskId: string, updates: Partial<Task>) => void;
 }
 
 type ViewMode = 'week' | 'month';
@@ -43,12 +45,14 @@ export const Calendar = ({
   onScheduleTask,
   onCompleteTask,
   onDeleteTask,
+  onUpdateTask,
 }: CalendarProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<ViewMode>('week');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [showCompleted, setShowCompleted] = useState(true);
   const [showPending, setShowPending] = useState(true);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -244,6 +248,7 @@ export const Calendar = ({
                 viewMode={viewMode}
                 onComplete={onCompleteTask}
                 onDelete={onDeleteTask}
+                onDoubleClick={setSelectedTask}
               />
             );
           })}
@@ -255,6 +260,7 @@ export const Calendar = ({
             tasks={unscheduledTasks}
             onComplete={onCompleteTask}
             onDelete={onDeleteTask}
+            onDoubleClick={setSelectedTask}
           />
         )}
       </div>
@@ -269,6 +275,17 @@ export const Calendar = ({
           />
         ) : null}
       </DragOverlay>
+
+      {/* Task Details Modal */}
+      {selectedTask && (
+        <TaskModal
+          task={selectedTask}
+          onClose={() => setSelectedTask(null)}
+          onUpdate={onUpdateTask}
+          onDelete={onDeleteTask}
+          onComplete={onCompleteTask}
+        />
+      )}
     </DndContext>
   );
 };

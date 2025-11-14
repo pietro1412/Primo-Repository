@@ -12,6 +12,7 @@ interface CalendarDayProps {
   viewMode: 'week' | 'month';
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
+  onDoubleClick?: (task: Task) => void;
 }
 
 export const CalendarDay = ({
@@ -22,6 +23,7 @@ export const CalendarDay = ({
   viewMode,
   onComplete,
   onDelete,
+  onDoubleClick,
 }: CalendarDayProps) => {
   const droppableId = `day-${dateStr}`;
 
@@ -57,6 +59,7 @@ export const CalendarDay = ({
               task={task}
               onComplete={onComplete}
               onDelete={onDelete}
+              onDoubleClick={onDoubleClick}
             />
           ))}
         </div>

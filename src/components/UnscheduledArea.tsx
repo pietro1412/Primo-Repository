@@ -7,12 +7,14 @@ interface UnscheduledAreaProps {
   tasks: Task[];
   onComplete: (id: string) => void;
   onDelete: (id: string) => void;
+  onDoubleClick?: (task: Task) => void;
 }
 
 export const UnscheduledArea = ({
   tasks,
   onComplete,
   onDelete,
+  onDoubleClick,
 }: UnscheduledAreaProps) => {
   const { setNodeRef, isOver } = useDroppable({
     id: 'unscheduled',
@@ -38,6 +40,7 @@ export const UnscheduledArea = ({
               task={task}
               onComplete={onComplete}
               onDelete={onDelete}
+              onDoubleClick={onDoubleClick}
             />
           ))}
         </div>

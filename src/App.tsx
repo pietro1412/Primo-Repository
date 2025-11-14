@@ -8,6 +8,7 @@ function App() {
   const {
     tasks,
     addTask,
+    updateTask,
     deleteTask,
     scheduleTask,
     completeTask,
@@ -53,6 +54,7 @@ function App() {
             onScheduleTask={scheduleTask}
             onCompleteTask={completeTask}
             onDeleteTask={deleteTask}
+            onUpdateTask={updateTask}
           />
         </div>
       </main>
