@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Guida di studio per progettare una piattaforma di fabbrica agentica per lo sviluppo software enterprise">
+<title>Fabbrica Agentica — Guida di Studio</title>
+<style>
+  :root {
+    --bg: #12141a;
+    --bg-alt: #1a1d26;
+    --bg-soft: #232734;
+    --fg: #e6e3d8;
+    --fg-muted: #a8a497;
+    --fg-soft: #7a7668;
+    --accent: #d4a574;
+    --accent-soft: #8a6b4a;
+    --border: #2e323f;
+    --box-practice: #1e2a1e;
+    --box-practice-border: #3d5a3d;
+    --box-risk: #2a1e1e;
+    --box-risk-border: #5a3d3d;
+    --box-reading: #1e222a;
+    --box-reading-border: #3d4a5a;
+    --code-bg: #0d0f14;
+    --progress: #d4a574;
+  }
+  [data-theme="light"] {
+    --bg: #faf8f2;
+    --bg-alt: #f0ede3;
+    --bg-soft: #e8e4d6;
+    --fg: #2a2823;
+    --fg-muted: #5a564c;
+    --fg-soft: #8a8678;
+    --accent: #8a5a2a;
+    --accent-soft: #b8895a;
+    --border: #d4cfbf;
+    --box-practice: #eaf2e6;
+    --box-practice-border: #8fb872;
+    --box-risk: #f5e6e0;
+    --box-risk-border: #c48872;
+    --box-reading: #e6ecf2;
+    --box-reading-border: #7a9abf;
+    --code-bg: #efebde;
+    --progress: #8a5a2a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Georgia, "Times New Roman", "Iowan Old Style", Palatino, serif;
+    font-size: 17.5px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--progress);
+    z-index: 1000;
+    transition: width 0.1s linear;
+  }
+  header.topbar {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 13px;
+  }
+  header.topbar .current-chapter {
+    color: var(--fg-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 70%;
+  }
+  button.theme-toggle {
+    background: var(--bg-soft);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  button.theme-toggle:hover { background: var(--bg-alt); }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+  h1, h2, h3, h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.3;
+    color: var(--fg);
+  }
+  h1 {
+    font-size: 2em;
+    margin: 0.4em 0 0.3em;
+    letter-spacing: -0.01em;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin: 2em 0 0.6em;
+    padding-top: 0.4em;
+    border-top: 2px solid var(--border);
+    color: var(--accent);
+  }
+  h3 {
+    font-size: 1.2em;
+    margin: 1.6em 0 0.5em;
+    color: var(--fg);
+  }
+  h4 {
+    font-size: 1.05em;
+    margin: 1.2em 0 0.4em;
+    color: var(--fg-muted);
+  }
+  p { margin: 0.7em 0; }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent-soft);
+  }
+  a:hover { border-bottom-style: solid; }
+  strong { color: var(--fg); font-weight: 600; }
+  em { color: var(--fg); }
+  code {
+    font-family: "SF Mono", "Menlo", "Consolas", monospace;
+    background: var(--code-bg);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 0.88em;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+    overflow-x: auto;
+    font-size: 0.82em;
+    line-height: 1.5;
+  }
+  pre code {
+    background: transparent;
+    padding: 0;
+    color: var(--fg);
+  }
+  blockquote {
+    margin: 1em 0;
+    padding: 0.6em 1em;
+    border-left: 3px solid var(--accent-soft);
+    color: var(--fg-muted);
+    font-style: italic;
+  }
+  ul, ol { padding-left: 1.4em; }
+  li { margin: 0.35em 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    font-size: 0.92em;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-soft);
+    color: var(--fg);
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: var(--bg-alt); }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .box {
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 1.2em 0;
+    font-size: 0.96em;
+  }
+  .box-title {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4em;
+    color: var(--fg);
+  }
+  .box.practice {
+    background: var(--box-practice);
+    border-color: var(--box-practice-border);
+  }
+  .box.risk {
+    background: var(--box-risk);
+    border-color: var(--box-risk-border);
+  }
+  .box.reading {
+    background: var(--box-reading);
+    border-color: var(--box-reading-border);
+  }
+  .box.questions {
+    background: var(--bg-alt);
+    border-color: var(--accent-soft);
+  }
+  .box p:first-child { margin-top: 0; }
+  .box p:last-child { margin-bottom: 0; }
+
+  .ascii-diagram {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px;
+    font-family: "SF Mono", "Menlo", "Consolas", monospace;
+    font-size: 0.78em;
+    line-height: 1.35;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--fg);
+    margin: 1.2em 0;
+  }
+
+  nav.toc {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 1.5em 0 2.5em;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 0.95em;
+  }
+  nav.toc h2 {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 1.1em;
+    color: var(--fg);
+  }
+  nav.toc ol {
+    padding-left: 1.4em;
+    margin: 0.5em 0;
+  }
+  nav.toc a {
+    color: var(--fg);
+    border-bottom: none;
+  }
+  nav.toc a:hover { color: var(--accent); }
+  nav.toc li { margin: 0.4em 0; }
+  nav.toc .chapter-desc {
+    color: var(--fg-soft);
+    font-size: 0.85em;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .chapter {
+    margin-top: 2.5em;
+    padding-top: 1em;
+  }
+  .chapter-number {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    color: var(--fg-soft);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2em;
+  }
+
+  .meta {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 0.82em;
+    color: var(--fg-soft);
+    text-align: center;
+    margin: 1em 0 2em;
+  }
+
+  .back-top {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 400;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .back-top.visible { opacity: 0.92; }
+  .back-top:hover { opacity: 1; }
+
+  hr.sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2em 0;
+  }
+
+  .footer {
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 0.82em;
+    color: var(--fg-soft);
+    text-align: center;
+    padding: 2em 0 1em;
+    border-top: 1px solid var(--border);
+    margin-top: 3em;
+  }
+
+  @media (max-width: 600px) {
+    body { font-size: 17px; line-height: 1.7; }
+    main { padding: 18px 16px 120px; }
+    h1 { font-size: 1.7em; }
+    h2 { font-size: 1.35em; }
+    h3 { font-size: 1.12em; }
+    pre, .ascii-diagram { font-size: 0.76em; }
+    table { font-size: 0.85em; }
+    th, td { padding: 6px 7px; }
+  }
+  @media print {
+    header.topbar, .back-top, #progress-bar, button.theme-toggle { display: none; }
+    body { background: white; color: black; font-size: 11pt; }
+    main { max-width: none; padding: 0; }
+    h2 { page-break-before: always; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+<div id="progress-bar"></div>
+<header class="topbar">
+  <span class="current-chapter" id="current-chapter">Fabbrica Agentica — Guida di Studio</span>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Cambia tema">☀ chiaro</button>
+</header>
+
+<main>
+  <h1>Fabbrica Agentica</h1>
+  <p class="meta">Guida di studio — Progettare una piattaforma di agenti AI per lo sviluppo software enterprise<br>Aprile 2026 · materiale offline</p>
+
+  <p>Questa guida raccoglie i fondamenti teorici, i pattern architetturali e le scelte operative necessarie a progettare una <strong>fabbrica software agentica</strong>: una piattaforma in cui agenti basati su Claude, specializzati tramite skill, svolgono ruoli tipici di un team di sviluppo (PO, analista, progettista, PMO) per produrre piccole evolutive su sistemi legacy, con risorse umane limitate e una disciplina formale ridotta al minimo.</p>
+
+  <p>Il testo è pensato per essere letto offline, in sequenza o a salti, su mobile durante un viaggio. Ogni capitolo è autosufficiente ma i riferimenti incrociati sono espliciti quando un concetto viene ripreso altrove.</p>
+
+  <nav class="toc" id="toc">
+    <h2>Indice</h2>
+    <ol start="0">
+      <li><a href="#ch0">Introduzione e mappa di studio</a>
+        <span class="chapter-desc">Perché questi sette temi, come si collegano, percorso di lettura</span></li>
+      <li><a href="#ch1">Fondamenti di agent design e multi-agent systems</a>
+        <span class="chapter-desc">Workflow vs agenti, ReAct, Reflexion, LangGraph, CrewAI</span></li>
+      <li><a href="#ch2">Software engineering per agent platforms</a>
+        <span class="chapter-desc">12-factor agent, event sourcing, Temporal, idempotenza</span></li>
+      <li><a href="#ch3">Memoria e knowledge management per agenti</a>
+        <span class="chapter-desc">Mem0, Letta, Code RAG, GraphRAG, knowledge graph</span></li>
+      <li><a href="#ch4">Specification-driven development</a>
+        <span class="chapter-desc">BDD, DDD, Event Storming, Kiro, Spec Kit, la "bibbia"</span></li>
+      <li><a href="#ch5">Quality gate e LLM-as-judge</a>
+        <span class="chapter-desc">Paper LLM-as-Judge, Ragas, DeepEval, Constitutional AI</span></li>
+      <li><a href="#ch6">Governance, observability e AI safety operativa</a>
+        <span class="chapter-desc">Langfuse, NIST AI RMF, EU AI Act, prompt versioning</span></li>
+      <li><a href="#ch7">Agile e lean per contesti a bassa formalità</a>
+        <span class="chapter-desc">Team Topologies, Kanban, critica di Scrum, Lean</span></li>
+      <li><a href="#ch8">Sintesi e decisioni architetturali chiave</a>
+        <span class="chapter-desc">Tabella di trade-off operativa per il tuo contesto</span></li>
+    </ol>
+  </nav>
+
+  <section class="chapter" id="ch0">
+    <div class="chapter-number">Capitolo 0</div>
+    <h2>Introduzione e mappa di studio</h2>
+
+    <h3>Il problema che stai risolvendo</h3>
+    <p>La maggior parte della letteratura su AI agents parla di due estremi: da un lato l'agente conversazionale generico, dall'altro il "super-coder autonomo" che riscrive interi servizi. Il tuo contesto non è nessuno dei due. Stai progettando una <strong>fabbrica interna</strong> che deve assorbire un flusso continuo di piccole evolutive su sistemi legacy, con un team umano ridotto, vincoli di compliance enterprise e una memoria di dominio che è sparsa fra wiki, ticket, e-mail, e teste di persone che se ne vanno.</p>
+    <p>Il cuore del problema non è quindi "far scrivere codice a un LLM". È costruire un <strong>sistema socio-tecnico</strong> dove agenti specializzati — digital twin di PO, analista funzionale, progettista, PMO — collaborano fra loro e con un numero ristretto di umani, lungo un processo che riduce le cerimonie Agile all'osso e concentra il tempo sullo sviluppo effettivo. La tua piattaforma a cinque layer (Intake &amp; Triage, Orchestration, Agent Workforce, Knowledge &amp; Memory, Governance) con Artifact Store e Human Console trasversali è un'architettura ragionevole per questo obiettivo, ma ogni layer tocca discipline diverse, e lì nasce la necessità di questa guida.</p>
+
+    <h3>Perché proprio questi sette temi</h3>
+    <p>I sette capitoli non sono una rassegna accademica: sono le <em>sette tensioni</em> che dovrai governare ogni giorno di progettazione ed esercizio della fabbrica. Le elenco con la domanda operativa che ciascuna pone.</p>
+    <ol>
+      <li><strong>Agent design e multi-agent systems</strong> — quando un digital twin deve essere un agente autonomo e quando è meglio un workflow rigido? Domanda: <em>dove metti il confine fra determinismo e autonomia</em>?</li>
+      <li><strong>Software engineering per agent platforms</strong> — la fabbrica è un sistema distribuito, non un chatbot. Come tratti stato, idempotenza, retry, audit? Domanda: <em>quanto dei problemi che vedi sono classici di sistemi distribuiti mascherati da "cose AI"</em>?</li>
+      <li><strong>Memoria e knowledge management</strong> — il legacy ha vent'anni di decisioni nascoste. Come le rendi accessibili agli agenti senza farli annegare? Domanda: <em>che cosa ricorda la fabbrica, per quanto tempo, con quale granularità</em>?</li>
+      <li><strong>Specification-driven development</strong> — se il PO-twin produce user story, da dove attinge? Come eviti la degenerazione del telefono senza fili fra twin? Domanda: <em>qual è il linguaggio condiviso che fa da "bibbia" della fabbrica</em>?</li>
+      <li><strong>Quality gate e LLM-as-judge</strong> — chi giudica la qualità di una user story, di un design doc, di un piano di test? Domanda: <em>dove puoi delegare il giudizio a un LLM e dove no</em>?</li>
+      <li><strong>Governance e observability</strong> — in enterprise non basta che funzioni, devi poterlo dimostrare. Domanda: <em>quale audit trail permette a un auditor di rifare il cammino di ogni artefatto</em>?</li>
+      <li><strong>Agile e lean a bassa formalità</strong> — ridurre le cerimonie non è "fare scrum male", è fare qualcos'altro di consapevole. Domanda: <em>quali princìpi Agile originari sopravvivono, e come li applichi quando metà del team è software</em>?</li>
+    </ol>
+
+    <h3>Come i temi si collegano</h3>
+    <p>I sette capitoli formano una piccola rete, non una sequenza lineare. I collegamenti principali da tenere a mente:</p>
+    <ul>
+      <li>Il <strong>capitolo 1</strong> (agent design) definisce il vocabolario; il <strong>capitolo 2</strong> (software engineering) dice come tenere in piedi quel vocabolario in produzione.</li>
+      <li>Il <strong>capitolo 3</strong> (memoria) e il <strong>capitolo 4</strong> (specification) sono due facce dello stesso problema: cosa sa la fabbrica e come lo esprime. La memoria è lo stato implicito, la specification è lo stato esplicito e condiviso.</li>
+      <li>Il <strong>capitolo 5</strong> (quality gate) e il <strong>capitolo 6</strong> (governance) si sfiorano: il primo è qualità di prodotto, il secondo è qualità di processo. Entrambi dipendono dall'observability.</li>
+      <li>Il <strong>capitolo 7</strong> (agile/lean) è l'unico che parla di persone; tutti gli altri parlano di macchine. Se non risolvi il capitolo 7, i sei precedenti diventano un museo di tecnologia.</li>
+      <li>Il <strong>capitolo 8</strong> è la tabella di sintesi delle scelte — da consultare quando sei in mezzo a una decisione e hai bisogno di un appiglio.</li>
+    </ul>
+
+    <h3>Percorso di lettura prioritizzato</h3>
+    <p>Se hai poco tempo, leggi in questo ordine: primo, il <strong>capitolo 1</strong>, perché ti dà il lessico per tutto il resto e ti obbliga a decidere subito il rapporto workflow/agente. Secondo, il <strong>capitolo 2</strong>, perché la maggior parte dei fallimenti di piattaforme agentiche reali non è nel prompt, è nel sistema distribuito che sta sotto. Terzo, il <strong>capitolo 7</strong>, perché definisce il contesto organizzativo e senza di esso rischi di costruire una bella macchina inutile.</p>
+    <p>Dopo queste tre letture dovresti avere un quadro sufficiente per schizzare la v0 della fabbrica. Gli altri capitoli possono essere approfonditi in parallelo alla costruzione: la memoria (cap. 3) quando i primi agenti iniziano a perdere contesto, la specification (cap. 4) quando il PO-twin produce output incoerenti, il quality gate (cap. 5) quando decidi come accettare artefatti, la governance (cap. 6) quando il compliance officer ti chiede com'è stato prodotto un determinato delivery.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per iniziare</div>
+      <ol>
+        <li>Anthropic — <em>Building effective agents</em> (Schluntz &amp; Zhang, 2024). Il post-fondamento.</li>
+        <li>Dex Horthy — <em>12-factor agents</em> (HumanLayer, 2024). Una delle poche sintesi ingegneristiche serie.</li>
+        <li>Matthew Skelton &amp; Manuel Pais — <em>Team Topologies</em> (2019). Indispensabile per capire dove mettere gli umani.</li>
+      </ol>
+    </div>
+
+    <h3>Una nota sul tono</h3>
+    <p>Nei prossimi capitoli troverai riferimenti a libri, paper e framework. Non è sfoggio bibliografico: quasi sempre l'originale spiega meglio del commento. Dove ci sono opinioni contrastanti nella community — e ce ne sono, specie nel capitolo 7 — le presento entrambe e poi dico quale secondo me regge meglio nel tuo contesto specifico. Resta tuo il lavoro di decidere.</p>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Dei sette temi, quale ti è meno familiare? È probabile che sia lì il rischio maggiore del progetto.</li>
+        <li>Hai già un prototipo o stai partendo da un foglio bianco? I capitoli si leggono diversamente nei due casi.</li>
+        <li>Chi, oltre te, leggerà questa guida nel tuo team? I digital twin sono anche un mezzo per allineare umani, non solo macchine.</li>
+        <li>Qual è il primo artefatto che la fabbrica deve produrre in modo credibile entro i prossimi tre mesi?</li>
+      </ol>
+    </div>
+
+  </section>
+
+  <section class="chapter" id="ch1">
+    <div class="chapter-number">Capitolo 1</div>
+    <h2>Fondamenti di agent design e multi-agent systems</h2>
+
+    <p>Il primo bivio di progettazione della fabbrica è anche il più sottovalutato: <strong>ogni volta che dici "agente" devi avere presente se stai parlando di un workflow deterministico che usa un LLM come funzione, o di un agente autonomo che sceglie da solo i propri passi</strong>. Non è una distinzione accademica. Cambia l'affidabilità, il costo, la debuggabilità, e la tua capacità di rassicurare uno stakeholder enterprise che ha appena sentito la parola "AI".</p>
+
+    <h3>Workflow vs agenti autonomi: il riferimento fondante</h3>
+    <p>Il punto di partenza quasi obbligato è il post di Erik Schluntz e Barry Zhang, <em>Building effective agents</em> (Anthropic, dicembre 2024). La tesi, semplice ma spesso ignorata, è che "agente" non è una singola cosa: è uno spettro. Gli autori distinguono due famiglie:</p>
+    <ul>
+      <li><strong>Workflows</strong>: sistemi dove LLM e tool sono orchestrati attraverso percorsi predefiniti. L'intelligenza del modello è usata per passi specifici (classificazione, estrazione, generazione), ma chi decide l'ordine dei passi sei tu, a tempo di progettazione.</li>
+      <li><strong>Agents</strong>: sistemi dove l'LLM dirige dinamicamente il proprio processo e l'uso dei tool, mantenendo il controllo su come svolgere il task. Il modello decide quanti passi fare, quali tool invocare, quando fermarsi.</li>
+    </ul>
+    <p>La regola pratica che il post propone è drastica: <em>inizia dal prompt più semplice, aggiungi workflow solo se serve, introduci un agente autonomo solo se il problema lo richiede davvero</em>. Gli autori sono espliciti: per la maggior parte delle applicazioni enterprise, un workflow ben composto batte un agente autonomo in affidabilità, costo e manutenibilità.</p>
+    <p>Tradotto nella tua fabbrica: il PO-twin che riceve una richiesta di evolutiva e produce una user story non è un agente, è un workflow in tre o quattro passi (intake → classificazione → recupero contesto → generazione → validazione). L'agente autonomo serve — forse — quando un modulo deve navigare un codebase legacy sconosciuto per capire dove intervenire, perché lì l'ordine dei passi dipende da cosa trova.</p>
+
+    <h3>Il vocabolario dei pattern di workflow</h3>
+    <p>Lo stesso post Anthropic, e la letteratura che ne è seguita, fissa un lessico utile. I pattern che vedrai ricorrere sono cinque:</p>
+    <ul>
+      <li><strong>Prompt chaining</strong>: l'output di un passo diventa l'input del successivo, eventualmente con un gate programmatico fra i due. Caso d'uso nella fabbrica: il twin-analista riceve una user story, la espande in requisiti funzionali, poi un gate verifica che ogni requisito sia numerato e testabile.</li>
+      <li><strong>Routing</strong>: un classificatore decide verso quale sotto-flusso inviare l'input. Caso d'uso: l'Intake classifica se la richiesta è una vera evolutiva, un bug, o una domanda, e la instrada al twin appropriato.</li>
+      <li><strong>Parallelization</strong>: stesso input a più LLM in parallelo, poi aggregazione. Sottoforma di <em>sectioning</em> (suddividere il task) o <em>voting</em> (più tentativi dello stesso task). Caso d'uso: tre versioni del design doc generate in parallelo, un quarto agente le confronta e sintetizza.</li>
+      <li><strong>Orchestrator-workers</strong>: un LLM "orchestratore" scompone dinamicamente un task e delega a worker. Caso d'uso: il PMO-twin riceve una release-train e assegna i pezzi ai twin giusti, monitorando gli stati.</li>
+      <li><strong>Evaluator-optimizer</strong>: un LLM genera, un altro LLM valuta e chiede rework. Caso d'uso: un primo twin scrive il piano di test, un secondo verifica la copertura dei casi limite e chiede integrazioni.</li>
+    </ul>
+
+    <h3>ReAct, Reflexion, Plan-and-Execute</h3>
+    <p>Quando ti sposti verso l'agente autonomo, la letteratura ha prodotto tre architetture di riferimento. Vale la pena conoscerle perché sono in ogni framework che userai.</p>
+    <p><strong>ReAct</strong> (Yao et al., 2022, "ReAct: Synergizing Reasoning and Acting in Language Models") è il pattern fondativo: l'agente alterna <em>thought</em> (ragionamento in linguaggio naturale), <em>action</em> (chiamata a un tool) e <em>observation</em> (risultato del tool). Il ciclo continua finché l'agente non decide di rispondere. Quasi tutti i framework moderni (LangChain, LangGraph, CrewAI) sono discendenti di ReAct. Limite pratico: l'agente tende a "rispondere in fretta" o a loopare, e la qualità dipende molto dalla capacità del modello di autovalutarsi.</p>
+    <p><strong>Reflexion</strong> (Shinn et al., 2023, "Reflexion: Language Agents with Verbal Reinforcement Learning") aggiunge un meccanismo di auto-critica: dopo un tentativo fallito, l'agente scrive una "lesson learned" in linguaggio naturale e la tiene in memoria per i tentativi successivi. È potente quando hai segnali di fallimento oggettivi (test che non passano, linter che fallisce), meno utile quando il criterio è soggettivo.</p>
+    <p><strong>Plan-and-Execute</strong> (Wang et al., 2023, e varianti come LLMCompiler) separa nettamente la fase di <em>planning</em> dalla fase di <em>execution</em>: un LLM "planner" produce una lista di passi, poi un esecutore li esegue, eventualmente con revisioni del piano. È più prevedibile di ReAct perché il piano è ispezionabile prima di essere eseguito — una proprietà preziosa in enterprise.</p>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Un digital twin "progettista" che deve proporre un approccio per un'evolutiva è un ottimo candidato a <strong>Plan-and-Execute</strong>: genera un piano (lista di file da toccare, rischi, impatti), lo mostra all'umano per approvazione, poi esegue. ReAct puro è rischioso perché l'umano non vede dove l'agente vuole andare prima che ci sia andato.</p>
+    </div>
+
+    <h3>Framework di orchestrazione: LangGraph, CrewAI, AutoGen</h3>
+    <p>La scelta del framework è meno importante di quanto pensi, ma va fatta con consapevolezza. I tre più citati hanno filosofie diverse.</p>
+    <p><strong>LangGraph</strong> (di LangChain Inc.) modella l'agente come un <em>grafo di stato-transizione</em>: i nodi sono funzioni (spesso chiamate a LLM o tool), gli archi sono transizioni condizionali basate sullo stato. È la scelta di chi vuole controllo fine: puoi implementare ReAct, Plan-and-Execute, o qualunque pattern custom come grafo esplicito. La curva di apprendimento è più ripida, ma il grafo è ispezionabile, serializzabile, replay-abile. Per una fabbrica enterprise, la capacità di visualizzare il grafo e di avere checkpoint persistenti è un vantaggio significativo.</p>
+    <p><strong>CrewAI</strong> (di João Moura) adotta una metafora diversa: <em>role-based multi-agent</em>. Definisci agenti con ruolo, goal, backstory; definisci task; CrewAI orchestra. È espressivo, più vicino al linguaggio del business (perfetto, in apparenza, per digital twin). Rischio: la metafora del "team di agenti che collaborano" può portarti a riprodurre la fuffa organizzativa del mondo umano nel mondo software, con agenti che "si scambiano messaggi" invece che passare dati strutturati.</p>
+    <p><strong>AutoGen</strong> (Microsoft Research) enfatizza la conversazione fra agenti: due o più agenti dialogano per risolvere un problema, con pattern come "user proxy + assistant". È interessante in contesti di ricerca, ma in produzione enterprise la natura conversazionale rende difficile garantire terminazione e costi prevedibili.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Framework</th><th>Modello mentale</th><th>Punto di forza</th><th>Rischio</th></tr></thead>
+      <tbody>
+        <tr><td>LangGraph</td><td>Grafo stato-transizione</td><td>Controllo, replay, checkpoint durevoli</td><td>Verbosità, codice più complesso</td></tr>
+        <tr><td>CrewAI</td><td>Ruoli e task</td><td>Espressività, vicino al dominio</td><td>"Teatro di agenti" e costi che scappano</td></tr>
+        <tr><td>AutoGen</td><td>Conversazione multi-agente</td><td>Flessibilità esplorativa</td><td>Terminazione e costi difficili da garantire</td></tr>
+        <tr><td>Custom su Claude SDK</td><td>Codice imperativo</td><td>Zero magia, massima leggibilità</td><td>Devi riscrivere tu checkpoint e retry</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p>Per una fabbrica enterprise con forte esigenza di governance, la combinazione più difendibile è <strong>LangGraph (o equivalente grafo-esplicito) come orchestratore, con singoli nodi implementati come agenti o workflow a seconda del task</strong>. Il grafo è il tuo contratto architetturale; ogni nodo può essere internamente semplice o sofisticato.</p>
+
+    <h3>Il trade-off prevedibilità/flessibilità</h3>
+    <p>C'è una tensione fondamentale da tenere sempre in mente: <em>più l'agente è autonomo, meno il suo comportamento è prevedibile</em>. Questo ha conseguenze pratiche su tre dimensioni.</p>
+    <p><strong>Debugging</strong>: un workflow deterministico si debugga come un programma classico — conosci il path, riproduci l'input, ispezioni lo stato. Un agente autonomo richiede <em>trace</em> ricchi (ogni thought, ogni tool call, ogni observation) e strumenti di replay. Se la tua observability non è all'altezza, un agente autonomo in produzione sarà una scatola nera, e una scatola nera in enterprise è un problema politico, non tecnico.</p>
+    <p><strong>Costi</strong>: un agente autonomo decide quante iterazioni fare. Nella pratica tende a farne troppe. Senza tetti espliciti (max steps, budget token per task) i costi sfuggono. Un workflow ha costi noti a priori.</p>
+    <p><strong>Qualità</strong>: paradossalmente, su task ben definiti, i workflow producono output più costanti e di qualità più alta degli agenti autonomi, perché il designer umano ha codificato la conoscenza del dominio in struttura. Gli agenti autonomi vincono solo quando il task è genuinamente esplorativo — per esempio, "trova perché questo test fallisce in un codebase che non hai mai visto".</p>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>La seduzione della "fabbrica tutta agentica" in cui ogni twin è un agente autonomo che dialoga con gli altri. È una demo magnifica e un incubo operativo: costi imprevedibili, drift di qualità, audit trail illeggibile. La fabbrica reale sarà <strong>prevalentemente workflow deterministici con isole di autonomia</strong> ben delimitate.</p>
+    </div>
+
+    <h3>Quando un workflow deterministico è superiore</h3>
+    <p>Come regola operativa, preferisci un workflow deterministico quando almeno due di queste condizioni sono vere:</p>
+    <ul>
+      <li>Il task ha una struttura stabile e ripetibile (una user story ha sempre gli stessi campi, un design doc segue sempre lo stesso schema).</li>
+      <li>Hai vincoli di costo stringenti per invocazione.</li>
+      <li>Hai vincoli di compliance che richiedono tracciabilità chiara dei passi.</li>
+      <li>Il dominio è conosciuto e codificabile in prompt + schema, non richiede esplorazione.</li>
+      <li>Vuoi che un umano senior non-tecnico possa leggere il flusso e capire cosa fa.</li>
+    </ul>
+    <p>All'opposto, preferisci un agente autonomo quando il task richiede <em>esplorazione di uno spazio non conosciuto a priori</em> — un bug di produzione da diagnosticare, un cambiamento che attraversa un codebase legacy senza una mappa. Anche in questi casi, valuta se incapsulare l'agente autonomo in un nodo di un workflow più grande, con budget e checkpoint.</p>
+
+    <h3>Applicazione ai digital twin della tua fabbrica</h3>
+    <p>Proviamo a mappare concretamente i tuoi twin sullo spettro workflow-agente.</p>
+    <ul>
+      <li><strong>PO-twin</strong>: raccoglie input grezzo (e-mail, ticket), estrae bisogno, produce user story con criteri di accettazione. Task altamente strutturato. <em>Workflow</em> in 4-5 passi, con un gate di validazione umana prima di "approvare" la story.</li>
+      <li><strong>Analyst-twin</strong>: prende la user story, la espande in requisiti funzionali e regole di business, interroga la memoria di dominio. Task semi-strutturato. <em>Workflow con ritrieve + generate</em>, eventualmente con un loop evaluator-optimizer per completezza.</li>
+      <li><strong>Designer-twin</strong>: propone l'approccio tecnico per l'evolutiva — quali moduli toccare, che rischi, che impatti. Qui inizia la zona grigia. Per sistemi noti, workflow con retrieve sul knowledge graph del codebase. Per sistemi poco conosciuti, <em>Plan-and-Execute</em> con planner esplicito e umano in mezzo.</li>
+      <li><strong>PMO-twin</strong>: coordina, monitora, produce report. Task quasi sempre deterministico. <em>Workflow</em> puro, con generazioni di testo in alcuni nodi specifici.</li>
+    </ul>
+    <p>Il risultato è che in una fabbrica realistica hai <strong>zero o uno</strong> agente veramente autonomo, tutto il resto è workflow. Questa è una buona notizia: rende la fabbrica realizzabile in tempi e costi ragionevoli.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>Schluntz, Zhang — <em>Building effective agents</em>, Anthropic Engineering Blog, dicembre 2024.</li>
+        <li>Yao et al. — <em>ReAct: Synergizing Reasoning and Acting in Language Models</em>, ICLR 2023.</li>
+        <li>Shinn et al. — <em>Reflexion: Language Agents with Verbal Reinforcement Learning</em>, NeurIPS 2023.</li>
+        <li>Documentazione ufficiale di <em>LangGraph</em> (in particolare la sezione <em>checkpointing</em> e <em>human-in-the-loop</em>).</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Per ognuno dei quattro twin, qual è il task minimo viable che può essere modellato come workflow a passi fissi?</li>
+        <li>Dove, realisticamente, c'è bisogno di esplorazione che giustifichi un agente autonomo? Se non lo trovi, forse non ti serve.</li>
+        <li>Quale livello di osservabilità puoi permetterti nella v1? La risposta determina quanto autonomi i tuoi agenti possono essere.</li>
+        <li>Se un audit ti chiedesse domani di spiegare come è stato prodotto un artefatto, il tuo orchestratore attuale sarebbe in grado di mostrarlo?</li>
+        <li>Chi nel team è disposto a scrivere prompt e a gestire regressioni? Senza questa figura, le "isole di autonomia" diventano rapidamente paludi.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch2">
+    <div class="chapter-number">Capitolo 2</div>
+    <h2>Software engineering per agent platforms</h2>
+
+    <p>La tesi di questo capitolo, da tenere stretta durante tutta la progettazione, è una sola: <strong>la fabbrica agentica è prima un sistema distribuito e poi un sistema AI</strong>. La maggior parte dei fallimenti che vedrai in produzione non saranno fallimenti del modello — saranno retry mal fatti, stato perso, idempotenza assente, timeout non gestiti, orchestrazioni non durevoli. Chi costruisce piattaforme di agenti senza un'educazione solida in sistemi distribuiti ripete gli stessi errori del 2005 con un vestito nuovo.</p>
+
+    <h3>Il manifesto 12-factor agent di Dex Horthy</h3>
+    <p>Nel 2024, Dex Horthy (fondatore di HumanLayer) ha pubblicato <em>12-factor agents</em>, un manifesto che riprende la struttura del classico 12-factor app di Adam Wiggins e la trasporta nel dominio agentico. È una delle poche sintesi veramente ingegneristiche in un campo dominato dal marketing. Vale la pena scorrerli tutti perché ciascuno identifica un errore ricorrente.</p>
+    <ol>
+      <li><strong>Natural language to tool calls</strong>: il lavoro principale dell'agente è tradurre linguaggio naturale in chiamate a strumenti strutturati. Più la superficie dei tool è pulita e tipizzata, più l'agente è affidabile.</li>
+      <li><strong>Own your prompts</strong>: non usare template "magici" di framework. Scrivi, versiona e testa i tuoi prompt come se fossero codice di produzione.</li>
+      <li><strong>Own your context window</strong>: cosa entra nel context è una decisione di design, non un dettaglio. Se lasci che il framework decida per te, perderai il controllo di costi e qualità.</li>
+      <li><strong>Tools are just structured outputs</strong>: un tool call è un JSON con uno schema. Trattalo come un contratto, validalo, rifiutalo se malformato.</li>
+      <li><strong>Unify execution state and business state</strong>: non tenere lo stato dell'agente in un posto e lo stato di business in un altro. La fabbrica deve avere un'unica fonte di verità per "dove siamo nel processo".</li>
+      <li><strong>Launch / pause / resume with simple APIs</strong>: ogni agente deve poter essere fermato e ripreso. Senza questa proprietà, l'human-in-the-loop è impossibile.</li>
+      <li><strong>Contact humans with tool calls</strong>: chiedere a un umano è un tool come un altro. Non trattare l'intervento umano come una eccezione al flusso.</li>
+      <li><strong>Own your control flow</strong>: non lasciare che l'LLM sia il loop principale. Il loop principale è codice che tu scrivi; l'LLM è chiamato dentro il loop.</li>
+      <li><strong>Compact errors into context window</strong>: gli errori vanno riassunti e ri-immessi nel context, non nascosti. Un agente impara a non ripetere l'errore solo se lo vede.</li>
+      <li><strong>Small, focused agents</strong>: un agente che fa una cosa sola e bene è gestibile. Un agente "tuttofare" è ingovernabile.</li>
+      <li><strong>Trigger from anywhere, meet users where they are</strong>: gli agenti devono essere attivabili da CLI, API, Slack, ticket, e-mail. La fabbrica non vive dentro una sola UI.</li>
+      <li><strong>Make your agent a stateless reducer</strong>: l'agente ideale è una funzione <code>f(state, event) → (new_state, actions)</code>. Lo stato vive fuori; l'agente è puro. Replay, test, e persistenza diventano banali.</li>
+    </ol>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Il fattore 12 ("stateless reducer") è quello che conviene adottare come principio architetturale guida. Se ogni twin della fabbrica è implementato come riduttore puro, con stato persistito in un event log, avrai gratis: audit trail, replay, rollback, time-travel debugging. È l'intersezione fra 12-factor agent ed event sourcing che viene dopo.</p>
+    </div>
+
+    <h3>Event sourcing, CQRS e log strutturati</h3>
+    <p>Il riferimento canonico è <em>Designing Data-Intensive Applications</em> di Martin Kleppmann (O'Reilly, 2017), che nel capitolo "Event Sourcing and CQRS" offre la trattazione più lucida dell'argomento. L'idea di base: invece di memorizzare lo stato corrente, memorizzi la sequenza di eventi che lo hanno prodotto. Lo stato corrente è una proiezione (eventualmente cached) della sequenza.</p>
+    <p>Applicato alla fabbrica: ogni decisione di un twin, ogni artefatto prodotto, ogni approvazione umana è un <em>evento</em> immutabile con timestamp, attore, payload, causale. L'Artifact Store non è un archivio di file ma un event log append-only. Lo stato "la user story USR-1234 è approvata" è ricavato dalla presenza di un evento <code>StoryApproved</code> nella timeline.</p>
+    <p>CQRS (Command Query Responsibility Segregation) è il complemento naturale: separi il modello di scrittura (comandi → eventi) dal modello di lettura (proiezioni → viste). Nella pratica significa che la Human Console che mostra "pipeline corrente" è una proiezione costruita da un proiettore che consuma l'event stream — completamente separata dal flusso che produce gli eventi.</p>
+    <p>I benefici concreti per la fabbrica sono tre.</p>
+    <ul>
+      <li><strong>Audit trail gratuito</strong>: l'event log è l'audit trail. Nessuna colonna "last_modified_by" da mantenere, nessuna tabella shadow. La storia è il dato.</li>
+      <li><strong>Replay</strong>: puoi ri-eseguire una pipeline a partire da un momento arbitrario. Se un prompt era buggy tre giorni fa, puoi riprodurre quello stato, applicare il fix, e confrontare il risultato.</li>
+      <li><strong>Nuove viste su vecchi dati</strong>: quando il business chiede una nuova metrica ("quanti design doc hanno richiesto più di due cicli di rework?"), non devi ri-istrumentare il processo: scrivi una nuova proiezione che consuma lo stesso event log.</li>
+    </ul>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>Event sourcing è potente ma ha costi: schema evolution degli eventi è complessa, il debugging di proiezioni è tutt'altro che banale, il mental model è distante dal CRUD a cui molti sviluppatori sono abituati. <strong>Non fare event sourcing ovunque</strong>. Fallo dove il valore è alto (pipeline di decisioni, artefatti con audit) e usa storage classico per le cose operative (cache, sessioni utente, configurazione).</p>
+    </div>
+
+    <h3>Workflow orchestration durevole</h3>
+    <p>Qui entriamo nel cuore del layer Orchestration Engine della tua architettura. Il problema concreto è: <em>come garantisci che un processo lungo — una pipeline da user story a pull request — sopravviva a crash, deploy, indisponibilità di servizi esterni, con retry corretti e human-in-the-loop?</em></p>
+    <p>La risposta della community ingegneristica si chiama <strong>durable execution</strong>. I tre riferimenti principali sono Temporal, Airflow, Prefect, ciascuno con una filosofia diversa.</p>
+    <p><strong>Temporal</strong> (open source dalla ex-Uber Cadence) implementa <em>workflow as code</em> con persistenza trasparente. Scrivi il workflow come se fosse una funzione sincrona; Temporal intercetta ogni chiamata esterna e la persiste nell'event store. Se il processo muore, Temporal lo riavvia da un altro worker e ricostruisce lo stato riesecutendo il codice e riutilizzando i risultati persistiti. È il modello più potente per pipeline agentiche lunghe: i retry sono automatici, l'human-in-the-loop diventa un <em>signal</em> che sospende il workflow, i costi sono ispezionabili.</p>
+    <p><strong>Airflow</strong> (Airbnb, 2014) è nato per batch data pipeline. Il DAG è statico, dichiarativo, scritto in Python ma compilato in metadata. Per task agentici dinamici è meno adatto, ma se la tua fabbrica ha flussi notturni di consolidamento (riassunti, aggregazioni, report settimanali), Airflow è una scelta solida e ben conosciuta in enterprise.</p>
+    <p><strong>Prefect</strong> è a metà strada: più dinamico di Airflow, meno invasivo di Temporal. Buona scelta se cerchi un compromesso e il team non ha esperienza profonda in sistemi distribuiti.</p>
+
+    <div class="ascii-diagram">Workflow durevole — schema logico
+
+    ┌──────────────┐
+    │  Trigger     │ (ticket, webhook, schedule)
+    └──────┬───────┘
+           ▼
+    ┌──────────────┐      ┌──────────────┐
+    │  Workflow    │─────▶│  Event Store │  (Temporal / DB)
+    │  (riduttore) │◀─────│  append-only │
+    └──────┬───────┘      └──────────────┘
+           │
+           ├── activity: LLM call
+           ├── activity: tool call
+           ├── activity: human approval (signal)
+           ├── activity: artifact persist
+           │
+           ▼
+    ┌──────────────┐
+    │  Projections │──▶ Console, Dashboards, Audit
+    └──────────────┘</div>
+
+    <h3>Retry, compensation, human-in-the-loop</h3>
+    <p>Tre pattern che la fabbrica deve implementare fin dal primo giorno.</p>
+    <p><strong>Retry con backoff esponenziale</strong>: ogni chiamata esterna (LLM, tool, API) può fallire per cause transitorie. La retry policy deve essere esplicita per tipo di chiamata: un LLM call con rate limit richiede backoff più lungo di un call a un microservizio interno. Attenzione al <em>thundering herd</em>: se tutti i workflow ritentano contemporaneamente, il sistema collassa. Usa jitter.</p>
+    <p><strong>Compensation (saga pattern)</strong>: quando un workflow deve essere abortito a metà, devi poter "disfare" i passi completati. Se il twin-progettista ha già creato un branch git e un ticket Jira, e poi il PO-umano rigetta l'artefatto, devi chiudere il ticket, cancellare il branch, notificare gli stakeholder. Il <em>saga pattern</em> (Garcia-Molina &amp; Salem, 1987, reso celebre dalla comunità microservizi) è l'astrazione giusta: per ogni azione, definisci la sua compensazione.</p>
+    <p><strong>Human-in-the-loop come primo cittadino</strong>: l'intervento umano non è un'eccezione. È uno stato normale del workflow in cui il processo è sospeso in attesa di input esterno. Deve avere: timeout (cosa succede se l'umano non risponde in 24h?), escalation (a chi si passa?), interfaccia chiara (cosa sta chiedendo l'agente?). Dex Horthy lo esprime con il fattore 7 del suo manifesto: <em>contact humans with tool calls</em>.</p>
+
+    <h3>Idempotenza</h3>
+    <p>Probabilmente la proprietà più sottovalutata dei sistemi agentici. <strong>Un'operazione è idempotente se eseguirla n volte produce lo stesso risultato che eseguirla una volta</strong>. È il requisito base per poter fare retry in modo sicuro.</p>
+    <p>Esempi pratici nella fabbrica e come renderle idempotenti:</p>
+    <ul>
+      <li><em>Creare una user story in Jira</em>: usa una <em>idempotency key</em> basata sull'ID della richiesta interna, così un retry non crea duplicati.</li>
+      <li><em>Inviare un'e-mail di notifica</em>: registra l'invio in una tabella con PK = (tipo_evento, correlation_id), evita double-send.</li>
+      <li><em>Chiamare un LLM per generare un artefatto</em>: la chiamata in sé non è idempotente (temperature > 0 dà risultati diversi), ma <em>la persistenza dell'artefatto</em> sì — la chiave è il punto del workflow, non il contenuto.</li>
+    </ul>
+    <p>Una regola pratica: <strong>ogni side-effect esterno deve avere una idempotency key</strong>. Se non riesci a definirla, probabilmente stai modellando male il problema.</p>
+
+    <h3>Gestione dello stato nei sistemi agentici</h3>
+    <p>Due categorie di stato convivono nella fabbrica. È utile tenerle separate anche a livello di codice.</p>
+    <p><strong>Stato di business</strong>: user story, design doc, pull request, stato delle approvazioni. Vive nell'event store / knowledge base. È persistito per sempre. È la memoria della fabbrica.</p>
+    <p><strong>Stato di esecuzione</strong>: a che nodo del workflow siamo, quali retry abbiamo fatto, quali attività sono in corso. Vive nell'orchestration engine (Temporal ha il suo, Prefect idem). È persistito per la durata del workflow e può essere archiviato dopo.</p>
+    <p>La tentazione frequente è mescolarli in un unico DB. Non farlo: cambiano con frequenze diverse, hanno pattern di accesso diversi, vincoli di consistenza diversi.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Aspetto</th><th>Stato di business</th><th>Stato di esecuzione</th></tr></thead>
+      <tbody>
+        <tr><td>Durata</td><td>Permanente</td><td>Per la durata del workflow</td></tr>
+        <tr><td>Volume</td><td>Cresce lentamente</td><td>Cresce rapidamente</td></tr>
+        <tr><td>Consistenza</td><td>Forte</td><td>Eventuale, checkpoint</td></tr>
+        <tr><td>Esempi</td><td>Artefatti, approvazioni, metadati</td><td>Stato nodo, retry count, lock</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Perché la fabbrica è prima un sistema distribuito</h3>
+    <p>Ricapitoliamo con un check che vale come prova del nove del progetto. Rispondi, prima del kickoff tecnico, a queste domande:</p>
+    <ul>
+      <li>Cosa succede se il LLM provider è giù per 30 minuti? Il workflow si blocca elegantemente o perde stato?</li>
+      <li>Cosa succede se due ticket identici entrano nell'Intake a un secondo di distanza? Vengono processati due volte?</li>
+      <li>Cosa succede se l'umano approva un artefatto e l'e-mail di notifica fallisce? Lo stato è ancora coerente?</li>
+      <li>Cosa succede se rilasci una nuova versione del prompt mentre un workflow è a metà? Il workflow attivo usa il vecchio prompt o quello nuovo?</li>
+      <li>Se domani un auditor ti chiede di ricostruire esattamente come è stato prodotto un artefatto di sei mesi fa, puoi farlo?</li>
+    </ul>
+    <p>Queste domande sono <em>tutte</em> domande classiche di sistemi distribuiti. Nessuna di esse è "una domanda AI". Se non hai risposte convincenti, il problema non è il modello: è l'infrastruttura.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>Dex Horthy — <em>12-factor agents</em>, HumanLayer, 2024.</li>
+        <li>Martin Kleppmann — <em>Designing Data-Intensive Applications</em>, O'Reilly, 2017. In particolare capp. 10-11.</li>
+        <li>Documentazione Temporal: sezioni <em>Activities</em>, <em>Signals</em>, <em>Continue-As-New</em>.</li>
+        <li>Chris Richardson — <em>Microservices Patterns</em>, Manning, 2018, cap. 4 sui saga.</li>
+        <li>Adam Wiggins — <em>The Twelve-Factor App</em>, 2011 (l'originale, come riferimento per lo stile del manifesto).</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Hai già scelto un orchestratore durevole o stai reggendo lo stato "a mano" in un DB? Se la seconda, prevedi la migrazione prima che la pipeline diventi critica.</li>
+        <li>Quali side-effect esterni della fabbrica non hanno oggi idempotency key? Per ognuno, stima il danno di un retry errato.</li>
+        <li>I prompt sono versionati in git o vivono in costanti nel codice? Un prompt che cambia è un deploy, va trattato come tale.</li>
+        <li>Hai una replay story? Se un incidente accade domani, come ricostruisci lo stato per diagnosticarlo?</li>
+        <li>Chi nel team ha esperienza reale di sistemi distribuiti? Se nessuno, la v1 sarà fragile indipendentemente dalla qualità del modello.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch3">
+    <div class="chapter-number">Capitolo 3</div>
+    <h2>Memoria e knowledge management per agenti</h2>
+
+    <p>La memoria è il tema in cui la fabbrica agentica si distingue da un qualunque copilot generalista. Un copilot lavora sul codice che hai davanti; la fabbrica deve <em>ricordare vent'anni di decisioni</em> su sistemi che nessuno mantiene più. La domanda operativa di questo capitolo è semplice e brutale: <strong>cosa deve ricordare la fabbrica, per quanto tempo, con quale granularità, e come recupera il ricordo giusto al momento giusto?</strong></p>
+
+    <h3>Tassonomia della memoria</h3>
+    <p>Il primo errore da evitare è chiamare "memoria" un'unica cosa. La letteratura di scienze cognitive, importata nel mondo agentico prima da Park et al. ("Generative Agents", 2023) e poi da framework come Letta, distingue almeno cinque categorie che hanno proprietà operative diverse.</p>
+    <ul>
+      <li><strong>Memoria a breve termine (working memory)</strong>: il context window della singola invocazione. Transiente. Nel tuo sistema, è lo stato passato al modello in ogni turn del workflow.</li>
+      <li><strong>Memoria a lungo termine</strong>: persistente oltre la singola invocazione. Si suddivide nelle tre categorie che seguono.</li>
+      <li><strong>Memoria episodica</strong>: ricordi di eventi specifici datati. "Il 12 marzo 2026 il PO-twin ha prodotto la story USR-1234 e il designer l'ha rigettata con motivazione X." È la memoria che abilita il "mi ricordo che avevamo già discusso questo caso".</li>
+      <li><strong>Memoria semantica</strong>: conoscenza generale astratta dal contesto. "Il modulo di fatturazione usa la tabella INVOICE_HEADER con 47 colonne, delle quali 12 sono deprecated." È il dominio, in forma consolidata.</li>
+      <li><strong>Memoria procedurale</strong>: how-to. "Per modificare un report in Cobol, servono i seguenti 9 step, il penultimo dei quali richiede una special authorization." È il modo di fare le cose, cristallizzato.</li>
+    </ul>
+    <p>Ogni tipo ha esigenze di storage, retrieval e scadenza diverse. Trattarli come un unico "vector database" è un errore comune con conseguenze pratiche: retrieval impreciso, costi di embedding inutili, impossibilità di aggiornare solo certe categorie.</p>
+
+    <h3>Framework di memoria: Mem0, Letta, Cognee, LangMem</h3>
+    <p>Nel 2024-2025 è esploso un ecosistema di framework che tentano di dare struttura al problema. Merita conoscerne almeno quattro.</p>
+    <p><strong>Mem0</strong> adotta un modello a due livelli: <em>user memory</em> (fatti su un utente specifico) e <em>agent memory</em> (preferenze dell'agente). Ogni "memoria" è una frase in linguaggio naturale estratta via LLM dalle conversazioni. Semplice da integrare, appropriato per chatbot personalizzati. Per una fabbrica enterprise è troppo leggero, ma l'idea di <em>memorie come fatti in linguaggio naturale indicizzati</em> è un buon punto di partenza.</p>
+    <p><strong>Letta</strong> (ex MemGPT, Packer et al., 2023) è il framework più sofisticato sul piano teorico. Importa il modello del sistema operativo: un <em>core memory</em> sempre in context (identità dell'agente, preferenze chiave dell'utente), un <em>recall memory</em> come archivio conversazionale interrogabile, un <em>archival memory</em> come knowledge base vettoriale. L'agente decide autonomamente quando promuovere un'informazione dal context al core, quando spostarla in archival. Il modello è elegante e ben applicabile alla fabbrica: il core di un twin è la sua "personalità professionale", il recall è lo storico del ticket corrente, l'archival è la memoria aziendale.</p>
+    <p><strong>Cognee</strong> si posiziona fra memoria e knowledge graph: costruisce un grafo semantico dalle conversazioni, con nodi (entità) e archi (relazioni). Interessante se vuoi interrogare relazioni ("quali moduli sono stati modificati dal team X negli ultimi tre mesi?") più che contenuti.</p>
+    <p><strong>LangMem</strong> (LangChain) è l'integrazione di memoria dentro LangGraph: hot path (checkpointer, stato del workflow) e background memory (riassunti e fatti estratti offline). Se hai già LangGraph come orchestratore, LangMem è la via di minor resistenza.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Framework</th><th>Modello</th><th>Buono per</th><th>Limite</th></tr></thead>
+      <tbody>
+        <tr><td>Mem0</td><td>Fatti in NL indicizzati</td><td>Chatbot, personalizzazione</td><td>Troppo leggero per enterprise</td></tr>
+        <tr><td>Letta</td><td>Core/recall/archival (OS-like)</td><td>Agenti long-running con identità</td><td>Complessità di setup</td></tr>
+        <tr><td>Cognee</td><td>Grafo semantico</td><td>Query su relazioni</td><td>Retrieval testuale meno raffinato</td></tr>
+        <tr><td>LangMem</td><td>Integrato in LangGraph</td><td>Chi usa già LangGraph</td><td>Lock-in di ecosistema</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Code RAG: Sourcegraph Cody, Aider, Continue</h3>
+    <p>Dentro la tua fabbrica c'è un sotto-problema specifico: <strong>come fai recuperare al designer-twin il contesto giusto da un codebase legacy di milioni di righe?</strong> L'ecosistema dei coding assistant ha sperimentato tre approcci, ciascuno con trade-off.</p>
+    <p><strong>Approccio embedding-based</strong>: il codebase viene chunked, ogni chunk è embeddato in un vector store, la query (tipicamente il task corrente) viene embeddata e si recuperano i top-k chunk più simili. È l'approccio più semplice e veloce da implementare, ed è quello che per anni ha dominato gli early coding assistant. Limiti: catturare la semantica del codice con embedding testuali è rumoroso (spesso restituisce chunk sintatticamente simili ma semanticamente irrilevanti), e il chunking spezza spesso unità logiche (funzioni tagliate a metà).</p>
+    <p><strong>Approccio AST / tree-sitter</strong>: si analizza il codice con un parser (tree-sitter è la scelta più popolare, tool nato in Atom) per estrarre unità semantiche (funzioni, classi, moduli) con i loro confini esatti. Ogni unità è indicizzata con metadata (file, linea, firma, dipendenze). Il retrieval è più mirato. Aider usa un approccio simile con il concetto di <em>repo map</em>: una vista condensata della struttura del codebase che viene sempre passata al modello.</p>
+    <p><strong>Approccio LSP / SCIP</strong>: si usa il Language Server Protocol (o derivati come Sourcegraph SCIP) per ottenere informazioni semantiche <em>accurate</em>: dove è definito un simbolo, dove è usato, che tipo ha. È il gold standard per precisione, usato da Sourcegraph Cody per la sua "code graph". Costo: serve un indexer per ogni linguaggio, e su legacy esotici (Cobol, RPG, PL/I) il supporto LSP è spesso assente o parziale.</p>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Per un legacy eterogeneo, la combinazione vincente è <strong>ibrida</strong>: tree-sitter per linguaggi moderni dove è supportato, un indexer custom per i linguaggi legacy esotici, e un fallback embedding-based per codice non parsabile o documentazione. Il retrieval finale è un <em>reranking</em> che combina risultati strutturali e semantici. Continue e Sourcegraph hanno entrambi documentato architetture di questo tipo.</p>
+    </div>
+
+    <h3>Graph-based retrieval: GraphRAG e LightRAG</h3>
+    <p>Nel 2024 Microsoft Research ha pubblicato il paper e il codice di <em>GraphRAG</em> (Edge et al., "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"). L'idea: invece di indicizzare chunk di testo, si costruisce offline un <em>knowledge graph</em> dei documenti (entità come nodi, relazioni come archi, con "community detection" per aggregare temi). Il retrieval interroga il grafo con due modalità — <em>local</em> (partendo da un'entità e navigando il vicinato) e <em>global</em> (aggregando informazioni a livello di community).</p>
+    <p>Il risultato empirico del paper: per domande <em>queriosamente complesse</em> (tipo "quali sono i temi trasversali nei documenti degli ultimi tre anni?") GraphRAG batte pesantemente il vanilla vector RAG. Per domande fattuali specifiche la differenza è minore.</p>
+    <p><strong>LightRAG</strong> (Guo et al., HKU, 2024) è una variante più leggera che costruisce il grafo incrementalmente ed evita la fase costosa di community detection. Adatta quando la knowledge base cresce nel tempo, come sarà la tua fabbrica.</p>
+    <p>Quando il grafo batte l'embedding: quando le query sono multi-hop ("trova il modulo che... e che è stato modificato da... e che dipende da..."), quando vuoi spiegare le risposte tracciando il cammino nel grafo, quando il corpus ha entità ricorrenti con relazioni ricche.</p>
+    <p>Quando l'embedding resta preferibile: query brevi con similarità semantica diretta, corpus con entità sfumate o testi narrativi senza struttura, vincoli stretti di latenza al retrieval.</p>
+
+    <h3>Knowledge graph dal codice: CodeQL, SCIP, tree-sitter</h3>
+    <p>Per la fabbrica, costruire un grafo del codebase non è un esercizio accademico: è il sostrato su cui tutti i twin operano. Tre tecnologie di riferimento.</p>
+    <p><strong>CodeQL</strong> (GitHub/Semmle): tratta il codice come un database relazionale interrogabile con un linguaggio SQL-like (QL). Potente per analisi di sicurezza e pattern di codice. Curva ripida e lock-in GitHub, ma se il tuo ecosistema è già GitHub Enterprise è una scelta naturale per estrarre fatti strutturali.</p>
+    <p><strong>Sourcegraph SCIP</strong>: formato aperto (SCIP = Source Code Intelligence Protocol) per indicizzare codice. Complementare a LSP ma orientato a indicizzazione batch. Sourcegraph è una delle infrastrutture più solide per code intelligence a scala.</p>
+    <p><strong>tree-sitter</strong>: parser incrementale per molti linguaggi, libreria C portabile. L'artefatto che produce è un AST; non un grafo semantico, ma il mattone di base per costruirne uno. Quasi tutti i coding assistant moderni lo usano come primo strato di parsing.</p>
+    <p>Un pattern realistico per la tua fabbrica: <em>tree-sitter</em> per parsing multi-linguaggio, arricchito con un layer di graph database (Neo4j, Memgraph, o un semplice PostgreSQL con tabelle ad-hoc) che memorizza entità (file, funzioni, tabelle DB, job batch, REST endpoint) e relazioni (chiama, legge, scrive, deploya-in). Su questo grafo costruisci query di dominio: "tutti i job batch che scrivono nella tabella X", "tutti i REST endpoint esposti dal modulo Y".</p>
+
+    <h3>Il modello a tre livelli per la tua fabbrica</h3>
+    <p>Propongo un modello mentale specifico per il tuo contesto, ispirato a Letta ma adattato alla fabbrica: <strong>run memory, system memory, factory memory</strong>.</p>
+    <p><strong>Run memory</strong>: lo stato di una singola esecuzione di pipeline (un ticket in lavorazione). Vive nell'orchestration engine, è persistito per la durata del workflow, viene archiviato a chiusura. Contiene il prompt corrente, l'output corrente, gli errori, le decisioni intermedie. È la memoria di lavoro del workflow.</p>
+    <p><strong>System memory</strong>: la memoria del sistema legacy target. Vive nel knowledge graph del codebase + documentazione versata. È semi-statica: aggiornata quando il codice cambia o quando documenti vengono aggiunti. Contiene struttura, regole di business codificate, ownership, storia dei moduli. È la memoria del "cosa esiste là fuori".</p>
+    <p><strong>Factory memory</strong>: la memoria della fabbrica stessa — come produce, cosa ha prodotto, cosa ha imparato. Include il catalogo degli artefatti passati, i pattern di rework ("ogni volta che il twin genera X, l'umano chiede modifica Y"), le metriche operative. È la memoria che rende la fabbrica capace di migliorarsi.</p>
+
+    <div class="ascii-diagram">Tre livelli di memoria
+
+    ┌──────────────────────────────────────────┐
+    │  FACTORY MEMORY                          │
+    │  ─ pattern di rework                     │
+    │  ─ catalogo artefatti                    │
+    │  ─ metriche e lezioni apprese            │
+    │  ─ "sappiamo come produrre X"            │
+    └──────────────────────────────────────────┘
+              ▲ alimentata dai run chiusi
+    ┌──────────────────────────────────────────┐
+    │  SYSTEM MEMORY                           │
+    │  ─ knowledge graph del codebase          │
+    │  ─ documentazione di dominio             │
+    │  ─ ownership, regole di business         │
+    │  ─ "sappiamo cos'è il sistema legacy"    │
+    └──────────────────────────────────────────┘
+              ▲ consultata durante il run
+    ┌──────────────────────────────────────────┐
+    │  RUN MEMORY                              │
+    │  ─ stato del workflow corrente           │
+    │  ─ output intermedi                      │
+    │  ─ decisioni dei twin                    │
+    │  ─ "sappiamo a che punto siamo"          │
+    └──────────────────────────────────────────┘</div>
+
+    <p>Il flusso naturale è verticale: ogni run legge dalla system memory, scrive nella run memory; alla chiusura, gli apprendimenti significativi vengono promossi alla factory memory. Questo modello ha un effetto collaterale prezioso: le tre memorie hanno cicli di vita e backup strategy diversi, quindi anche politiche di retention e privacy diverse. Per esempio, la system memory può contenere codice sorgente confidenziale e richiede cifratura a riposo; la factory memory contiene pattern aggregati, meno sensibili.</p>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>La "memoria totale": voler indicizzare tutto, ricordare tutto, servire tutto in context. Il risultato è un retrieval rumoroso, costi elevati e agenti che "si perdono". <strong>Una memoria curata è più preziosa di una memoria grande.</strong> Implementa politiche esplicite di <em>forgetting</em>: cosa viene dimenticato, quando, perché. Le memorie umane sono selettive per un motivo.</p>
+    </div>
+
+    <h3>Aggiornamento, invalidazione, drift</h3>
+    <p>Un capitolo sottovalutato. Il codice cambia; la documentazione invecchia; le decisioni vengono riviste. Se la memoria della fabbrica non ha un meccanismo di <em>invalidazione</em>, presto servirà risposte sbagliate con grande autorità. Tre tecniche pratiche.</p>
+    <ul>
+      <li><strong>Time-to-live per tipo di memoria</strong>: un fatto estratto da un ticket ha TTL diverso da un fatto estratto da uno standard architetturale. Metti scadenze esplicite.</li>
+      <li><strong>Re-verifica on read</strong>: quando un twin recupera un fatto critico, passa da un check leggero — il fatto è ancora supportato dalla fonte originale? Se la fonte non c'è più, marca il fatto come stale.</li>
+      <li><strong>Re-indicizzazione incrementale del codebase</strong>: ogni commit aggiorna le entità toccate nel grafo, con diff, senza ricostruire tutto. È più complesso ma sostenibile; ricostruire tutto ogni notte è ok solo per codebase medi.</li>
+    </ul>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>Edge et al. — <em>From Local to Global: A Graph RAG Approach</em>, Microsoft Research, 2024.</li>
+        <li>Packer et al. — <em>MemGPT: Towards LLMs as Operating Systems</em>, 2023 (ora Letta).</li>
+        <li>Park et al. — <em>Generative Agents: Interactive Simulacra of Human Behavior</em>, UIST 2023.</li>
+        <li>Documentazione Sourcegraph Cody (sezione <em>code graph</em>) e Aider (sezione <em>repo map</em>).</li>
+        <li>Blog ingegneristici di Continue e Zed (entrambi hanno scritto bene sui trade-off di retrieval).</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Quali dei tre livelli (run / system / factory) hai oggi, anche embrionalmente? Dove è più povero, lì è la priorità.</li>
+        <li>Quanto del tuo legacy è parsabile con tree-sitter o LSP? Il resto richiede parser custom — un costo, ma anche un asset proprietario di grande valore.</li>
+        <li>Hai una policy di forgetting esplicita? Se la risposta è "no, teniamo tutto", stai costruendo un debito.</li>
+        <li>Dove posizioni il confine fra memoria e specification (cap. 4)? Le memorie diventano specification quando vengono promosse a linguaggio condiviso.</li>
+        <li>Chi è responsabile della qualità della system memory? Senza un "knowledge curator" umano, si deteriorerà entro 6-12 mesi.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch4">
+    <div class="chapter-number">Capitolo 4</div>
+    <h2>Specification-driven development e requirement engineering</h2>
+
+    <p>Se il capitolo 3 parla della memoria <em>implicita</em> della fabbrica (cosa ricorda), questo capitolo parla della sua memoria <em>esplicita e condivisa</em>: le specifiche. Per i twin, il linguaggio in cui scrivono e leggono le specifiche è l'equivalente dell'ABI di un sistema software — una volta fissato, ogni cambiamento è costoso. Sbagliarne la progettazione significa sedersi su una Torre di Babele in cui il PO-twin produce qualcosa che l'analyst-twin non capisce, che il designer-twin reinterpreta in modo diverso, che infine l'umano deve ri-scrivere a mano.</p>
+
+    <h3>BDD e Specification by Example</h3>
+    <p>Il riferimento è Gojko Adzic — <em>Specification by Example</em> (Manning, 2011) e, in forma più operativa, <em>Bridging the Communication Gap</em> (2009). La tesi di Adzic è radicale nella sua semplicità: <strong>le specifiche migliori sono esempi concreti formulati in un linguaggio che esecutori umani e automatici possono leggere allo stesso modo</strong>. Non una descrizione astratta ("il sistema deve calcolare lo sconto fedeltà"), ma un esempio verificabile ("se cliente ha 3 anni di anzianità, lo sconto su ordine da 1000€ è 50€").</p>
+    <p>Il formato Gherkin (Given / When / Then), popolarizzato da Cucumber, è l'incarnazione pratica. Il suo valore non sta tanto nel codice di test che genera, quanto nel <em>forzare l'autore della spec a pensare in termini di esempi concreti</em>. In un mondo di LLM, questa proprietà è oro: gli esempi riducono l'ambiguità che un modello potrebbe interpretare male.</p>
+    <p>Per la tua fabbrica, l'implicazione pratica è che il PO-twin non deve produrre solo la user story in formato narrativo ("come utente... voglio... così che..."), ma deve sempre affiancarla con uno o più <em>scenari Gherkin</em>. Gli scenari sono contratti verificabili: un test automatico può consumarli, un designer-twin li usa per orientare l'architettura, un quality gate ne verifica la presenza e la completezza.</p>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Regola ferrea: <strong>nessuna user story viene accettata dalla pipeline senza almeno tre scenari Gherkin — happy path, edge case ovvio, edge case sottile</strong>. L'edge case sottile è quello che il PO-twin spesso salta; un evaluator-optimizer (cap. 5) dedicato può essere un buon modo per forzarne la generazione.</p>
+    </div>
+
+    <h3>Domain-Driven Design ed Event Storming</h3>
+    <p>BDD opera al livello dello scenario; DDD opera al livello del dominio. I due si complementano. Riferimenti fondativi: Eric Evans — <em>Domain-Driven Design</em> (Addison-Wesley, 2003), il libro "blu"; Vaughn Vernon — <em>Implementing Domain-Driven Design</em> (2013), il libro "rosso", che è in realtà il più utile per chi vuole applicarlo.</p>
+    <p>Cinque concetti DDD che devi fissare nella fabbrica.</p>
+    <ul>
+      <li><strong>Ubiquitous Language</strong>: esiste un solo vocabolario, condiviso fra business e tecnologia. Se il business dice "ordine" e il codice dice "purchase", hai già un bug strutturale. Nella fabbrica, l'Ubiquitous Language è il glossario che tutti i twin leggono all'avvio.</li>
+      <li><strong>Bounded Context</strong>: il vocabolario vale dentro un contesto. "Cliente" nel contesto Vendite è diverso da "Cliente" nel contesto Post-Vendita. I twin devono sapere in che contesto stanno lavorando; altrimenti, generano ambiguità.</li>
+      <li><strong>Aggregate</strong>: cluster di entità e value object con un root. Regola: modifiche vanno sempre attraverso il root. Per i twin di design, questo vincolo è un guardrail naturale — se la proposta tecnica bypassa il root di un aggregate, il quality gate lo rifiuta.</li>
+      <li><strong>Domain Event</strong>: un fatto accaduto nel dominio. "OrdineConfermato". È l'unità di comunicazione fra bounded context. Agganciato all'event sourcing del cap. 2, produce una coerenza architetturale potente.</li>
+      <li><strong>Context Map</strong>: la mappa delle relazioni fra bounded context (shared kernel, customer-supplier, anti-corruption layer, eccetera). È un documento che spesso manca in enterprise legacy; costruirlo è un'attività di alto valore.</li>
+    </ul>
+    <p><strong>Event Storming</strong> (Alberto Brandolini, 2013) è la tecnica-workshop per ricostruire un dominio con post-it colorati: arancione per eventi, blu per comandi, giallo per aggregati, rosa per hotspot. In un'ora si costruisce una mappa grezza; in tre giorni, una mappa dettagliata. Per la tua fabbrica, Event Storming è la modalità consigliata per <em>alimentare</em> la system memory (cap. 3): ogni sessione produce un artefatto che viene ingerito nel knowledge graph.</p>
+
+    <h3>LLM-assisted requirements engineering</h3>
+    <p>La letteratura accademica su questo tema è esplosa nel 2024-2025 (ICSE, FSE, RE). Alcuni filoni rilevanti da conoscere.</p>
+    <p><strong>Generazione di user story da descrizioni libere</strong>: paper come Arora et al. (2024) hanno mostrato che LLM di frontiera producono user story comparabili per qualità a quelle scritte da business analyst junior, con tempi di produzione drasticamente ridotti. Limite: le story generate tendono a essere troppo generiche se il modello non ha accesso al dominio specifico. Implicazione per la fabbrica: il PO-twin deve sempre essere accoppiato al retrieval sulla system memory, altrimenti produrrà story che "suonano bene" ma sono staccate dalla realtà del legacy.</p>
+    <p><strong>Rilevamento di ambiguità e inconsistenze</strong>: altri paper (Ezzini et al., 2022-24) usano LLM per identificare termini ambigui, requisiti contraddittori, gap di copertura. È un pattern evaluator-optimizer in salsa requirements — perfetto come nodo di quality gate nel tuo pipeline.</p>
+    <p><strong>Traceability automatica</strong>: LLM per collegare requisiti ad artefatti downstream (design, test, codice). Interessante per la fabbrica perché il <em>tracing</em> è tipicamente l'attività più abbandonata quando le cerimonie Agile vengono ridotte.</p>
+    <p>La tesi complessiva della letteratura: l'LLM non <em>sostituisce</em> il business analyst, ma lo amplifica se il contesto è ben costruito. Questo è precisamente il modello della tua fabbrica.</p>
+
+    <h3>Approcci industriali: AWS Kiro e GitHub Spec Kit</h3>
+    <p>Nel 2025 sono emersi due approcci industriali che meritano attenzione perché rappresentano scelte architetturali già in produzione.</p>
+    <p><strong>AWS Kiro</strong> (annunciato metà 2025) è un IDE AI-nativo che impone un flusso <em>specification-first</em>: prima scrivi la spec in un formato strutturato (requirements, design, tasks), poi l'AI implementa. La spec è un artefatto di prima classe, versionato, con checkpoint espliciti di approvazione. L'idea chiave è trattare la spec come un contratto che media fra intenzione umana e implementazione AI.</p>
+    <p><strong>GitHub Spec Kit</strong> (2025) va in direzione simile con enfasi sulla natura testuale e markdown delle specifiche, indicizzabili, revisionabili via pull request. La spec è sorgente alla pari del codice; il workflow è PR-based.</p>
+    <p>Entrambi sono segnali di un trend più ampio: <em>specification-driven development</em> come pattern emergente dell'era LLM. Per la tua fabbrica, la lezione è che la spec deve essere:</p>
+    <ul>
+      <li>un file di testo strutturato (Markdown con sezioni fisse, YAML per metadati), non un oggetto in un DB;</li>
+      <li>versionato in un repository Git dedicato o insieme al codice;</li>
+      <li>il <em>punto di ingresso</em> di ogni pipeline di implementazione, non un prodotto collaterale;</li>
+      <li>approvabile a step (requisiti approvati → design approvato → tasks approvati), con checkpoint espliciti umani.</li>
+    </ul>
+
+    <h3>Modellare la "bibbia" come linguaggio condiviso fra twin</h3>
+    <p>La tua fabbrica ha bisogno di una "bibbia": un corpus di riferimento sempre vivo che definisce il linguaggio in cui i twin comunicano. Proposta concreta, in quattro livelli.</p>
+    <ul>
+      <li><strong>Glossario ubiquitous language</strong> (Markdown, ~50-200 voci): termini del dominio business con definizione univoca, sinonimi, antipatti ("non chiamare X con Y"). Iniettato in system prompt di tutti i twin.</li>
+      <li><strong>Context map dei bounded context</strong>: diagramma testuale (ASCII o Mermaid), versione leggibile della mappa. Aggiornato quando il business evolve.</li>
+      <li><strong>Schema degli artefatti</strong>: per ogni artefatto prodotto (user story, design doc, piano di test, release note) un template con sezioni fisse e criteri di accettazione. Il PO-twin riempie il template; il quality gate verifica che ogni sezione sia riempita e non vuota o tautologica.</li>
+      <li><strong>Esempi canonici</strong>: 3-5 esempi "gold" per ogni tipo di artefatto, da usare come few-shot nel prompt del twin. Curati da un umano senior; aggiornati raramente.</li>
+    </ul>
+    <p>Questa bibbia vive in un repository accessibile a tutti i twin. Ogni modifica passa da pull request. L'effetto è che la fabbrica ha un <em>linguaggio stabile</em> che riduce drasticamente la varianza fra output di twin diversi e fra run diversi dello stesso twin.</p>
+
+    <h3>Il telefono senza fili fra twin</h3>
+    <p>Un rischio molto concreto: il PO-twin produce story, l'analyst-twin le interpreta aggiungendo dettaglio, il designer-twin le reinterpreta per produrre un design. Ad ogni passaggio, <em>rumore</em>: dettagli persi, interpretazioni che si cristallizzano, errori che si amplificano. È il classico problema del telefono senza fili, con la differenza che qui i giocatori sono LLM e il rumore è sistematico, non random.</p>
+    <p>Tre contromisure pratiche.</p>
+    <ul>
+      <li><strong>Passaggi strutturati, non narrativi</strong>: l'handoff fra due twin non è "leggi il testo e interpreta". È un JSON strutturato con campi fissi. Il twin successivo consuma il JSON, non il testo libero.</li>
+      <li><strong>Round-trip validation</strong>: dopo che il twin downstream ha prodotto il suo artefatto, un nodo di validazione chiede al twin upstream "questo è compatibile con quello che hai specificato?". Se no, rework.</li>
+      <li><strong>Riferimento comune fisso</strong>: entrambi i twin citano esplicitamente la bibbia. Se la story dice "cliente fedeltà (vedi §3.2 del glossario)", il designer è meno libero di re-interpretare.</li>
+    </ul>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>Il più insidioso è l'<strong>output scadente che sembra buono</strong>. Un PO-twin che produce user story grammaticalmente perfette ma concettualmente vuote è pericoloso perché ingannerà i quality gate basati su metriche superficiali. La contromisura è triangolare: gate LLM + gate deterministico (schema, presenza campi) + review umana campionaria (non tutti, non nessuno — campione).</p>
+    </div>
+
+    <h3>Quando la spec non basta</h3>
+    <p>Un monito: la specification-driven development funziona quando il dominio è <em>ben definibile</em>. Per evolutive molto piccole ("cambia questo label"), scrivere una spec formale è overhead. Per esplorazioni creative ("come potremmo migliorare l'esperienza di onboarding?"), la spec nasce <em>dopo</em> un prototipo, non prima.</p>
+    <p>Ammetti questi due casi nella tua fabbrica come flussi paralleli, non come eccezioni da nascondere. Un flusso <em>fast-track</em> per micro-evolutive (skip di alcuni step, unified quality gate), un flusso <em>discovery</em> per esplorazioni (spec emergenti, checkpoint meno formali). La pipeline standard resta quella formalizzata.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>Gojko Adzic — <em>Specification by Example</em>, Manning 2011.</li>
+        <li>Eric Evans — <em>Domain-Driven Design</em>, Addison-Wesley 2003 (almeno Parte I e II).</li>
+        <li>Vaughn Vernon — <em>Implementing Domain-Driven Design</em>, 2013 (più operativo dell'Evans).</li>
+        <li>Alberto Brandolini — <em>Introducing EventStorming</em>, Leanpub.</li>
+        <li>Documentazione AWS Kiro e GitHub Spec Kit (tutorial ufficiali, 2025).</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Hai oggi un glossario ubiquitous language versionato? Se no, è probabilmente il primo artefatto da produrre.</li>
+        <li>Quanti bounded context distinti ha il tuo legacy? Se non lo sai, una sessione di Event Storming con i domain expert è un buon investimento iniziale.</li>
+        <li>Il PO-twin usa solo il testo del ticket di input o accede anche alla system memory? Se solo il primo, i suoi output saranno superficiali.</li>
+        <li>Hai già pensato al flusso fast-track per micro-evolutive? Forzare tutto nella pipeline formale è uno dei modi più comuni di rendere una fabbrica impopolare.</li>
+        <li>Chi è il "keeper" della bibbia? Senza un owner umano, la spec degenera in 6 mesi.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch5">
+    <div class="chapter-number">Capitolo 5</div>
+    <h2>Quality gate e LLM-as-judge</h2>
+
+    <p>La fabbrica produce artefatti: user story, design doc, piani di test, pull request. Qualcuno deve decidere se gli artefatti sono accettabili. Per il codice puoi spesso delegare al compilatore, al linter, alla test suite. Per tutto il resto — un'user story ben fatta, un design convincente — la qualità non si misura con un test unitario. Questa è la frontiera in cui entra il pattern <em>LLM-as-a-judge</em>, con i suoi vantaggi reali e le sue trappole documentate.</p>
+
+    <h3>Il paper fondativo e i bias noti</h3>
+    <p>Il riferimento canonico è <em>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</em> di Zheng et al. (NeurIPS 2023). Gli autori hanno confrontato sistematicamente giudizi di GPT-4 con giudizi umani su migliaia di conversazioni. Il risultato: GPT-4 come judge raggiunge circa l'80% di accordo con giudici umani esperti — livello comparabile all'accordo fra due umani. Buone notizie. Ma nel lavoro vengono documentati bias <em>sistematici</em> che vanno conosciuti.</p>
+    <ul>
+      <li><strong>Position bias</strong>: se presenti al judge due risposte A e B, tende a preferire la prima. Contromisura: eseguire il giudizio due volte invertendo l'ordine; se le due esecuzioni non concordano, degradare a "tie" o a revisione umana.</li>
+      <li><strong>Verbosity bias</strong>: le risposte più lunghe vengono preferite, a parità di qualità sostanziale. Contromisura: normalizzare per lunghezza nella rubrica, o dichiararlo esplicitamente ("non premiare la verbosità").</li>
+      <li><strong>Self-enhancement bias</strong>: il modello tende a preferire risposte prodotte da se stesso o da modelli simili. Contromisura: se generatore e judge sono lo stesso modello, aggiungere un secondo judge di provider diverso, o valutare con comparazione umana campionaria.</li>
+      <li><strong>Limited reasoning on math</strong>: i judge LLM sono deboli su contenuti matematici e logici complessi. Contromisura: per questi contenuti, preferire verifiche deterministiche.</li>
+    </ul>
+    <p>Paper successivi (Liu et al. 2024, Thakur et al. 2024) hanno confermato e arricchito la mappa dei bias, aggiungendo <em>bandwagon bias</em> (se tre judge su cinque concordano, il quarto tende ad adeguarsi) e <em>sycophancy</em> (il judge si allinea al framing implicito della query).</p>
+
+    <h3>Framework di valutazione: Ragas, DeepEval, Promptfoo</h3>
+    <p><strong>Ragas</strong> (2024) nasce specificamente per RAG: metriche come <em>faithfulness</em> (la risposta si attiene ai documenti?), <em>answer relevance</em>, <em>context precision/recall</em>. Utile per valutare l'output di qualunque twin che faccia retrieval — cioè praticamente tutti i tuoi.</p>
+    <p><strong>DeepEval</strong> è una suite più generalista: metriche pronte (hallucination, toxicity, bias, correctness), integrazione con pytest, possibilità di definire metriche custom via rubrica. Buona scelta se vuoi un ecosistema di test "alla unit test" anche per artefatti AI.</p>
+    <p><strong>Promptfoo</strong> è orientato al prompt engineering: batch di prompt con input variabili, assertion programmabili, regressione storica. È quello che più si avvicina a un <em>CI/CD per prompt</em> e merita valutazione prima di costruirlo in casa.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Framework</th><th>Focus</th><th>Quando usarlo</th></tr></thead>
+      <tbody>
+        <tr><td>Ragas</td><td>RAG metrics</td><td>Valutare retrieval e faithfulness dei twin</td></tr>
+        <tr><td>DeepEval</td><td>Test suite AI</td><td>Integrare valutazioni nella CI</td></tr>
+        <tr><td>Promptfoo</td><td>Prompt regression</td><td>Governance del ciclo di vita dei prompt</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Constitutional AI come lente sulla valutazione</h3>
+    <p>Constitutional AI (Bai et al., Anthropic, 2022) è nata come tecnica di training, ma il suo portato concettuale si applica bene alla valutazione. L'idea: invece di lasciare che il judge valuti "a intuito", gli si fornisce una <em>costituzione</em> — un insieme di principi espliciti e ordinati — contro cui valutare l'output.</p>
+    <p>Per la tua fabbrica, la "costituzione" di ogni tipo di artefatto è una rubrica esplicita. Esempio per una user story:</p>
+    <ol>
+      <li>La story segue il formato "come X voglio Y così che Z", senza ambiguità.</li>
+      <li>Il campo "Z" esprime un beneficio di business, non una soluzione tecnica.</li>
+      <li>Esistono almeno tre scenari Gherkin: happy path, edge case ovvio, edge case sottile.</li>
+      <li>Ogni scenario cita termini del glossario, non inventa vocaboli.</li>
+      <li>La story è testabile: un umano può decidere senza ambiguità se è stata soddisfatta.</li>
+      <li>La story è indipendente da altre story non ancora approvate.</li>
+    </ol>
+    <p>Il judge non dà un "voto da 1 a 10": valuta ogni punto della costituzione e produce (i) esito binario per ogni punto, (ii) motivazione in linguaggio naturale, (iii) suggerimento di correzione se negativo. L'output è deterministico nella struttura, utilizzabile a valle.</p>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Per ogni tipo di artefatto, scrivi la costituzione a mano, con 5-10 principi. Versionala come codice. Testala su 20-30 esempi etichettati manualmente (buoni/cattivi) prima di metterla in produzione. Un judge senza costituzione è un dado; un judge con costituzione ben calibrata è un collega junior.</p>
+    </div>
+
+    <h3>Rubric-based vs pairwise comparison</h3>
+    <p>Due modalità di valutazione, con trade-off distinti.</p>
+    <p><strong>Rubric-based (assoluto)</strong>: l'artefatto è valutato contro una rubrica fissa, indipendentemente da altre alternative. Output: score / pass-fail per ogni criterio. Vantaggi: comparabilità nel tempo, integrazione con metriche CI. Svantaggi: i judge LLM sono meno bravi in assoluto che in relativo — possono essere severi o clementi in modo incostante.</p>
+    <p><strong>Pairwise (relativo)</strong>: due artefatti sono confrontati e il judge sceglie il migliore. Output: preferenza. Vantaggi: più stabile statisticamente, meno sensibile a drift del modello. Svantaggi: non dà un giudizio assoluto, richiede doppia generazione, soffre di position bias.</p>
+    <p>Una strategia pratica per la fabbrica: <strong>rubric-based come default</strong> per il gate operativo (è un pass/fail, serve un esito binario); <strong>pairwise</strong> durante il tuning dei prompt (quando stai scegliendo fra due versioni del prompt del PO-twin, il pairwise è più affidabile).</p>
+
+    <h3>Judge per artefatti non-codice</h3>
+    <p>Il caso più interessante — e più rischioso — per la tua fabbrica. Tre artefatti paradigmatici.</p>
+    <p><strong>User story</strong>. Rubrica come sopra. Il judge legge la story + glossario + esempi canonici + scenari Gherkin, applica la costituzione. Fallback umano su campione casuale (5-10%) e su ogni story marcata come "dubbio" dal judge.</p>
+    <p><strong>Design doc</strong>. Rubrica più articolata: presenza di sezioni (context, soluzione, alternative scartate, rischi, impatti), coerenza con la user story, compatibilità con la system memory (il design non deve contraddire fatti noti del legacy). Un secondo judge specifico può verificare la <em>compatibilità tecnica</em> interrogando il knowledge graph del codebase.</p>
+    <p><strong>Piano di test</strong>. Qui il judge può essere più severo e strutturale: ogni scenario Gherkin della story deve avere almeno un test corrispondente nel piano? I test coprono i rischi dichiarati nel design? I dati di test sono realistici? È il caso in cui un judge deterministico (verifica di completezza strutturale) + judge LLM (verifica di sensatezza) lavorano bene insieme.</p>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>Il "judge che ama tutto". Se il tuo judge approva il 98% degli artefatti, non sta giudicando: sta firmando. Calibra con un <em>gold set</em>: 30-50 esempi etichettati a mano con verità di terreno, 50% buoni e 50% cattivi. Misura precision/recall del judge contro il gold set. Se precision è bassa (molti falsi positivi passano), stringi la costituzione. Se recall è bassa (molti buoni vengono rifiutati), allenta o chiarisci i criteri. Calibra almeno una volta al mese o a ogni cambio significativo del prompt.</p>
+    </div>
+
+    <h3>Limiti e rischi dei judge LLM</h3>
+    <p>Un riepilogo onesto dei limiti, per evitare l'eccesso di fiducia.</p>
+    <ul>
+      <li><strong>Drift silenzioso</strong>: un nuovo release del modello (anche patch minore) può cambiare il comportamento del judge. Senza un gold set di regressione, non te ne accorgi finché non esplode.</li>
+      <li><strong>Correlazione vs accuratezza</strong>: due judge LLM possono concordare fra loro <em>e sbagliare insieme</em>. L'accordo non è prova di correttezza.</li>
+      <li><strong>Giudizi di sensatezza, non di correttezza</strong>: un judge LLM è bravo a riconoscere se qualcosa "suona giusto". Non è bravo a riconoscere se è <em>fattualmente</em> giusto quando il fatto richiede verifica esterna. Se il design dice "la tabella INVOICE ha 47 colonne" e ne ha 46, nessun judge LLM senza accesso al DB se ne accorgerà.</li>
+      <li><strong>Prompt injection dagli artefatti</strong>: un malintenzionato (interno o esterno) può inserire in un ticket istruzioni che manipolano il judge. La difesa inizia dal separare role messages e content messages nei prompt del judge.</li>
+    </ul>
+
+    <h3>La triangolazione: judge LLM + gate deterministico + human sample</h3>
+    <p>Il pattern robusto per la fabbrica è triangolare. Per ogni artefatto critico, tre gate:</p>
+    <ol>
+      <li><strong>Gate deterministico</strong> (veloce, economico, infallibile sul suo perimetro): schema valido? campi obbligatori presenti? link tracciati? Se fallisce, reject immediato, non si passa oltre.</li>
+      <li><strong>Gate LLM con costituzione</strong>: applica la rubrica. Output strutturato con esito per criterio. Se fallisce un criterio critico, reject con motivazione; se fallisce un criterio minore, warning ma pass.</li>
+      <li><strong>Human sample</strong>: review umana su un campione (5-10% degli approvati, 100% dei rejected per apprendimento). Alimenta il gold set con cui ricalibri i judge.</li>
+    </ol>
+    <p>Questa triangolazione ti dà una tolleranza agli errori di singolo gate e un meccanismo di auto-miglioramento. È anche difendibile con un auditor: puoi mostrare che il giudizio non è "quello che ha detto l'AI", ma un processo multi-strato con supervisione umana campionaria.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>Zheng et al. — <em>Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena</em>, NeurIPS 2023.</li>
+        <li>Bai et al. — <em>Constitutional AI: Harmlessness from AI Feedback</em>, Anthropic 2022.</li>
+        <li>Documentazione Ragas e DeepEval.</li>
+        <li>Shreya Shankar et al. — <em>Who Validates the Validators?</em> (CHI 2024) sulla calibrazione dei judge.</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Per quali artefatti hai oggi un gold set? Se per nessuno, il judge è un'illusione di controllo.</li>
+        <li>Hai separato bene i gate deterministici da quelli LLM? Mescolarli produce errori difficili da diagnosticare.</li>
+        <li>Come tratti le review umane campionarie? Se non ritornano nel sistema, perdi il loop di miglioramento.</li>
+        <li>Qual è il costo per artefatto del tuo judge? Per volumi alti, la rubrica va semplificata o eseguita con modelli più piccoli.</li>
+        <li>Chi è responsabile della costituzione? Se è "il team", nessuno la aggiornerà.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch6">
+    <div class="chapter-number">Capitolo 6</div>
+    <h2>Governance, observability e AI safety operativa</h2>
+
+    <p>In un contesto enterprise la domanda "funziona?" è sempre accompagnata da "<em>come lo dimostri?</em>". Il layer Governance della tua architettura non è un extra cosmetico che pian piano metterete se avanza tempo: è la condizione di esistenza della fabbrica dentro un'azienda regolamentata. Questo capitolo affronta i tre piani di governance che devono stare in piedi contemporaneamente: <strong>observability tecnica</strong>, <strong>compliance regolamentare</strong>, <strong>controllo umano</strong>.</p>
+
+    <h3>LLM observability: lo stack emerso nel 2023-2025</h3>
+    <p>Tra il 2023 e il 2025 è emerso un ecosistema di tool specifici per LLM observability, che estende (o si affianca a) l'observability classica — logs, metrics, traces. I riferimenti principali.</p>
+    <p><strong>OpenTelemetry for LLMs</strong>: nel 2024 il progetto OpenTelemetry ha introdotto semantic conventions specifiche per chiamate a modelli generativi. Attributi come <code>gen_ai.system</code>, <code>gen_ai.request.model</code>, <code>gen_ai.usage.input_tokens</code>, <code>gen_ai.usage.output_tokens</code> sono ora standardizzati. La lezione operativa: strumenta la fabbrica con OpenTelemetry fin dal giorno uno, emetti trace conformi. Ti dà portabilità fra backend e compatibilità con l'infrastruttura di monitoring già in casa.</p>
+    <p><strong>Langfuse</strong>: piattaforma open source (self-hostable) per tracing di applicazioni LLM. Registra ogni chiamata al modello, input, output, metadata, timing, costi. Supporta <em>sessions</em> (conversazioni multi-turn), <em>scores</em> (metriche di qualità), <em>datasets</em> per regression test. Per una fabbrica enterprise che ha vincoli di data residency, la possibilità di self-host è decisiva.</p>
+    <p><strong>Arize Phoenix</strong>: vicino a Langfuse come scopo, con enfasi su eval e analisi di drift. Anch'esso self-hostable, anch'esso OpenTelemetry-friendly.</p>
+    <p><strong>Helicone</strong>: più semplice, proxy-based (si mette davanti alle chiamate LLM e le cattura). Rapido da adottare, meno flessibile. Utile come prima adozione se vuoi zero-invasive.</p>
+
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tool</th><th>Modello</th><th>Forza</th><th>Limite</th></tr></thead>
+      <tbody>
+        <tr><td>OpenTelemetry LLMs</td><td>Standard, non un tool</td><td>Portabilità, integrazione con infra esistente</td><td>Solo formato, servono backend</td></tr>
+        <tr><td>Langfuse</td><td>Piattaforma self-host</td><td>Sessions, scores, eval, dataset</td><td>Stack proprio da operare</td></tr>
+        <tr><td>Phoenix</td><td>Piattaforma self-host</td><td>Drift detection, eval loop</td><td>Simile overhead di Langfuse</td></tr>
+        <tr><td>Helicone</td><td>Proxy</td><td>Zero-invasive, rapido</td><td>Meno features avanzate</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Cosa tracciare, concretamente</h3>
+    <p>Un elenco operativo di ciò che la fabbrica deve emettere per ogni invocazione LLM o nodo di workflow.</p>
+    <ul>
+      <li>Identità: correlation ID della pipeline, run ID del workflow, nodo corrente, versione del prompt, versione del modello, twin autore.</li>
+      <li>Input: il prompt completo (eventualmente con PII mascherata), il context retrievato con source identifiers, i tool disponibili.</li>
+      <li>Output: la risposta completa, eventuali tool call con argomenti, il reasoning se presente.</li>
+      <li>Metriche: token input/output, latenza, costo stimato, tempo di retrieval, esito dei gate.</li>
+      <li>Link: artefatti prodotti, decisioni umane collegate, ticket esterni.</li>
+    </ul>
+    <p>Questo livello di dettaglio sembra eccessivo finché non serve. Il primo incidente di produzione — un artefatto prodotto male, uno stakeholder che chiede "perché questo?" — e scoprirai che ogni pezzo mancante costa ore di ricostruzione forense.</p>
+
+    <h3>NIST AI RMF</h3>
+    <p>Il <em>NIST AI Risk Management Framework</em> (AI RMF 1.0, gennaio 2023, con Playbook aggiornato) è un riferimento americano ma con forte adozione internazionale. Non è prescrittivo ("devi fare X"), è un framework di <em>funzioni</em>: GOVERN, MAP, MEASURE, MANAGE. Per ogni funzione, pratiche concrete.</p>
+    <p>Per la tua fabbrica, le implicazioni operative minime.</p>
+    <ul>
+      <li><strong>GOVERN</strong>: chi è responsabile? Un owner della piattaforma con autorità decisionale, non un comitato diffuso. Documento di "AI governance charter" che definisce ruoli, escalation, perimetri di autonomia degli agenti.</li>
+      <li><strong>MAP</strong>: mappatura dei rischi specifici — output errati, bias, prompt injection, perdita di dati, dipendenza da fornitore. Per ogni rischio, proprietario e mitigazione.</li>
+      <li><strong>MEASURE</strong>: metriche operative (accuratezza, latenza, costi), metriche di qualità (tasso di approvazione al primo tentativo, tasso di rework), metriche di safety (incidenti, escalation).</li>
+      <li><strong>MANAGE</strong>: cicli periodici di revisione, incident response plan, piano di decommissioning se serve disattivare un agente.</li>
+    </ul>
+
+    <h3>EU AI Act</h3>
+    <p>L'EU AI Act (Regolamento UE 2024/1689) è entrato in vigore ad agosto 2024, con applicazione a scaglioni fino al 2027. La classificazione per la tua fabbrica dipende dall'uso. In generale, un'applicazione <em>interna</em> che genera software non è automaticamente "high risk" nel senso dell'Act. Ma alcuni casi meritano attenzione.</p>
+    <ul>
+      <li>Se la fabbrica viene usata per prendere decisioni che impattano lavoratori (es. valutare candidati, assegnare task critici), si entra in territorio high-risk.</li>
+      <li>Se la fabbrica genera output che vengono esposti ai clienti come se fossero prodotti da umani, si applicano obblighi di <em>trasparenza</em> (Articolo 50): l'utente deve sapere che sta interagendo con AI.</li>
+      <li>Gli obblighi su "general-purpose AI models" (GPAI) riguardano i provider dei modelli (Anthropic, OpenAI), non te direttamente — ma devi verificare che il tuo provider sia conforme e pretendere <em>model cards</em> complete.</li>
+    </ul>
+    <p>Le pratiche minime richieste che ti conviene implementare comunque, <em>a prescindere</em> dall'obbligatorietà formale: documentazione tecnica completa del sistema, tracciabilità delle decisioni, controllo umano significativo sulle decisioni critiche, log conservati per audit.</p>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Prepara un <strong>"AI System Dossier"</strong> per la fabbrica: documento vivo che descrive scopo, dati in ingresso, modelli usati, limiti noti, mitigazioni, ownership, incidenti e lezioni apprese. Mezza giornata di lavoro mensile per mantenerlo. Ti salva settimane quando un auditor, o il CISO, o il legal ti chiedono "spiegamelo". In più: è un materiale di onboarding eccellente per chi entra nel team.</p>
+    </div>
+
+    <h3>Taxonomy of Human-AI Collaboration</h3>
+    <p>Amershi et al. (Microsoft, 2019, "Guidelines for Human-AI Interaction") e, più recentemente, Bansal et al. hanno costruito tassonomie dei pattern di collaborazione umano-AI. Per la tua fabbrica, sei pattern ricorrenti meritano un nome condiviso.</p>
+    <ul>
+      <li><strong>AI-first con human approval</strong>: l'AI produce, l'umano approva/rigetta. È il default di molti twin della fabbrica.</li>
+      <li><strong>Human-first con AI assist</strong>: l'umano guida, l'AI suggerisce. Per task creativi o ad alto rischio.</li>
+      <li><strong>AI-augmented human</strong>: l'umano fa il lavoro, l'AI è sempre consultabile. Usato bene dal designer senior che discute un'alternativa tecnica col designer-twin.</li>
+      <li><strong>Human escalation on uncertainty</strong>: l'AI fa, ma escala all'umano se la sua confidenza è bassa o se entra in territorio ambiguo. Richiede calibrazione della confidenza.</li>
+      <li><strong>Joint authoring</strong>: AI e umano editano lo stesso artefatto in modo interleaved. Utile per spec complesse.</li>
+      <li><strong>AI autonomous in bounded domain</strong>: l'AI ha autonomia totale in un dominio ristretto e verificabile (es. refactor meccanici). Il confine deve essere strettissimo.</li>
+    </ul>
+    <p>Per ogni nodo del workflow nella fabbrica, scegli esplicitamente il pattern. Non lasciarlo al caso. Documentalo nel "AI System Dossier".</p>
+
+    <h3>Prompt versioning: trattare i prompt come codice</h3>
+    <p>Uno dei principi più importanti e più ignorati. I prompt non sono configurazione, non sono dati: <strong>sono logica di business in linguaggio naturale</strong>. Trattarli come codice è non-negoziabile.</p>
+    <p>Strumenti dedicati: <strong>PromptLayer</strong>, <strong>Humanloop</strong>, <strong>Promptfoo</strong> (anche gestione, non solo test). Alternativa che preferisco per semplicità: prompt in file Markdown dentro il repository, versionati con git, caricati runtime con hash in log. Richiede meno infrastruttura e ti dà lo stesso valore.</p>
+    <p>Cosa devi versionare per ogni prompt:</p>
+    <ul>
+      <li>testo del prompt (system + user templates);</li>
+      <li>modello target e parametri (temperature, max tokens);</li>
+      <li>esempi few-shot se usati;</li>
+      <li>schema dell'output atteso;</li>
+      <li>test suite associata (regression tests);</li>
+      <li>changelog con motivo della modifica.</li>
+    </ul>
+    <p>Un cambio di prompt <em>è un deploy</em>. Segue la stessa pipeline del codice: code review, CI su gold set, canary (una percentuale di traffico sulla nuova versione prima di switchare), rollback veloce. Un cambio di prompt "a caldo" senza questo processo è la ricetta perfetta per un incident notturno.</p>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>Il "prompt segreto che nessuno osa toccare". Capita sempre: un prompt è stato craftato da qualcuno mesi fa, sembra funzionare, ma nessuno sa bene perché. Quando cambia il modello o un edge case rompe, il team si trova bloccato. Contromisura: <strong>ogni prompt deve avere un owner</strong>, test di regressione, e un "prompt interview" annuale in cui l'owner riesamina ogni riga e giustifica la sua presenza.</p>
+    </div>
+
+    <h3>Audit trail e replay per compliance enterprise</h3>
+    <p>Chiudiamo il capitolo con l'obiettivo finale della governance: <em>un auditor, domani, mi chiede di ricostruire come è stato prodotto un artefatto di sei mesi fa</em>. Riesco?</p>
+    <p>La risposta positiva richiede la composizione di tutti gli elementi del capitolo.</p>
+    <ol>
+      <li>L'event store (cap. 2) contiene la sequenza delle decisioni.</li>
+      <li>Le tracce OpenTelemetry contengono il dettaglio tecnico di ogni chiamata LLM.</li>
+      <li>I prompt sono versionati, con hash registrato in ogni trace.</li>
+      <li>Il modello è versionato: il provider restituisce il <em>model version</em>, tu lo logghi.</li>
+      <li>Gli artefatti intermedi sono persistiti, non solo quello finale.</li>
+      <li>Le approvazioni umane sono eventi tracciati con identità, timestamp, motivazione opzionale.</li>
+    </ol>
+    <p>Con questi sei elementi, il replay non è magia: è ricostruire la sequenza dal event store, ri-iniettare lo stato, ri-eseguire. Nota: il replay perfetto con LLM a temperature > 0 non è possibile <em>a livello di output byte-per-byte</em>, ma lo è a livello di <em>logica decisionale</em> — che è quello che un auditor vuole davvero capire.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>NIST — <em>AI Risk Management Framework 1.0</em>, 2023, e il Playbook.</li>
+        <li>Regolamento UE 2024/1689 (EU AI Act), almeno i Considerando e l'Articolo 50.</li>
+        <li>Amershi et al. — <em>Guidelines for Human-AI Interaction</em>, CHI 2019.</li>
+        <li>Documentazione Langfuse (self-host, eval, sessions) e OpenTelemetry semantic conventions for GenAI.</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Hai già emesso OpenTelemetry trace dalle prime chiamate LLM? Ogni giorno che aspetti, stai accumulando buco di osservabilità.</li>
+        <li>Il tuo provider LLM è in una region compatibile con le tue policy di data residency?</li>
+        <li>Chi è l'owner dei prompt? Se è "il team AI", ritornaci: serve un nome.</li>
+        <li>Hai già parlato con Legal e Compliance della fabbrica, o stai evitando il discorso? Il costo di coinvolgerli presto è molto minore del costo di farsi stoppare tardi.</li>
+        <li>Per un artefatto di un mese fa, riesci oggi a ricostruirne la storia completa? Fai la prova, non aspettare che te lo chiedano.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch7">
+    <div class="chapter-number">Capitolo 7</div>
+    <h2>Agile e lean per contesti a bassa formalità</h2>
+
+    <p>Questo capitolo è l'unico che parla di persone. Ed è quello che rischia di più: se sbagliate, costruite una fabbrica tecnologicamente impeccabile che nessuno usa, o che viene svuotata di significato dal processo aziendale circostante. La tua scelta dichiarata — <em>ridurre le cerimonie Agile all'osso, concentrarsi sullo sviluppo</em> — è una scelta forte. Va difesa con argomenti solidi, perché incontrerà resistenza.</p>
+
+    <h3>Team Topologies: ridefinire i ruoli quando sono parzialmente agentici</h3>
+    <p>Matthew Skelton e Manuel Pais — <em>Team Topologies</em> (IT Revolution, 2019) è il libro più utile degli ultimi anni per pensare alla struttura di un'organizzazione software. La tesi centrale: l'architettura del software e la struttura dei team sono accoppiate (Conway's Law), quindi la struttura dei team è una <em>leva architetturale</em>. Gli autori propongono quattro tipi di team fondamentali.</p>
+    <ul>
+      <li><strong>Stream-aligned team</strong>: team allineato a un flusso di valore end-to-end. È il tipo dominante.</li>
+      <li><strong>Enabling team</strong>: aiuta altri team a superare ostacoli (know-how specialistico, adozione di pratiche). Temporaneo.</li>
+      <li><strong>Complicated-subsystem team</strong>: team che presidia un sottosistema di alta complessità (un motore di pricing, un crypto-core).</li>
+      <li><strong>Platform team</strong>: fornisce una piattaforma interna che altri team consumano self-service.</li>
+    </ul>
+    <p>La fabbrica agentica, nella tua organizzazione, è una <strong>platform</strong>. Ti serve un piccolo team platform (l'owner della fabbrica + 2-3 ingegneri + 1 knowledge curator) che esponga la fabbrica come servizio interno. Gli stream-aligned team (quelli che presidiano i sistemi legacy) diventano i <em>clienti</em> della fabbrica.</p>
+    <p>Un'aggiunta importante: nel modello classico Team Topologies il "team" è fatto di persone. Nella tua fabbrica, gli "operatori" sono in parte digital twin. Questo non rompe il modello, ma lo arricchisce: ogni digital twin è un <em>collega software</em> del team platform, con un suo prompt-owner umano. Il digital twin non sostituisce un team, lo amplifica.</p>
+
+    <div class="box practice">
+      <div class="box-title">In pratica per la tua fabbrica</div>
+      <p>Disegna un'<strong>interaction map</strong>: chi interagisce con la fabbrica (stream-aligned team dei legacy, security, compliance), con che modalità (API, human console, ticket). Per ogni interazione specifica il <em>cognitive load</em> che imponi al cliente. Il valore principale della fabbrica è ridurre questo carico; se lo aumenta, stai sbagliando.</p>
+    </div>
+
+    <h3>Kanban e Continuous Delivery: flusso continuo vs sprint</h3>
+    <p>Il riferimento sul Kanban applicato al software è David J. Anderson — <em>Kanban: Successful Evolutionary Change for Your Technology Business</em> (Blue Hole, 2010). La tesi: <em>flusso, non iterazione</em>. Invece di ciclare su sprint di due settimane, rendi visibile il lavoro su una board, limita il work-in-progress, misura il lead time, riduci i colli di bottiglia.</p>
+    <p>Per la tua fabbrica — orientata a un flusso continuo di piccole evolutive — Kanban è naturalmente più adatto di Scrum. Quattro motivi.</p>
+    <ul>
+      <li>Le piccole evolutive hanno <em>arrivi continui</em>: non si accumulano bene in sprint.</li>
+      <li>La priorità cambia spesso in base a incident o richieste urgenti.</li>
+      <li>La maggior parte del lavoro è breve (ore o pochi giorni): il ritmo bisettimanale è sovra-dimensionato.</li>
+      <li>Gli SLA di consegna sono più naturalmente espressi come lead time che come velocity.</li>
+    </ul>
+    <p><strong>Continuous Delivery</strong> di Jez Humble e David Farley (Addison-Wesley, 2010) è il complemento tecnico: ogni cambiamento che passa i gate arriva in produzione in modo automatizzato, ripetibile, affidabile. I princìpi si applicano alla fabbrica agentica praticamente senza modifica: pipeline automatizzata, feedback rapido, piccoli batch, automazione di tutto ciò che è automatizzabile, ambiente-come-codice. Il caso della fabbrica è particolare perché parte del "codice" è il prompt (cap. 6): anche lui deve passare la pipeline.</p>
+
+    <h3>La critica di Scrum di Allen Holub</h3>
+    <p>Holub, fra i più autorevoli critici di Scrum, ha articolato una tesi che può sembrare estrema ma merita ascolto: <em>Scrum ha tradito l'agilità originale</em>. L'Agile Manifesto (2001) parlava di "individui e interazioni sopra processi e strumenti"; Scrum è diventato in molte aziende l'esatto opposto — un processo rigido con ruoli certificati, cerimonie obbligatorie, consulenti che fatturano per "fare Scrum bene".</p>
+    <p>Holub propone un ritorno ai fondamentali: flusso continuo (XP, Kanban), pair/mob programming, meno role-play, più ingegneria. Nel tuo contesto a bassa formalità, la critica di Holub è validazione: non stai "rinunciando all'Agile", stai <em>riprendendo</em> una versione di Agile più vicina all'originale. È un argomento retorico potente con stakeholder scettici.</p>
+    <p>Attenzione però: non è vero che "più Scrum è male, meno è bene". Alcune pratiche Scrum sono sensate. La retrospettiva regolare, per esempio — specie in un contesto con agenti — è preziosa per estrarre lezioni. Il rischio di ridurre tutto all'osso è buttare anche la retrospettiva e scoprire dopo sei mesi che stai ripetendo gli stessi errori.</p>
+
+    <h3>Lean Software Development dei Poppendieck</h3>
+    <p>Mary e Tom Poppendieck — <em>Lean Software Development: An Agile Toolkit</em> (2003) — portano il pensiero lean di Toyota al software. Sette princìpi, ciascuno direttamente traducibile nella fabbrica.</p>
+    <ol>
+      <li><strong>Eliminate waste</strong>: tutto ciò che non aggiunge valore al cliente finale è spreco. Nella fabbrica, sono spreco: handoff non necessari, documentazione non letta, riunioni che potrebbero essere un messaggio asincrono, rework dovuto a spec ambigue.</li>
+      <li><strong>Amplify learning</strong>: il software è un'attività di apprendimento. I cicli corti, il feedback rapido, la sperimentazione esplicita amplificano l'apprendimento. Nella fabbrica, il loop di miglioramento dei judge e dei prompt è esattamente questo.</li>
+      <li><strong>Decide as late as possible</strong>: non fissare decisioni prima di avere informazioni. Nella fabbrica, ogni dettaglio tecnico fissato troppo presto è debito. I twin devono essere capaci di <em>proporre alternative</em>, non solo soluzioni singole.</li>
+      <li><strong>Deliver as fast as possible</strong>: lead time corto è un proxy di qualità del processo. La fabbrica deve misurarsi sul lead time end-to-end, non sulla complessità delle sue interne.</li>
+      <li><strong>Empower the team</strong>: dare autonomia a chi fa il lavoro. Nella tua fabbrica, autonomia significa anche agli stream-aligned team: la fabbrica è un servizio, non un giudice.</li>
+      <li><strong>Build integrity in</strong>: qualità incorporata, non aggiunta alla fine. I quality gate del cap. 5 sono questo principio.</li>
+      <li><strong>See the whole</strong>: ottimizzare localmente può pessimizzare globalmente. Se il PO-twin è velocissimo ma produce story che il designer-twin non può usare, il sistema è più lento. Misura il flusso, non i singoli step.</li>
+    </ol>
+
+    <h3>Ripensare le cerimonie invece di replicarle con agenti</h3>
+    <p>Una tentazione insidiosa: replicare le cerimonie Agile con agenti. "Facciamo fare lo standup ai twin!" "Il twin-PM conduce la retrospettiva!" Resisti. È pittoresco, ma non aggiunge valore. Le cerimonie erano <em>soluzioni a problemi di coordinamento umano</em>; se il coordinamento lo fa un orchestratore software, i problemi sono diversi e le soluzioni sono altre.</p>
+    <p>Ripensa così:</p>
+    <ul>
+      <li><strong>Invece dello standup</strong>: una dashboard che mostra lo stato di ogni ticket in pipeline, con alert su blocchi > X ore. Gli umani consultano asincronicamente.</li>
+      <li><strong>Invece del planning</strong>: backlog prioritizzato dal PO umano (non dal PO-twin) una volta a settimana, con regole chiare di triage per ingressi urgenti.</li>
+      <li><strong>Invece della retrospettiva per ogni sprint</strong>: retrospettiva mensile, ma con <em>dati quantitativi</em> aggregati dai trace (lead time, tasso di rework per tipo di twin, tasso di approvazione al primo giro). L'AI prepara la pre-lettura, gli umani decidono i cambiamenti.</li>
+      <li><strong>Invece della review di sprint</strong>: demo continue — ogni artefatto approvato è "demo-ready". Stakeholder si auto-servono nella console quando vogliono vedere lo stato.</li>
+      <li><strong>Invece del refinement</strong>: il PO-twin produce draft di story; il PO umano fa refinement asincrono in un batch settimanale. Non serve una riunione dedicata.</li>
+    </ul>
+
+    <div class="box risk">
+      <div class="box-title">Rischio da evitare</div>
+      <p>Il "silenzio che sembra efficienza". Eliminando cerimonie, rischi anche di eliminare i momenti in cui emergono segnali deboli — un membro del team che dice "qualcosa non mi convince". Il Kanban flusso continuo è bravo a mostrare i blocchi espliciti; è meno bravo a far emergere disagio tacito. Contromisura: una <em>retrospettiva mensile fissa</em> non saltabile, anche breve (45 minuti), con agenda "cosa non sta funzionando che i dati non mostrano?".</p>
+    </div>
+
+    <h3>Argomenti per difendere scelte radicali con stakeholder</h3>
+    <p>La conversazione difficile arriva sempre: un direttore PMO o un responsabile di program management ti chiede perché non state facendo Scrum "come tutti gli altri". Quattro argomenti, testati sul campo.</p>
+    <p><strong>Primo, il contesto</strong>: Scrum nasce per prodotto nuovo con team cross-funzionale e flusso batch. Il tuo contesto è diverso (piccole evolutive continue, team piccolo, dipendenza da legacy). Usare Scrum qui è come usare waterfall per uno startup: non è religione, è fit.</p>
+    <p><strong>Secondo, la metrica condivisa</strong>: propose di misurare quello che il business vuole misurare (lead time, throughput, tasso di difetti in produzione, costo per evolutiva). Se i numeri sono buoni o migliori di un benchmark Scrum, la discussione finisce.</p>
+    <p><strong>Terzo, il linguaggio</strong>: non dire "non facciamo Agile". Dì "facciamo flow-based delivery, derivato da Kanban e Lean, con pratiche XP come pair programming sui cambiamenti critici". Parla il linguaggio che gli stakeholder agili riconoscono.</p>
+    <p><strong>Quarto, la porta aperta</strong>: niente è per sempre. "Se fra tre mesi le metriche peggiorano, revisioniamo". Questo riduce la percezione di rischio e ti dà la possibilità di aggiustare.</p>
+
+    <h3>Un modello di team concreto per la fabbrica</h3>
+    <p>Per concretezza, ecco un modello di team di fabbrica a basso costo che ho visto funzionare.</p>
+    <ul>
+      <li><strong>Factory Lead</strong> (1): owner complessivo, decide direzione, parla con stakeholder.</li>
+      <li><strong>Platform Engineers</strong> (2): costruiscono e mantengono orchestrazione, memoria, console, observability. Uno dei due è anche prompt engineer.</li>
+      <li><strong>Knowledge Curator</strong> (1, part-time 0.5): cura la bibbia, glossario, system memory. Può essere un analista senior interno, non serve un profilo AI.</li>
+      <li><strong>Domain Expert</strong> (rotazione, 0.2-0.5 FTE): un esperto di dominio dei sistemi legacy, disponibile per consulenza e validazione. Ruota fra gli stream-aligned team.</li>
+    </ul>
+    <p>Totale: 3.5-4 FTE per la piattaforma. È un team piccolo ma rigoroso. Se parti con meno, il progetto si spegne; se parti con molto di più, diventa un programma politico difficile da difendere.</p>
+
+    <div class="box reading">
+      <div class="box-title">Letture prioritarie per questo capitolo</div>
+      <ul>
+        <li>Skelton &amp; Pais — <em>Team Topologies</em>, IT Revolution 2019.</li>
+        <li>David Anderson — <em>Kanban</em>, Blue Hole 2010.</li>
+        <li>Humble &amp; Farley — <em>Continuous Delivery</em>, Addison-Wesley 2010.</li>
+        <li>Mary &amp; Tom Poppendieck — <em>Lean Software Development</em>, 2003.</li>
+        <li>Articoli e talk di Allen Holub (YouTube) per la critica di Scrum.</li>
+      </ul>
+    </div>
+
+    <div class="box questions">
+      <div class="box-title">Domande aperte per il tuo contesto</div>
+      <ol>
+        <li>Chi sarà il Factory Lead? Senza un owner esplicito, la fabbrica è un progetto senza casa.</li>
+        <li>Con quali stream-aligned team lavorerai nei primi 6 mesi? Scegliere i clienti-pilota giusti è più importante dello stack tecnologico.</li>
+        <li>Quali metriche di flusso misurerai fin dalla v1? Se non le hai, non puoi difendere le tue scelte.</li>
+        <li>Hai già avuto la conversazione "perché non Scrum" con lo sponsor? Se no, non prenderlo come un rischio evitato: prenotala.</li>
+        <li>Come fai emergere i segnali deboli in un flusso senza cerimonie? Dacci una risposta esplicita, non confidare solo nel buon senso.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="chapter" id="ch8">
+    <div class="chapter-number">Capitolo 8</div>
+    <h2>Sintesi e decisioni architetturali chiave</h2>
+
+    <p>I sette capitoli precedenti ti hanno dato il vocabolario e gli argomenti. Questo capitolo serve da <em>scheda decisionale</em>: per ogni trade-off principale, un'indicazione operativa per il tuo contesto specifico — fabbrica per piccole evolutive su legacy, team piccolo, bassa formalità, compliance enterprise.</p>
+
+    <p>Le indicazioni non sono leggi. Sono <em>default</em> ragionevoli. Ogni volta che devi deviare, assicurati di avere una ragione esplicita.</p>
+
+    <h3>La tabella dei trade-off principali</h3>
+
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Trade-off</th>
+          <th>Opzioni</th>
+          <th>Indicazione per il tuo contesto</th>
+          <th>Cap.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Workflow deterministico vs agente autonomo</td>
+          <td>Workflow · Agente autonomo · Workflow con isole autonome</td>
+          <td>Default: workflow deterministico per tutti i twin. Isole di autonomia solo dove serve esplorazione di codebase sconosciuto, sempre con Plan-and-Execute e checkpoint umano.</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Framework di orchestrazione</td>
+          <td>LangGraph · CrewAI · AutoGen · Custom</td>
+          <td>LangGraph (o un equivalente grafo-esplicito). CrewAI solo se il team è avverso al codice.</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Stateful vs stateless agenti</td>
+          <td>Stateful in-process · Stateless reducer con event store</td>
+          <td>Stateless reducer. Stato fuori, agente puro. Sbloccate replay, audit, test.</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Durable execution</td>
+          <td>Temporal · Airflow · Prefect · Custom on DB</td>
+          <td>Temporal se vi potete permettere la curva. Prefect come compromesso. Evita "custom on DB".</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Modello di dati lato business</td>
+          <td>CRUD classico · Event sourcing · CQRS</td>
+          <td>Event sourcing per artefatti e decisioni. CRUD per operational data. Proiezioni per le viste.</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Memoria: retrieval dei documenti</td>
+          <td>Embedding-based · Graph-based · Ibrido</td>
+          <td>Ibrido: embedding per chunk testuali e documentazione narrativa; graph per codebase e relazioni fra entità.</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Code RAG</td>
+          <td>Embedding · tree-sitter/AST · LSP/SCIP · Ibrido</td>
+          <td>tree-sitter + indexer custom per legacy, con embedding come fallback. LSP dove supportato.</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Framework di memoria</td>
+          <td>Mem0 · Letta · Cognee · LangMem · Custom</td>
+          <td>Letta-inspired (core/recall/archival) su storage proprio. Framework diretto solo se MVP.</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Formato delle specifiche</td>
+          <td>Testo libero · Gherkin/BDD · Schema JSON · Markdown strutturato</td>
+          <td>Markdown strutturato + Gherkin obbligatorio negli scenari. JSON come payload di handoff fra twin.</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Ubiquitous Language</td>
+          <td>Informale · Glossario separato · Glossario versionato in repo</td>
+          <td>Glossario versionato in git, iniettato nei system prompt dei twin. Ownership esplicita.</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Quality gate</td>
+          <td>Solo deterministico · Solo LLM judge · Triangolato (det + judge + human)</td>
+          <td>Triangolato. Gate deterministico veloce, judge LLM con costituzione, review umana campionaria 5-10%.</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Modalità del judge LLM</td>
+          <td>Rubric-based · Pairwise · Ibrido</td>
+          <td>Rubric-based per gate operativo. Pairwise in fase di tuning dei prompt.</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>Observability</td>
+          <td>Log solo · OpenTelemetry standard · Piattaforma LLM specializzata</td>
+          <td>OpenTelemetry GenAI + Langfuse self-hosted. Zero eccezioni fin dalla v1.</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>Versioning dei prompt</td>
+          <td>Costanti nel codice · Tool dedicato · Markdown in git</td>
+          <td>Markdown in git. Tool dedicato (PromptLayer) solo se emergono esigenze di A/B a runtime.</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>Compliance e governance</td>
+          <td>Minimo legale · AI System Dossier volontario · Framework completo NIST</td>
+          <td>AI System Dossier da subito. Allineamento a NIST AI RMF progressivo. EU AI Act: prepara la mappa dei casi high-risk.</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>Processo</td>
+          <td>Scrum · Kanban · Flow-based Lean · Misto</td>
+          <td>Kanban con pratiche Lean. Retrospettiva mensile non saltabile. Niente sprint, niente stand-up formale.</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <td>Struttura del team</td>
+          <td>Embedded nel team cliente · Platform team indipendente · Centro di eccellenza</td>
+          <td>Platform team piccolo (3.5-4 FTE) con Domain Expert in rotazione.</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <td>Cerimonie Agile</td>
+          <td>Standard · Ridotte · Ripensate da zero</td>
+          <td>Ripensate: dashboard al posto dello standup, batch asincrono al posto del planning, demo continue al posto della sprint review.</td>
+          <td>7</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Cinque scelte che tengono in piedi tutto</h3>
+    <p>Se dovessi scremare ulteriormente, le cinque scelte che hanno effetto strutturale — quelle per cui non vale la pena comprare il dibattito settimanale — sono le seguenti.</p>
+    <ol>
+      <li><strong>Stateless reducer + event store</strong>. Cap. 2. Se la fabbrica non è costruita così dal giorno uno, refattorizzarlo dopo è un progetto di 3-6 mesi. Fanne il dogma architetturale.</li>
+      <li><strong>Workflow prima, agente autonomo dopo</strong>. Cap. 1. Il 90% dei twin saranno workflow. Partire "autonomo" ha costo alto e rischio alto.</li>
+      <li><strong>Bibbia versionata come linguaggio condiviso</strong>. Cap. 4. È il singolo artefatto che riduce di più la varianza fra twin.</li>
+      <li><strong>OpenTelemetry + Langfuse dal giorno uno</strong>. Cap. 6. Ogni settimana senza observability è un mese di recupero forense dopo.</li>
+      <li><strong>Kanban flow-based con retrospettiva mensile</strong>. Cap. 7. Il modello di processo abilita o strangola la velocità operativa.</li>
+    </ol>
+
+    <h3>Ordine suggerito di implementazione</h3>
+    <p>La prioritizzazione classica: non costruire tutto in parallelo, costruisci in strati.</p>
+    <ul>
+      <li><strong>Mese 1</strong>: event store, orchestrazione durevole base, observability OpenTelemetry, un solo twin (PO-twin) con workflow deterministico semplice, bibbia v0.</li>
+      <li><strong>Mese 2-3</strong>: secondo twin (analyst-twin), quality gate triangolato base, system memory su uno o due moduli legacy pilota, dashboard di flusso.</li>
+      <li><strong>Mese 4-6</strong>: designer-twin, knowledge graph codice, PMO-twin leggero, AI System Dossier completo, prime metriche di flusso condivise con stakeholder.</li>
+      <li><strong>Oltre</strong>: isole di autonomia dove serve, A/B testing di prompt, estensione a più sistemi legacy, retrospettive con dati aggregati.</li>
+    </ul>
+
+    <h3>Cosa misurare per sapere se funziona</h3>
+    <p>Una short list di metriche operative da monitorare, da subito o appena possibile.</p>
+    <ul>
+      <li><strong>Lead time end-to-end</strong> da ingresso ticket a chiusura: mediana e 90° percentile.</li>
+      <li><strong>Tasso di approvazione al primo tentativo</strong> per ogni tipo di artefatto: se scende sotto il 60%, c'è un problema di prompt o di qualità input.</li>
+      <li><strong>Tasso di rework</strong>: percentuale di artefatti che tornano indietro dopo il gate umano.</li>
+      <li><strong>Costo per artefatto</strong>: token + infra. Se diverge dal trend, indaga.</li>
+      <li><strong>Incident AI-related</strong>: quante volte un output ha causato un problema (ticket riaperto, bug in produzione, reclamo). Obiettivo: tendenza decrescente nel tempo.</li>
+      <li><strong>Net Promoter Score interno</strong>: dagli stream-aligned team. Trimestrale. Metrica umana, insostituibile.</li>
+    </ul>
+
+    <h3>Un'ultima riflessione</h3>
+    <p>Nessuno di questi sette capitoli ti dice <em>cosa</em> fare se la fabbrica, una volta costruita, inizierà a cambiare il modo in cui l'azienda pensa al software. Questo è il vero territorio inesplorato. Una fabbrica agentica funzionante non è solo uno strumento: è un'organizzazione nuova dentro l'organizzazione. Le persone che la useranno svilupperanno intuizioni che oggi non hai. Gli stakeholder ti chiederanno cose che oggi non immagini. Gli errori emergeranno in modi che la tua architettura del 2026 non ha previsto.</p>
+    <p>L'unica difesa a lungo termine contro l'imprevedibile è la <strong>capacità di cambiare il sistema</strong>. Event sourcing, workflow durevoli, prompt versionati, memoria separata da esecuzione — tutte queste scelte non sono solo tecniche: sono l'infrastruttura della tua capacità di adattare la fabbrica quando l'azienda cambierà direzione. Ed è certo che cambierà.</p>
+    <p>Costruisci prima la capacità di cambiare. Il resto segue.</p>
+
+    <div class="box questions">
+      <div class="box-title">Domande finali</div>
+      <ol>
+        <li>Delle cinque scelte strutturali, quale ti sembra più a rischio nel tuo contesto? Mettila in cima all'agenda del prossimo mese.</li>
+        <li>Quali di queste metriche sei in grado di misurare entro 30 giorni? Quelle sono le tue baseline.</li>
+        <li>Chi, nella tua azienda, dovrebbe leggere questa guida oltre a te? Condividerla con due o tre persone chiave accelera l'allineamento.</li>
+        <li>A sei mesi, come saprai di avere avuto successo? Scrivi oggi la definizione, rileggila poi.</li>
+      </ol>
+    </div>
+
+    <hr class="sep">
+    <h3>Conclusione</h3>
+    <p>La fabbrica agentica, se costruita bene, non è una rivoluzione: è una <em>composizione intelligente</em> di pratiche note. Sistemi distribuiti degli anni 2000, DDD di Evans, Kanban di Anderson, Lean dei Poppendieck, Constitutional AI di Anthropic, osservabilità moderna di OpenTelemetry. Nessuno dei mattoni è nuovo. Nuovo è il fatto che gli LLM ti permettono di automatizzare <em>ruoli cognitivi</em> che prima costavano umani senior a tempo pieno.</p>
+    <p>Questo vantaggio competitivo è reale ma fragile. Reale perché, nel tuo contesto — piccole evolutive continue su legacy, risorse umane limitate — la differenza fra fare zero e fare qualcosa di agentico è enorme. Fragile perché basta poca disciplina ingegneristica mancante per trasformarlo in un pasticcio. La linea che separa il successo dal fallimento è fine, e passa soprattutto nella scelta <em>di non farsi sedurre dall'hype</em>.</p>
+    <p>I sette temi di questa guida sono le sette discipline che, messe insieme, tengono la fabbrica in piedi. Il capitolo 8 è la tua bussola per le decisioni quotidiane. Usala, modificala, mettila in discussione. E soprattutto: <em>costruisci</em>. La migliore guida teorica è inutile senza il primo ticket processato da un twin reale, con un umano che guarda e dice "ok, va bene".</p>
+    <p>Buon viaggio.</p>
+  </section>
+
+  <div class="footer">Fine del documento · Guida di studio offline · Aprile 2026</div>
+</main>
+
+<button class="back-top" id="back-top" aria-label="Torna su">↑</button>
+
+<script>
+(function() {
+  var theme = 'dark';
+  var toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('click', function() {
+    theme = (theme === 'dark') ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', theme);
+    toggle.textContent = (theme === 'dark') ? '☀ chiaro' : '☾ scuro';
+  });
+
+  var bar = document.getElementById('progress-bar');
+  var backTop = document.getElementById('back-top');
+  var current = document.getElementById('current-chapter');
+  var chapters = [];
+
+  function refreshChapters() {
+    chapters = Array.prototype.slice.call(document.querySelectorAll('section.chapter'));
+  }
+  refreshChapters();
+
+  function onScroll() {
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop || document.body.scrollTop);
+    var height = h.scrollHeight - h.clientHeight;
+    var pct = height > 0 ? (scrolled / height) * 100 : 0;
+    bar.style.width = pct + '%';
+    if (scrolled > 400) backTop.classList.add('visible');
+    else backTop.classList.remove('visible');
+
+    // current chapter detection
+    var fromTop = scrolled + 80;
+    var active = null;
+    for (var i = 0; i < chapters.length; i++) {
+      if (chapters[i].offsetTop <= fromTop) active = chapters[i];
+    }
+    if (active) {
+      var h2 = active.querySelector('h2');
+      if (h2) current.textContent = h2.textContent;
+    } else {
+      current.textContent = 'Fabbrica Agentica — Guida di Studio';
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function() { refreshChapters(); onScroll(); });
+  onScroll();
+
+  backTop.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Re-scan chapters if content is added dynamically (not used but defensive)
+  window.__refreshChapters = function() { refreshChapters(); onScroll(); };
+})();
+</script>
+</body>
+</html>
