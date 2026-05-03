@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Superpowers di obra — Analisi e funzionamento</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #161a22;
+      --surface-2: #1f2632;
+      --border: #2a3242;
+      --text: #e6edf3;
+      --muted: #9aa5b1;
+      --accent: #7c5cff;
+      --accent-2: #22d3ee;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --code-bg: #0b0e14;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #0b0e14 0%, #0f1115 60%, #0b0e14 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header.hero {
+      padding: 64px 24px 48px;
+      text-align: center;
+      background:
+        radial-gradient(1200px 400px at 50% -100px, rgba(124, 92, 255, 0.25), transparent 70%),
+        radial-gradient(800px 300px at 80% 0, rgba(34, 211, 238, 0.18), transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    header.hero h1 {
+      font-size: 2.6rem;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, #c7b8ff 60%, #7dd3fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    header.hero p.lead {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    header.hero .badges {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .badge strong { color: var(--text); }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    section {
+      margin: 40px 0;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin: 0 0 14px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      width: 6px;
+      height: 22px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      border-radius: 3px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+
+    p { color: #cbd5e1; }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    @media (max-width: 800px) {
+      .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
+      header.hero h1 { font-size: 2rem; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: #3a4456;
+    }
+
+    .card .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(124, 92, 255, 0.15);
+      color: #c7b8ff;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .workflow {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      position: relative;
+      padding: 16px 18px 16px 64px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b0e14;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step h3 { margin-bottom: 4px; }
+    .step p { margin: 0; color: var(--muted); }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 800px) { .principles { grid-template-columns: 1fr; } }
+
+    .principle {
+      background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .principle .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(34, 211, 238, 0.12);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    pre, code.inline {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      color: #d6e1ee;
+    }
+
+    code.inline {
+      background: rgba(124, 92, 255, 0.12);
+      color: #c7b8ff;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th { background: var(--surface-2); color: var(--muted); font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+
+    .callout {
+      border-left: 4px solid var(--warning);
+      background: rgba(245, 158, 11, 0.08);
+      padding: 14px 16px;
+      border-radius: 8px;
+      color: #fde68a;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .pill-list li {
+      padding: 6px 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #d6e1ee;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Superpowers</h1>
+    <p class="lead">
+      Un framework di skill agentiche e una metodologia di sviluppo software pensata per agenti di
+      coding, creata da <strong>Jesse Vincent</strong> (Prime Radiant) e ospitata su GitHub come
+      <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">obra/superpowers</a>.
+    </p>
+    <div class="badges">
+      <span class="badge">Repository: <strong>obra/superpowers</strong></span>
+      <span class="badge">Licenza: <strong>MIT</strong></span>
+      <span class="badge">Linguaggi: <strong>Shell · JS · Python · TS</strong></span>
+      <span class="badge">Compatibile con: <strong>Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Copilot CLI</strong></span>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Che cos'è</h2>
+      <p>
+        <strong>Superpowers</strong> è una metodologia completa di sviluppo software per agenti
+        di coding, costruita sopra un insieme di <em>skill componibili</em> e di istruzioni
+        iniziali che assicurano che l'agente le utilizzi. L'obiettivo è trasformare un agente
+        AI da semplice generatore di codice in un collaboratore disciplinato che segue
+        processi sistematici, basati su evidenze e su Test-Driven Development.
+      </p>
+      <p>
+        A differenza degli approcci ad hoc, Superpowers spinge l'agente a <strong>fermarsi
+        prima di scrivere codice</strong>: chiarisce i requisiti, redige una specifica, la
+        suddivide in task brevi (2–5 minuti) e li esegue tramite sub-agenti con cicli di
+        review integrati.
+      </p>
+    </section>
+
+    <section>
+      <h2>Principi fondamentali</h2>
+      <div class="principles">
+        <div class="principle">
+          <div class="icon">🧪</div>
+          <h3>Test-Driven Development</h3>
+          <p>Ciclo rigoroso RED → GREEN → REFACTOR, con test scritti prima del codice di
+            produzione.</p>
+        </div>
+        <div class="principle">
+          <div class="icon">🧭</div>
+          <h3>Processo &gt; Improvvisazione</h3>
+          <p>Workflow strutturato in fasi anziché tentativi ed errori. Ogni step è
+            documentato e revisionabile.</p>
+        </div>
+        <div class="principle">
+          <div class="icon">✂️</div>
+          <h3>Semplicità (YAGNI &amp; DRY)</h3>
+          <p>Niente codice non richiesto, niente duplicazioni. Verifica empirica al posto di
+            affermazioni di successo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Il workflow in 6 fasi</h2>
+      <div class="workflow">
+        <div class="step">
+          <h3>Brainstorming</h3>
+          <p>L'agente fa domande chiarificatrici, esplora alternative e presenta il design a
+            blocchi leggibili. Salva un design document.</p>
+        </div>
+        <div class="step">
+          <h3>Git Worktrees</h3>
+          <p>Crea un workspace isolato su un nuovo branch, esegue il setup del progetto e
+            verifica una baseline di test pulita.</p>
+        </div>
+        <div class="step">
+          <h3>Planning</h3>
+          <p>Suddivide il lavoro in task da 2–5 minuti, scritti in modo "abbastanza chiaro
+            per un junior engineer entusiasta".</p>
+        </div>
+        <div class="step">
+          <h3>Subagent-Driven Development</h3>
+          <p>Un sub-agente fresco per ogni task, con review in due stadi: conformità alla
+            spec e qualità del codice.</p>
+        </div>
+        <div class="step">
+          <h3>TDD enforcement</h3>
+          <p>Ogni implementazione segue il ciclo RED-GREEN-REFACTOR; le anti-pattern vengono
+            riconosciute e bloccate.</p>
+        </div>
+        <div class="step">
+          <h3>Code Review &amp; Finishing</h3>
+          <p>Verifiche finali, decisioni di merge e chiusura ordinata del branch di
+            sviluppo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>La libreria di skill</h2>
+      <p>
+        Le <em>skill</em> sono moduli atomici che vengono attivati automaticamente in base al
+        contesto. Sono raggruppate per area funzionale.
+      </p>
+      <div class="grid cols-3">
+        <div class="card">
+          <span class="tag">Testing &amp; Debugging</span>
+          <h3>Qualità del codice</h3>
+          <ul class="pill-list">
+            <li>test-driven-development</li>
+            <li>systematic-debugging</li>
+            <li>verification-before-completion</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Collaborazione</span>
+          <h3>Workflow di team</h3>
+          <ul class="pill-list">
+            <li>brainstorming</li>
+            <li>writing-plans</li>
+            <li>executing-plans</li>
+            <li>dispatching-parallel-agents</li>
+            <li>requesting-code-review</li>
+            <li>receiving-code-review</li>
+            <li>using-git-worktrees</li>
+            <li>finishing-a-development-branch</li>
+            <li>subagent-driven-development</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Meta</span>
+          <h3>Estensione del sistema</h3>
+          <ul class="pill-list">
+            <li>writing-skills</li>
+            <li>using-superpowers</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Struttura del repository</h2>
+      <table>
+        <thead>
+          <tr><th>Percorso</th><th>Contenuto</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="inline">.claude-plugin/</code></td><td>Integrazione con Claude Code</td></tr>
+          <tr><td><code class="inline">.codex-plugin/</code></td><td>Integrazione con OpenAI Codex CLI/App</td></tr>
+          <tr><td><code class="inline">.cursor-plugin/</code></td><td>Integrazione con Cursor</td></tr>
+          <tr><td><code class="inline">agents/</code></td><td>Configurazioni di agenti</td></tr>
+          <tr><td><code class="inline">skills/</code></td><td>Moduli skill principali</td></tr>
+          <tr><td><code class="inline">commands/</code></td><td>Comandi CLI</td></tr>
+          <tr><td><code class="inline">docs/</code></td><td>Documentazione (incluso README per piattaforma)</td></tr>
+          <tr><td><code class="inline">tests/</code></td><td>Suite di test</td></tr>
+          <tr><td><code class="inline">scripts/</code></td><td>Script di utilità</td></tr>
+          <tr><td><code class="inline">AGENTS.md</code> / <code class="inline">CLAUDE.md</code> / <code class="inline">GEMINI.md</code></td><td>Specifiche per piattaforma</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Installazione</h2>
+      <p>
+        Superpowers è disponibile sui marketplace ufficiali e su quello della community. Per
+        Claude Code, l'installazione tipica avviene tramite il comando di plugin:
+      </p>
+      <pre><code>/plugin install superpowers@claude-plugins-official</code></pre>
+
+      <p>Piattaforme supportate:</p>
+      <ul class="pill-list">
+        <li>Claude Code (marketplace ufficiale)</li>
+        <li>Superpowers Marketplace</li>
+        <li>OpenAI Codex CLI &amp; App</li>
+        <li>Cursor</li>
+        <li>OpenCode</li>
+        <li>GitHub Copilot CLI</li>
+        <li>Gemini CLI</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Come funziona in pratica</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>1. Discovery, non coding</h3>
+          <p>L'agente non parte dal codice: estrae una specifica dalla conversazione,
+            la presenta in chunk leggibili e attende l'approvazione dell'utente.</p>
+        </div>
+        <div class="card">
+          <h3>2. Piano dettagliato</h3>
+          <p>Il piano è esplicito, eseguibile e suddiviso in task atomici, perché ogni
+            sub-agente possa lavorare in modo indipendente.</p>
+        </div>
+        <div class="card">
+          <h3>3. Esecuzione autonoma</h3>
+          <p>Una volta approvato il piano, gli agenti possono lavorare per ore senza
+            deviare, perché ogni passo è vincolato a test e review automatici.</p>
+        </div>
+        <div class="card">
+          <h3>4. Verifica empirica</h3>
+          <p>Nessun task è completato finché test, lint e verifiche pre-completamento non
+            confermano il risultato. "Successo" è dimostrato, non dichiarato.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Quando usarlo</h2>
+      <div class="callout">
+        Superpowers brilla quando il problema è abbastanza grande da giustificare un piano
+        (refactor, feature multi-file, debugging sistematico). Per modifiche banali può
+        risultare sovradimensionato: in quel caso conviene ricadere su un workflow lineare
+        senza sub-agenti.
+      </div>
+    </section>
+
+    <section>
+      <h2>Riferimenti</h2>
+      <ul>
+        <li>Repository principale:
+          <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener">github.com/obra/superpowers</a>
+        </li>
+        <li>Skills della community:
+          <a href="https://github.com/obra/superpowers-skills" target="_blank" rel="noopener">obra/superpowers-skills</a>
+        </li>
+        <li>Marketplace plugin:
+          <a href="https://github.com/obra/superpowers-marketplace" target="_blank" rel="noopener">obra/superpowers-marketplace</a>
+        </li>
+        <li>Skill sperimentali:
+          <a href="https://github.com/obra/superpowers-lab" target="_blank" rel="noopener">obra/superpowers-lab</a>
+        </li>
+        <li>Articolo di Jesse Vincent:
+          <a href="https://blog.fsck.com/2025/10/09/superpowers/" target="_blank" rel="noopener">blog.fsck.com — Superpowers</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Documento generato automaticamente come analisi del repository <strong>obra/superpowers</strong>.
+    Contenuti basati su README, struttura del repo e materiali ufficiali.
+  </footer>
+</body>
+</html>
