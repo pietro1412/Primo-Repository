@@ -8,7 +8,7 @@ Il magazzino era freddo di un freddo di pietra, che non viene dall'aria ma dai m
 
 Il maestro Aldo Pieri arrivò con il primo chiarore, il quaderno sotto il cappotto per l'umido e la matita dietro l'orecchio. Aveva sessantatré anni e scriveva ancora come se qualcuno dovesse correggergli i compiti. Il tavolo a cavalletto, accanto alla porta, aveva una gamba corta, rincalzata con una tessera di plastica piegata in due, bianca, con una banda scura e dei numeri a rilievo. Aldo posò il quaderno, lo aprì, lo fermò con un sasso.
 
-«Più freddo del solito» disse, «per la data.»
+«Più freddo del solito» disse.
 
 «Settembre» disse Corrado.
 
@@ -66,7 +66,7 @@ Gliene fece dare due colpi. Il secondo ruppe il legno quasi dritto.
 
 * * *
 
-Nel pomeriggio arrivarono i meno pronti: le famiglie dei campi alti, con le carriole a una ruota che saltavano sulle pietre, quelli che fino all'ultimo avevano sperato che il sacco crescesse strada facendo. Il vento girò verso le tre e portò dentro la polvere della pula; Aldo spostò il sasso sul quaderno, poi un secondo sasso. Ines Bellandi, che si era fatta portare una sedia vicino alla porta e teneva la gamba malata distesa su uno sgabello, seguì tutto senza dire una parola. Sulle ginocchia teneva il Libro, grosso, con la copertina di tela scura, lisa agli angoli, e non lo aprì mai: i totali, dal quaderno di Aldo, li avrebbe scritti lì dentro lei, dopo la pesatura, a luce di giorno e davanti a testimoni.
+Nel pomeriggio arrivarono i meno pronti: le famiglie dei campi alti, con le carriole a una ruota che saltavano sulle pietre, quelli che fino all'ultimo avevano sperato che il sacco crescesse strada facendo. Il vento girò verso le tre e portò dentro la polvere della pula; Aldo spostò il sasso sul quaderno, poi un secondo sasso. Ines Bellandi, che si era fatta portare una sedia vicino alla porta e teneva la gamba malata distesa su uno sgabello, seguì tutto senza dire una parola. Sulle ginocchia teneva il Libro, grosso, con la copertina di tela scura, lisa agli angoli, e non lo aprì mai: i totali, dal quaderno di Aldo, li avrebbe scritti lì dentro lei, l'indomani, a luce di giorno e davanti a testimoni.
 
 Un bambino dei campi alti, mentre il padre scioglieva la legatura, affondò la mano nel sacco e si mise in bocca una manciata di chicchi. La madre lo schiaffeggiò sul polso, forte; poi gli aprì la mano con due dita, guardò quanti ne erano rimasti, e glieli lasciò mangiare. Il bambino masticò a lungo, con gli occhi sulla stadera.
 
@@ -90,7 +90,7 @@ Aldo fece la somma a modo suo, non come l'avrebbe fatta Corrado: con il pollice 
 
 «Il trenta» disse Corrado.
 
-In tutti gli anni di pesature era la prima volta che diceva un numero prima che la matita ci arrivasse. Gli era uscito di bocca senza che potesse fermarlo, e per non lasciarlo lì in mezzo al magazzino, si chinò a sganciare il gancio dalla stadera e a scioglierlo dalla catena, e lo avvolse con cura in un panno. Il maestro non scrisse niente. Lo guardò un po' più a lungo del necessario.
+In tutti gli anni di pesature era la prima volta che diceva un numero prima che la matita ci arrivasse. Gli era uscito di bocca senza che potesse fermarlo, e per non lasciarlo lì in mezzo al magazzino, si chinò a staccare il gancio del carico dall'ultima maglia della catena, e avvolse il gancio, con cura, in un panno. Il maestro non scrisse niente. Lo guardò un po' più a lungo del necessario.
 
 «Il trenta» ripeté Aldo, piano, e scrisse sotto la colonna, a matita: *meno trenta*. Poi chiuse il quaderno con una mano sola, senza batterlo.
 
@@ -112,7 +112,7 @@ Nel cassetto c'erano lo spago, due mozziconi di matita, un metro da sarta arroto
 
 Corrado prese lo spago. Il cassetto si chiuse con lo stesso suono di sempre.
 
-Legò le stecche in un mazzo, con due giri e un nodo. Poi rimase seduto e, senza carta né matita, rifece da capo quello che sapeva già. Quattrocentotrentaquattro staia pesate. Per arrivare a San Giorgio, a voler essere larghi, ne mancavano sessantasei. Sessantasei, senza il seme: quello stava fuori dal conto, in sacchi a parte, messo via prima di tutto il resto.
+Legò le stecche in un mazzo, con due giri e un nodo. Poi rimase seduto e, senza carta né matita, rifece da capo quello che sapeva già. Quattrocentotrentaquattro staia pesate. Ne servivano cinquecento per arrivare a San Giorgio, a voler essere larghi; ne mancavano sessantasei. Sessantasei, senza il seme: quello stava fuori dal conto, in sacchi a parte, messo via prima di tutto il resto.
 
 Sessantasei: in qualche casa dei campi alti, a febbraio, una madia aperta e richiusa piano, per non svegliare i bambini, e una mano che resta sul coperchio.
 
