@@ -8,13 +8,13 @@ Lingua di lavoro e del libro: **italiano**, salvo diversa indicazione nella sche
 
 Da compilare con l'autore prima di scrivere qualsiasi capitolo. Finché i campi sono vuoti, la chat main li chiede all'autore (poche domande alla volta) e poi li registra qui.
 
-- Titolo di lavoro:
-- Genere / categoria:
-- Pubblico di riferimento:
-- Premessa in una frase:
-- Punto di vista e tempo narrativo (o, per la saggistica, tesi centrale):
-- Tono e registro:
-- Lunghezza obiettivo (parole / capitoli):
+- Titolo di lavoro: (da definire)
+- Genere / categoria: narrativa distopica / fantascienza
+- Pubblico di riferimento: adulti, lettori di narrativa
+- Premessa in una frase: In un mondo in cui un'IA controlla ogni apparecchio tecnologico e internet, i pagamenti online sono diventati impossibili per le frodi e l'umanità è tornata alle campagne e alla terra; il protagonista intuisce come ricreare un equilibrio.
+- Punto di vista e tempo narrativo (o, per la saggistica, tesi centrale): terza persona con più punti di vista (protagonista e altri personaggi, da definire se anche l'IA), passato
+- Tono e registro: malinconico con speranza crescente; lirico ma concreto
+- Lunghezza obiettivo (parole / capitoli): romanzo breve, circa 60-80k parole, 20-30 capitoli
 - Riferimenti stilistici (libri o autori affini):
 - Cose da evitare:
 
