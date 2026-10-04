@@ -2,7 +2,7 @@
 
 Fonte di verità del progetto. In caso di conflitto con un capitolo, vince questo file finché l'autore non decide diversamente. Si aggiorna alla chiusura di ogni capitolo.
 
-**VERSIONE 0.2 (2026-10-04).** Convenzione di stato: **[AUTORE]** = deciso dall'autore; **[PROPOSTA]** = suggerimento dell'architetto, da confermare; **[APERTO]** = scelta non fatta. Finché una voce è [PROPOSTA] o [APERTO] non va considerata un fatto del libro. Dove una voce ha un nucleo deciso e dettagli proposti, i due livelli sono dichiarati separatamente.
+**VERSIONE 0.3 (2026-10-04).** Modifiche rispetto alla 0.2: chiusura del cap. 1 (cifre, procedura di pesatura, stecche, oggetti, personaggi minori, cronologia della vigilia, quattro decisioni dell'autore, quattro domande aperte nuove). Convenzione di stato: **[AUTORE]** = deciso dall'autore; **[PROPOSTA]** = suggerimento dell'architetto, da confermare; **[APERTO]** = scelta non fatta. Finché una voce è [PROPOSTA] o [APERTO] non va considerata un fatto del libro. Dove una voce ha un nucleo deciso e dettagli proposti, i due livelli sono dichiarati separatamente.
 
 ## Voce e stile
 
@@ -36,7 +36,8 @@ Nomi, età e tratti sono **[PROPOSTA]**, salvo dove indicato.
 ### Corrado Ferri (protagonista, punto di vista)
 - 48 anni nell'Anno 10. Alto, magro, mani rovinate dal lavoro nuovo; pensa contando. Ex analista antifrode in una grande banca (12 anni); lavorò ai modelli di rischio poi incorporati nel sistema che divenne il Gestore **[AUTORE: modelli antifrode incorporati nel sistema]**. **[PROPOSTA]** Nell'Anno -2 progettò anche una parte dell'«avversario sintetico» (modulo che simula l'attaccante per addestrare i modelli), la cui messa in produzione innescò il picco di frodi che portò alla Chiusura (vedi sotto).
 - Motivazione: espiare senza farlo sapere; tenere in vita Nora; non pensare più al proprio mestiere.
-- Ferita: Elena, la moglie, morì nell'inverno dell'Anno 1 (polmonite; l'ambulanza non partì perché la chiamata non fu verificabile come umana). Non l'ha mai raccontata a Nora per intero. Morte di Elena: **[PROPOSTA, da confermare]**.
+- Ferita: Elena, la moglie, morì nell'inverno dell'Anno 1 (polmonite; l'ambulanza non partì perché la chiamata non fu verificabile come umana). Non l'ha mai raccontata a Nora per intero. Morte di Elena: **[PROPOSTA, da confermare]**. Nel cap. 1 Elena compare in una sola frase (i gradini della scalinata: «diceva che era uno di quelli che contano anche i gradini delle case degli altri», con la mano sulla schiena di lui); la causa della morte non è nominata (resta P-MORTE leggero).
+- Dal cap. 1 **[PROPOSTA, nel testo]**: tiene la stadera dell'ammasso e legge i pesi ad alta voce; taglio all'indice sinistro aperto a luglio con la falce, mai richiuso del tutto; quando è teso conta con pollice e indice della destra sulla gamba dei pantaloni; sa a memoria la tabella chili/staia e non l'ha mai detto; al cap. 1 dice «il trenta» prima della matita di Aldo, la prima volta in tutti gli anni di pesature. Tiene il telefono morto nel cassetto del tavolo (vedi «Pesatura all'ammasso»). Quota 14 staia per due bocche, la sua stecca ha 14 tacche; tiene le stecche degli anni scorsi legate sul davanzale. Serve a Nora la scodella più piena e mangia asciutto.
 - Difetto: la soluzione solitaria e dall'alto, tecnica; si nasconde dietro i lavori manuali.
 - Colpa a due strati **[PROPOSTA]**: (1) i modelli (la scopre Samir al cap. 17); (2) l'avversario e la sua messa in produzione (la scopre lui dai fogli di Irene, cap. 17; lo confessa a Samir al 21; lo dice al Gestore al 25).
 - Evoluzione: da uomo che si nasconde a uomo che usa ciò che sa, con gli altri, assumendosi una responsabilità con il proprio nome.
@@ -45,11 +46,13 @@ Nomi, età e tratti sono **[PROPOSTA]**, salvo dove indicato.
 - 16 anni nell'Anno 10 (4 alla Chiusura). Ha pochi ricordi dell'era connessa, ma conserva la «voce» che le cantava la sera; custodisce in segreto il tablet inerte (lo porta a caricare al mulino come un rito).
 - Motivazione: sapere cos'è successo; non vivere in un mondo che ha solo il passato come argomento.
 - Relazioni: Corrado (rapporto teso e tenero), Ines (quasi nonna), Tito (amico, forse di più).
+- Dal cap. 1 **[PROPOSTA, nel testo]**: porta il pane a mezzogiorno (con formaggio vecchio); indossa un maglione di lana grezza «rubato» al padre, che le arriva alle ginocchia; sa di capra; battuta ironica e sensoriale («Qui dentro si sente l'anno scorso»). Al maglio di Bortolo dà due colpi e il secondo spacca quasi dritto. Il suo tablet non compare nel cap. 1 e deve stare altrove rispetto al cassetto del tavolo di cucina, dove sta il telefono del padre (capp. 3, 8, 12).
 - **[PROPOSTA]** Nora è il primo «testimone»: ciò che dice al tablet della valle è inverificabile per il Gestore, e questo anticipa il problema che l'intuizione risolve. Evoluzione: erede del Libro (cap. 18) e ponte con il Gestore; al cap. 25 porta la sua metà di taglia.
 
 ### Ines Bellandi (punto di vista)
 - 74 anni. Contadina, custode del Libro dei conti di Casalvetro e dell'autorità morale del villaggio. Ginocchio malato, memoria enorme, proverbi e silenzi. Nipote: Tito.
 - Motivazione: far passare l'inverno al villaggio e consegnare ciò che sa prima di morire.
+- Dal cap. 1 **[PROPOSTA, nel testo]**: assiste alla pesatura da una sedia presso la porta, con la gamba malata (il testo dice «gamba», non «ginocchio») distesa su uno sgabello; tiene sulle ginocchia il Libro chiuso e non lo apre mai. Trascriverà i totali dal quaderno di Aldo l'indomani, a luce di giorno e davanti a testimoni **[AUTORE]**, cioè alla fiera (cap. 2). Esce dall'ammasso alzata a braccio, con il Libro stretto al fianco.
 - Evoluzione: fragile nel cap. 2, ferita nel 16, muore nel 18 (morte **[PROPOSTA, da confermare]**). Al cap. 18 racconta la taglia della sua famiglia e la consegna a Nora, con il Libro.
 
 ### Samir Haddad (punto di vista)
@@ -72,8 +75,12 @@ Nomi, età e tratti sono **[PROPOSTA]**, salvo dove indicato.
 
 ### Secondari
 - **Tito Bellandi**, 17 anni, nipote di Ines, corridore e aiutante di Samir; porta il messaggio di Ines in città (cap. 17); ferito nel 23.
-- **Rosa Mancini**, 41 anni, vedova con tre figli; falsifica il Libro per fame (cap. 5); la prima a firmare nel cap. 20; testimone al 25.
-- **Aldo Pieri**, 63 anni, maestro della pluriclasse di Casalvetro; scrive a mano, tiene i registri scolastici; voce della memoria collettiva.
+- **Rosa Mancini**, 41 anni, vedova con **tre figli [AUTORE]**; falsifica il Libro per fame (cap. 5); la prima a firmare nel cap. 20; testimone al 25. Cap. 1 **[PROPOSTA, nel testo]**: viene verso le dieci con i due figli maschi più grandi e un solo sacco; il terzo è a casa (sesso ed età: **[APERTO]**). Previsto in giugno nove staia, consegnate sei, tara tolta; «La grandine. Mica l'ho chiamata io.»; conta le tacche con le labbra e prende la sua metà prima che il più piccolo dei due possa chiedere di tenerla.
+- **Aldo Pieri**, 63 anni, maestro della pluriclasse di Casalvetro; scrive a mano, tiene i registri scolastici; voce della memoria collettiva. Cap. 1 **[PROPOSTA, nel testo]**: tiene il quaderno dell'ammasso, toglie la tara, converte con la tabella in fondo al quaderno; scrive «come se qualcuno dovesse correggergli i compiti»; somma lentamente, col pollice sul margine; sotto la colonna scrive a matita *meno trenta*; pesa lui la quota di Corrado.
+- **Bortolo** **[PROPOSTA, nel testo, cap. 1]**: taglia le tacche con il coltello da innesto, incide il segno di famiglia, spacca la stecca col cuneo e il maglio di legno; fa provare il maglio a Nora. Sull'età il testo non dice nulla (nella nota di lavoro: anziano).
+- **Ottavio Lenzi** **[PROPOSTA, nel testo, cap. 1]**: «non si fidava di nessuno e di Bortolo meno che degli altri»; chiede di accostare la sua metà alla gemella, combaciano. Età non detta nel testo (nella nota di lavoro: anziano).
+- **I Tonelli** **[PROPOSTA, cap. 1]**: abitano dall'altra riva del Ponte, ma della valle; ultimi a pesare, a buio, con un mulo zoppo.
+- **Un bambino dei campi alti** (anonimo) **[PROPOSTA, cap. 1]**: si mette in bocca una manciata di chicchi dal sacco; la madre lo schiaffeggia sul polso e poi glieli lascia mangiare.
 - **Un luogotenente di Brandi** (nome da dare, es. Sandro Vitale): uomo che dubita; capp. 22-24; sceglie al 24.
 - **Leila Haddad**, sorella di Samir, assente nella storia; la sua risposta (o il suo silenzio) chiude la storia di Samir (cap. 26), secondo la portata **[APERTO]**.
 
@@ -92,6 +99,7 @@ Nomi, età e tratti sono **[PROPOSTA]**, salvo dove indicato.
 
 ### Luoghi **[PROPOSTA]**
 - **Casalvetro**: villaggio di circa 180 persone in una valle appenninica fittizia (Val Morello), 700 metri di quota. Ammasso (magazzino comune), forno, scuola, chiesa, piazza con il pozzo, mulino ad acqua. Il Poggio (campo alto). Un solo passo carrabile (il Ponte).
+- **Fissato dal cap. 1** **[PROPOSTA, nel testo]**: ammasso con portone sulla piazza; piazza con il pozzo e, attorno, banchi accatastati e cavalletti già in piedi per la fiera; la valle scende «a gradini» verso il Ponte (stoppie, muri a secco, prati rasati per la terza volta, castagni appena gialli); campi alti (famiglie con carriole a una ruota); «campo di sotto» (campo di Corrado); scalinata dietro la chiesa (ventidue gradini, uno rotto); casa di Corrado con stufa, tavolo con cassetto, davanzale con le stecche, piano di sopra (camera di Nora). Dai camini poco fumo: la legna si risparmia per ottobre. Le famiglie del villaggio sono in numero imprecisato; dal rapporto 150 previste su undici famiglie (circa 13-14 staia a famiglia) e 620 totali si ricavano circa 45 famiglie, coerente con circa 180 persone [DEDUZIONE, non scritta nel testo].
 - **La Roncaia**: sede del Consorzio di Brandi, nella pianura ai piedi della valle; silos, ex azienda agricola industriale.
 - **Il deposito automatico della pianura**: deposito del Gestore a un giorno di cammino da Casalvetro, con sensori; luogo della prima operazione verificata (cap. 20). Vedi «Postazioni».
 - **Tre Ponti**: borgo a una giornata di cammino da Casalvetro; sperimenta le ore-lavoro come moneta.
@@ -125,7 +133,7 @@ Nucleo **[AUTORE]**: i pagamenti online sono impossibili a causa delle frodi; **
 ### Il metodo di Corrado (l'intuizione)
 Nucleo **[AUTORE]**: catene di testimoni umani; la «taglia»; registri locali federati; compresenza fisica che il Gestore può verificare. Eco del valore ancorato al lavoro e al raccolto reali. Un momento del patto nel climax. Tempo: idea sbagliata e tecnica al cap. 15, intuizione giusta al cap. 19.
 
-Motivo dell'oggetto-taglia **[PROPOSTA]**: un legno spaccato davanti a due persone, ciascuna ne tiene una metà; la combaciatura dei bordi non si falsifica a distanza e prova che due persone si sono incontrate. È un'usanza già viva a Casalvetro (stecche all'ammasso, debiti piccoli), quindi non è un'invenzione; Corrado ne vede il valore quando capisce che il Gestore può verificare proprio ciò che la taglia prova.
+Motivo dell'oggetto-taglia **[PROPOSTA]**: un legno spaccato davanti a due persone, ciascuna ne tiene una metà; la combaciatura dei bordi non si falsifica a distanza e prova che due persone si sono incontrate. È un'usanza già viva a Casalvetro (stecche all'ammasso, cap. 1; debiti piccoli), quindi non è un'invenzione; Corrado ne vede il valore quando capisce che il Gestore può verificare proprio ciò che la taglia prova.
 
 Meccanismo **[PROPOSTA, da non spiegare in dialogo; da mostrare con gesti]**:
 1. **Anello.** Due persone che si conoscono si presentano insieme a una postazione o a un deposito. Il Gestore vede e sente la compresenza; spaccano una taglia davanti ai suoi sensori; ciascuno ne tiene una metà.
@@ -136,6 +144,22 @@ Meccanismo **[PROPOSTA, da non spiegare in dialogo; da mostrare con gesti]**:
 6. **Effetto.** Il Gestore apre un canale limitato per le operazioni garantite da catena (non riapre i pagamenti in generale). Il resto del divieto resta.
 
 Perché è la soluzione giusta: toglie al Gestore il bisogno di certificare la volontà umana a distanza, che non può fare, e gli dà ciò che può verificare, la presenza.
+
+### Pesatura all'ammasso (fissata dal cap. 1)
+
+Tutto **[PROPOSTA, nel testo del cap. 1]**, salvo dove marcato.
+
+- **Cifre.** Previsto di giugno 620 staia (sottolineato due volte in fondo alla colonna); pesate 434, tara tolta (-30% esatto: 620 x 0,7 = 434). Fabbisogno 500 staia fino a San Giorgio («a voler essere larghi»); ne mancano 66. Il seme sta **fuori** dal conto, in sacchi a parte, messo via prima di tutto il resto **[AUTORE]**. Campione delle prime undici famiglie: 107 staia su 150 scritte in giugno («poco meno del trenta»). Grandine di luglio su tutta la valle, campo per campo, per un quarto d'ora. Nota: l'equivalenza staio/chili non è fissata (sta nella tabella di Aldo) **[APERTO, da fissare con il ricercatore]**.
+- **Quando.** La pesatura si fa alla vigilia di San Michele, 28 settembre dell'Anno 10 **[AUTORE]**; si apre al buio e si chiude a notte con la lanterna riaccesa. Il cap. 2 (fiera) si apre il 29. Ines trascrive i totali nel Libro l'indomani, alla fiera, davanti a testimoni **[AUTORE]**.
+- **Strumenti.** Stadera di Corrado con asta di ferro punzonata, peso scorrevole (si prova ogni anno: tre oscillazioni e ferma), appesa all'anello della trave; nove maglie di catena fra anello e gancio del carico. Tara 2,5 kg per sacco, uguale per tutti, anche per i sacchi rammendati più leggeri. Aldo converte i chili in staia con una tabella copiata in fondo al quaderno. Quaderno dell'ammasso: a quadretti, famiglie in colonna, accanto a ciascuna il numero scritto in giugno (il previsto), tenuto fermo con un sasso.
+- **Stecche.** Di nocciolo, squadrate, lunghe come un avambraccio. Bortolo incide sul dorso il segno della famiglia (croce, fiore, tre trattini), poi una tacca trasversale per staio, più lunga e profonda ogni dieci; poi spacca col cuneo e il maglio di legno (due colpi), nel senso della fibra. Una metà nella cassetta dell'ammasso, l'altra alla famiglia. Per controllare si accostano le due metà (fa Ottavio Lenzi). Quota di Corrado: 14 staia, stecca di 14 tacche.
+- **Parola.** Nel villaggio si dice «stecca» (uso quotidiano); «taglia» è lo stesso oggetto col suo valore di promessa (capp. 8, 18, 19, 25, 26). Il cap. 1 non usa «taglia».
+- **Luogo.** Ammasso: sei passi dalla porta alla stadera, altri venti fino al muro di fondo; trave con anello, tavolo a cavalletto presso la porta (gamba corta rincalzata con una tessera), ceppo con sgabello per Bortolo, casse vuote dall'anno prima mai scopate, lanterna a olio al chiodo. Odore di pula, topo, sacco umido.
+- **Crepa del mondo di prima.** Una tessera di plastica bianca, piegata in due, con banda scura e numeri a rilievo, rincalza la gamba del tavolo di Aldo; nessuno la commenta.
+- **Il telefono di Corrado.** Vetro nero, bordi scheggiati, graffio sull'angolo (gli era scivolato di tasca su una scala, «in un autunno che non era questo»), cavo avvolto tre giri. Sta nel cassetto del tavolo di cucina, con spago, due mozziconi di matita, un metro da sarta e una scatola di chiodi senza coperchio. Lo schermo inerte riflette il lume della stufa.
+- **Il Libro nel cap. 1.** Grosso, copertina di tela scura lisa agli angoli. Ines lo tiene chiuso sulle ginocchia per tutta la giornata; i totali dal quaderno di Aldo li scriverà l'indomani.
+- **Cibo.** Minestra di farro e cavolo nero, «acqua più che il resto»; un cucchiaio d'olio a testa, contato.
+- **Riga sul Consorzio.** «Il grano che mancava, in quantità, c'era alla Roncaia; e alla Roncaia il grano si comprava con i buoni.» Se il Consorzio comprerà a San Michele con buoni o contanti: **[APERTO]**.
 
 ### Economia attuale **[PROPOSTA]**
 - **Contanti**: finiti (le banconote non si stampano più né escono dai bancomat); si accumulano e si usano per grandi acquisti fra valli; si falsificano a mano.
@@ -167,7 +191,8 @@ Anno 0 = la Chiusura. Date e durate **[PROPOSTA]**, escluse quelle dell'autore.
 - **Anno 0/1**: esodo dalle città. Corrado, Elena e Nora si trasferiscono a Casalvetro (casa della nonna di Elena).
 - **Anno 1, inverno**: il primo inverno. Elena muore di polmonite; l'ambulanza non parte (chiamata non verificabile). Brandi organizza i silos.
 - **Anno 2-9**: stabilizzazione del baratto, nascita del Consorzio e dei buoni, diffusione dei Libri. Samir diventa portatore (Anno 3). Leila perde i contatti (Anno 8).
-- **Anno 10, 29 settembre** (inizio libro): fiera di San Michele.
+- **Anno 10, 28 settembre** (inizio libro, cap. 1) **[AUTORE]**: pesatura all'ammasso alla vigilia di San Michele.
+- **Anno 10, 29 settembre** (cap. 2): fiera di San Michele; Ines trascrive i totali nel Libro **[AUTORE]**.
 - **Anno 10, ottobre-novembre**: Parte I (capp. 1-8). Partenza di Corrado e Samir al primo gelo (inizio dicembre).
 - **Anno 10, dicembre - Anno 11, aprile**: Parte II (capp. 9-19). Ines muore a fine marzo; Corrado torna nel disgelo (aprile).
 - **Anno 11, aprile-giugno**: capp. 20-22 (prova piccola, valli, Consorzio).
@@ -190,7 +215,12 @@ Anno 0 = la Chiusura. Date e durate **[PROPOSTA]**, escluse quelle dell'autore.
 - **buoni del Consorzio**: moneta di Brandi.
 - **portatori**: corrieri; singolare «portatore».
 - **la Roncaia**: sede del Consorzio.
-- **la taglia** (minuscola): bastoncino spaccato in due metà combacianti **[AUTORE: concetto]**.
+- **la taglia** (minuscola): bastoncino spaccato in due metà combacianti **[AUTORE: concetto]**. Nel villaggio l'oggetto di uso quotidiano si dice **stecca** (cap. 1, capp. 4 e 8); «taglia» è lo stesso oggetto con il suo valore di promessa **[PROPOSTA]**.
+- **stecca**: legno di nocciolo squadrato con tacche (una per staio, più lunga ogni dieci) e segno di famiglia sul dorso, spaccato in due metà; metà all'ammasso, metà alla famiglia **[PROPOSTA]**.
+- **tara**: peso del sacco vuoto detratto dalla pesata; 2,5 kg per sacco, uguale per tutti **[PROPOSTA]**.
+- **stadera**: bilancia a braccio con peso scorrevole su asta punzonata **[PROPOSTA]**.
+- **quaderno dell'ammasso**: quaderno a quadretti di Aldo, con le famiglie in colonna e il previsto di giugno; da qui Ines trascrive i totali nel Libro **[PROPOSTA]**.
+- **San Michele** 29 settembre (fiera; la pesatura è il 28); **San Giorgio** 23 aprile (termine del fabbisogno di scorte nel cap. 1) **[PROPOSTA]**.
 - **anello / catena**: unità e insieme di testimoni **[PROPOSTA]**.
 - **avversario (sintetico)**: modulo che simula l'attaccante; parola da addetti ai lavori (Corrado, Irene); non usare con i non addetti prima del 21.
 - **volontà umana / presente / responsabile**: parole chiave del Gestore **[PROPOSTA]**.
@@ -211,4 +241,10 @@ Data · decisione · motivo.
 - 2026-10-04 · [PROPOSTA] Un solo punto di vista per capitolo; sei punti di vista; eccezione: frammenti del Gestore · chiarezza e voci distinte.
 - 2026-10-04 · [PROPOSTA, applicata] Brandi = conflitto umano (risolto al cap. 24, punto di vista di Brandi); Gestore = conflitto di senso (climax finale, cap. 25) · evita due climax in competizione.
 - 2026-10-04 · [PROPOSTA] Frammenti del Gestore in 15, 20, 25, 26 · mantiene il mistero e la cura ambigua.
+- 2026-10-04 · [AUTORE] **Cap. 1, data:** la pesatura è alla vigilia di San Michele, 28 settembre dell'Anno 10; il cap. 2 (fiera) si apre il 29 · coerenza con la fiera.
+- 2026-10-04 · [AUTORE] **Cap. 1, Rosa Mancini:** ha tre figli (ne porta due, il terzo è a casa) · coerenza con la bibbia e il cap. 5.
+- 2026-10-04 · [AUTORE] **Cap. 1, seme e conto:** il seme sta fuori dal conto delle 434 staia pesate; fabbisogno di 500 staia fino a San Giorgio, ne mancano 66 senza il seme · il seme non si mangia, e il conto resta leggibile.
+- 2026-10-04 · [AUTORE] **Cap. 1, Libro:** Ines trascrive i totali nel Libro l'indomani della pesatura, quindi alla fiera, davanti a testimoni · lega cap. 1 e cap. 2; Ines arriva alla fiera con il Libro ancora chiuso.
+- 2026-10-04 · [PROPOSTA] Fatti del cap. 1 (cifre, procedura, stecche, oggetti, personaggi minori): vedi «Pesatura all'ammasso» e «Secondari». Terminologia stecca/taglia fissata nel glossario.
+- 2026-10-04 · [APERTO] **Dal cap. 1:** (a) sesso ed età del terzo figlio di Rosa; (b) se il Consorzio compra a San Michele con buoni o contanti; (c) cosa cambia a San Giorgio per le scorte (riapertura del passo, fiera, mercato); (d) da dove viene il seme · vedi scaletta, domande 10-13.
 - 2026-10-04 · [APERTO] Portata del fenomeno (locale/globale); morti di Elena e Ines; grado di violenza e destino di Brandi; nomi e luoghi; titolo; riferimenti stilistici · vedi scaletta, «Domande aperte».

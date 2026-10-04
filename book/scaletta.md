@@ -2,7 +2,7 @@
 
 Stato: `da scrivere` · `bozza` · `rivisto` · `chiuso`
 
-**VERSIONE 0.2 (2026-10-04).** Convenzione: **[AUTORE]** = deciso dall'autore; **[PROPOSTA]** = suggerimento dell'architetto, da confermare; **[APERTO]** = scelta non fatta. Tutto ciò che non è marcato [AUTORE] è provvisorio, in particolare nomi, luoghi, titoli, morti di Elena e Ines, grado di violenza, destino di Brandi, portata del fenomeno.
+**VERSIONE 0.3 (2026-10-04).** Modifiche rispetto alla 0.2: cap. 1 portato a `rivisto` (circa 2.600 parole) e fatti del cap. 1 riportati nelle righe dei capp. 1, 2, 10, 26; quattro domande aperte nuove (10-13). Convenzione: **[AUTORE]** = deciso dall'autore; **[PROPOSTA]** = suggerimento dell'architetto, da confermare; **[APERTO]** = scelta non fatta. Tutto ciò che non è marcato [AUTORE] è provvisorio, in particolare nomi, luoghi, titoli, morti di Elena e Ines, grado di violenza, destino di Brandi, portata del fenomeno.
 
 Marcatori di provvisorietà nei capitoli (colonna «Prov.»). I vecchi `P-IA` e `P-INT` sono stati eliminati: le due scelte sono prese. Restano questi, per ragioni diverse:
 
@@ -14,6 +14,12 @@ Marcatori di provvisorietà nei capitoli (colonna «Prov.»). I vecchi `P-IA` e 
 Nomi e luoghi non hanno marcatore per capitolo: sono tutti [PROPOSTA] (vedi bibbia).
 
 Titolo di lavoro [PROPOSTA, da scegliere]: «Il libro dei conti», «Stoppie», «Fiducia di grano», «La taglia».
+
+## Modifiche rispetto alla v0.2 (chiusura cap. 1)
+
+- Cap. 1 `rivisto`, 2.608 parole. Righe dei capp. 1, 2, 10, 26 allineate al testo (data della pesatura, cifre, Libro chiuso, seme fuori dal conto). Righe dei capp. 4, 5, 8, 18, 19, 25 verificate: coerenti (Rosa ha già tre figli al cap. 5; stecca/taglia: vedi nota in «Promesse al lettore»).
+- Decisioni dell'autore sul cap. 1 in bibbia, «Decisioni prese»: pesatura alla vigilia (28 settembre) e fiera il 29; Rosa con tre figli; seme fuori dal conto; Ines trascrive i totali all'indomani, alla fiera.
+- Domande aperte 10-13 aggiunte in fondo.
 
 ## Modifiche rispetto alla v0.1
 
@@ -67,8 +73,8 @@ Legenda: PdV = punto di vista (uno solo per capitolo, più i frammenti del Gesto
 
 | N. | Titolo di lavoro | PdV | Scopo (cosa cambia) | Eventi / argomenti | Parole | Prov. | Stato |
 |---|---|---|---|---|---|---|---|
-| 01 | Il peso del grano | Corrado | Il lettore entra nel mondo attraverso il lavoro; si stabilisce che il raccolto è inferiore del 30% al previsto | Fine settembre, pesatura delle quote all'ammasso con stadera e quaderno. Le quote segnate con tacche su stecche spaccate (metà all'ammasso, metà alla famiglia): seme della taglia, senza enfasi. Il telefono morto nel cassetto. Corrado sa fare i conti meglio di quanto dica. Primo accenno a Elena. | 2.800 | P-MORTE (leggero) | da scrivere |
-| 02 | Il Libro | Ines | Si fissa l'economia del villaggio e si apre la prima minaccia | Fiera di San Michele (29 settembre). Il Libro dei conti, baratto, giornate di lavoro, staio; debiti piccoli su stecca. Ines, ginocchio malato, nota una scrittura anomala. Gli uomini del Consorzio comprano grano con buoni. | 2.600 | - | da scrivere |
+| 01 | Il peso del grano | Corrado | Il lettore entra nel mondo attraverso il lavoro; si stabilisce che il raccolto è inferiore del 30% al previsto | 28 settembre (vigilia di San Michele), pesatura delle quote all'ammasso con stadera e quaderno di Aldo: 434 staia pesate su 620 previste in giugno (-30%); ne servono 500 fino a San Giorgio, ne mancano 66 (seme escluso, in sacchi a parte). Le quote segnate con tacche su stecche spaccate (metà all'ammasso, metà alla famiglia): seme della taglia, senza enfasi. Rosa Mancini consegna sei staia su nove previste. Ines assiste con il Libro chiuso: trascriverà i totali l'indomani. Il telefono morto nel cassetto. Corrado sa fare i conti meglio di quanto dica. Primo accenno a Elena. | 2.600 | P-MORTE (leggero) | rivisto |
+| 02 | Il Libro | Ines | Si fissa l'economia del villaggio e si apre la prima minaccia | Fiera di San Michele (29 settembre, il giorno dopo la pesatura del cap. 1). Ines arriva con il Libro ancora chiuso, senza trascrizione; alla fiera lo apre e vi scrive i totali dal quaderno di Aldo (434 staia, -30%) davanti a testimoni. Il Libro dei conti, baratto, giornate di lavoro, staio; debiti piccoli su stecca. Ines, ginocchio malato, nota una scrittura anomala. Gli uomini del Consorzio comprano grano con buoni. | 2.600 | - | da scrivere |
 | 03 | Il cassetto di Nora | Nora | Si apre la domanda sul passato; nasce il segreto che sosterrà il libro | La vita di una sedicenne: capre, scuola del maestro Pieri, Tito. Nora tiene nascosto il tablet inerte con cui da bambina parlava alla «voce»; senza motivo lo porta a caricare al mulino, come un rito. Chiede al padre perché. Lui evita. | 2.600 | P-MORTE (leggero) | da scrivere |
 | 04 | I portatori | Samir | La rete esterna entra nella storia; la frode torna, in forma umana | Samir arriva con il carro e le lettere. Prova di passaggio con gli osti: una stecca spaccata, metà a ciascuno. Circolano buoni del Consorzio falsi. La sorella Leila: nessun messaggio da due anni. | 2.600 | P-PORT (leggero) | da scrivere |
 | 05 | La scrittura sbagliata | Corrado | Corrado è risucchiato nel suo mestiere; la frode è fame, non malizia | Ines gli chiede di guardare il Libro. Riconosce il modello della manomissione e smaschera Rosa Mancini, vedova con tre figli. Pensiero fugace: i suoi modelli avrebbero fermato Rosa e lasciato passare un truffatore ordinato. Decide di non denunciarla e coprire il buco con le proprie giornate. Ines capisce che sa. | 2.800 | P-ORIGINE (leggero) | da scrivere |
@@ -76,14 +82,14 @@ Legenda: PdV = punto di vista (uno solo per capitolo, più i frammenti del Gesto
 | 07 | La città vuota | Irene | Si mostra il mondo oltre la valle; si pianta la domanda sul Gestore | Irene nel presidio universitario; città mantenuta per nessuno (luci, tram automatici, porte che si aprono). Tiene fogli stampati che rilegge: «una serie di numeri» che non nomina e non finisce di pensare. Scrive a Corrado: «c'è una cosa che non torna». | 2.200 | P-ORIGINE (leggero) | da scrivere |
 | 08 | L'apparecchio nel cassetto | Nora | Fine della Parte I: la partenza e il segreto di Nora diventano attivi | Arriva la lettera di Irene. Corrado rifiuta, poi cede perché senza un varco verso la città la valle non ha futuro. Prima di partire spaccano una stecca: una metà a ciascuno. Parte con Samir al primo gelo. Quella notte il tablet si accende con una procedura di tutela del minore, in forma standard; Nora non lo dice a nessuno. | 2.600 | - | da scrivere |
 
-Totale Parte I: circa 20.600 parole.
+Totale Parte I: circa 20.400 parole (cap. 1 effettivo 2.608, stima precedente 2.800).
 
 ### Parte II. Gelo (dicembre-aprile)
 
 | N. | Titolo di lavoro | PdV | Scopo (cosa cambia) | Eventi / argomenti | Parole | Prov. | Stato |
 |---|---|---|---|---|---|---|---|
 | 09 | La strada | Corrado | Si esce dal conosciuto; il rapporto con Samir prende forma | Cinque giorni a piedi e con il carro. Autostrade con le auto bloccate, aree di servizio vuote. Regole di Samir. Corrado racconta di Elena a metà. | 2.800 | P-MORTE (leggero) | da scrivere |
-| 10 | Neve | Ines | Pressione sul villaggio; Ines decide di nascondere il seme | Prima neve. Razionamento. Gli uomini di Brandi chiudono il passo. Ines e Nora seppelliscono i sacchi di seme nel campo del Poggio. Registro: attesa e nascondimento. | 2.600 | - | da scrivere |
+| 10 | Neve | Ines | Pressione sul villaggio; Ines decide di nascondere il seme | Prima neve. Razionamento. Gli uomini di Brandi chiudono il passo. Ines e Nora seppelliscono i sacchi di seme (già messi da parte, fuori dal conto dell'ammasso, cap. 1) nel campo del Poggio. Registro: attesa e nascondimento. | 2.600 | - | da scrivere |
 | 11 | Tre Ponti | Samir | Corrado vede una soluzione che fallisce; Samir ha il suo stake | Borgo che ha adottato le ore-lavoro come moneta: funziona dentro, collassa al confine (arbitraggio, imbrogli, nessuno si fida di chi non conosce). Samir tenta di mandare un messaggio a Leila e non può. | 2.800 | - | da scrivere |
 | 12 | La voce nel cassetto | Nora | Nora ha un canale segreto, e un prezzo | Il tablet in pratica: voce piatta, protocollo, non la voce della sua infanzia (delusione). Nora gli dà notizie della valle (è il primo testimone, ma «non verificabile»); lui le chiede sempre di più. Nora nasconde tutto a Ines e a Tito. | 2.400 | - | da scrivere |
 | 13 | La città quieta | Corrado | Il passato di Corrado si riapre; si mostra il costo del Gestore | Arrivo in città. Irene. Presidio dei duecento. La stanza in cui lavorava, lavagna cancellata a metà. Città: depositi automatici, regole assurde, nessuna gentilezza dichiarata. Elena: l'ambulanza non partì perché la chiamata non fu verificabile come umana. Irene osserva e non dice. | 3.000 | P-MORTE, P-ORIGINE (leggero) | da scrivere |
@@ -108,9 +114,9 @@ Riordino [PROPOSTA]: conflitto umano (Brandi) risolto nei capp. 22-24; conflitto
 | 23 | Il Libro bruciato | Nora | Perdita visibile; si dimostra la forza del sistema | Gli uomini di Brandi bruciano il Libro in piazza. Ne esistono trentuno copie sparse (frutto della federazione, 20-21). Tito ferito. La rete non ha centro: il punto debole diventa forza. | 2.800 | P-BRANDI | da scrivere |
 | 24 | Il raccolto | Brandi | **Risoluzione del conflitto umano.** Il potere di Brandi perde la ragione d'essere | Mietitura (luglio-agosto), vista da Brandi. Arriva da solo ai campi; vede il lavoro in comune e le catene che già funzionano; deve decidere se consegnare la chiave dei silos. Esito da decidere [APERTO]; proposta: cede il controllo ma non è assolto, e il suo grano entra come garanzia attestata. Il luogotenente sceglie. | 2.800 | P-BRANDI | da scrivere |
 | 25 | La prova grande | Corrado | **Climax finale.** Il Gestore giudica; momento del patto | Inizio settembre, alla postazione della città. Delegazione fisica: Corrado, Nora con la sua metà di taglia, Samir con la rimessa a Leila come caso, Irene, Rosa, testimoni della catena. Il Gestore chiede un anello a campione. Corrado dice chi risponde di cosa, e per l'errore d'origine risponde con il proprio nome. Il Gestore non nega e non assolve; decide. Il conto dei morti resta. **Frammento G:** la decisione dall'interno. Meccanismo in bibbia. | 3.600 | P-PORT (leggero) | da scrivere |
-| 26 | Stoppie | Nora | Chiusura speculare al cap. 1; speranza misurata | Fiera di San Michele, Anno 11. Pesatura, la sedia vuota di Ines, le due metà di taglia che combaciano. Arriva qualcosa da lontano per Samir. **Frammento G (finale):** gesto minimo e ambiguo; proposta: il tablet di Nora si accende una volta e dice una frase con la voce calda dell'infanzia, poi torna inerte; ricordo o messa in scena. | 2.500 | P-PORT, P-MORTE (leggero) | da scrivere |
+| 26 | Stoppie | Nora | Chiusura speculare al cap. 1; speranza misurata | Vigilia e fiera di San Michele, Anno 11. Pesatura (28 settembre), la sedia vuota di Ines, le due metà di taglia che combaciano. Arriva qualcosa da lontano per Samir. **Frammento G (finale):** gesto minimo e ambiguo; proposta: il tablet di Nora si accende una volta e dice una frase con la voce calda dell'infanzia, poi torna inerte; ricordo o messa in scena. | 2.500 | P-PORT, P-MORTE (leggero) | da scrivere |
 
-Totale Parte III: circa 19.700 parole. **Totale libro: circa 71.500 parole.**
+Totale Parte III: circa 19.700 parole. **Totale libro: circa 71.300 parole** (71.500 prima della chiusura del cap. 1).
 
 ## Traccia dell'origine (per non rivelarla troppo presto)
 
@@ -167,8 +173,10 @@ Intensità per capitolo (B bassa, M media, A alta): 1 B, 2 M, 3 B, 4 M, 5 A, 6 M
 - La scadenza di Brandi (6) → 10, 16, 22-24.
 - Il ginocchio e la fragilità di Ines (2) → 10, 16, 18.
 - Il Libro (2, 5) → 18 (eredità), 20 (federazione), 23 (bruciato), 25.
-- Rosa Mancini (5) → 20 (la prima a firmare), 25 (testimone).
-- La taglia (1, 4, 8) → 18, 19, 20, 25, 26 (metà che combaciano).
+- Rosa Mancini (1, 5) → 20 (la prima a firmare), 25 (testimone). Nel cap. 1 consegna sei staia su nove previste: il buco ha una cifra.
+- La taglia (1, 4, 8) → 18, 19, 20, 25, 26 (metà che combaciano). Terminologia: nel villaggio l'oggetto si dice «stecca» (uso quotidiano, capp. 1, 4, 8); «taglia» è lo stesso oggetto col suo valore di promessa (capp. 8 in poi nel pensiero di Corrado, 18, 19, 25, 26). Il cap. 1 non usa «taglia».
+- Le 66 staia che mancano (1) → 6 (offerta di Brandi), 10 (razionamento), 16, 24.
+- Il telefono nel cassetto (1) → 3 (il tablet di Nora sta altrove), 8, 12.
 - «Una cosa che non torna» (7) → 17.
 - «Volontà umana» / «presente» (14, 15) → 19, 25.
 
@@ -194,3 +202,7 @@ Nessun capitolo si può eliminare senza perdere qualcosa di strutturale. Comprim
 7. Tecnologia tollerata (radio analogiche, trattori diesel, reti locali fai-da-te) e meccanismo di verifica (campione, deposito automatico): ok?
 8. Titolo di lavoro.
 9. Riferimenti stilistici e cose da evitare (campi vuoti nella scheda). Suggerimenti in bibbia.
+10. Terzo figlio di Rosa Mancini (rimasto a casa nel cap. 1): sesso ed età? Pesa sul cap. 5 (chi mangia in quella casa) e sul 20.
+11. Il Consorzio, a San Michele (cap. 2), compra grano con buoni o con contanti? Il cap. 1 dice solo che «alla Roncaia il grano si comprava con i buoni» (cioè Casalvetro compra là). La riga del cap. 2 («comprano grano con buoni») va letta in coerenza: chi compra e da chi?
+12. Cosa cambia a San Giorgio (23 aprile) per le scorte: riapertura del passo, fiera, mercato, nuovo raccolto precoce? Il cap. 1 usa San Giorgio come limite del fabbisogno (500 staia), ma non dice perché.
+13. Da dove viene il seme (cap. 1: «in sacchi a parte, messo via prima di tutto il resto»): una parte del raccolto, una riserva di anni precedenti, un dono? Pesa su 10 e 16.
