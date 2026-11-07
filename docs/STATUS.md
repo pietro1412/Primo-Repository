@@ -4,7 +4,7 @@
 
 ## Stato attuale
 
-- Ultimo aggiornamento: (data) · branch: (nome)
+- Ultimo aggiornamento: 2026-11-07 · branch: `claude/repository-cleanup-gpoeot`
 - Scaffold completato: auth + ruoli, dominio di esempio, CI, e2e. Nessuna piattaforma reale ancora definita.
 
 ## In corso
@@ -25,4 +25,5 @@
 
 ## Log sessioni (più recente in alto)
 
-- (data) — scaffold iniziale creato.
+- 2026-11-07 — audit eseguito (`docs/AUDIT.md`) e fix applicati; scaffold, docs e comandi verificati da clone pulito.
+- 2026-11-07 — scaffold iniziale creato.
