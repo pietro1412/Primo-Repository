@@ -31,3 +31,10 @@ Next.js (App Router) + TypeScript strict · Tailwind · PostgreSQL + Prisma 6 ·
 ## Documentazione
 
 `docs/PRODUCT.md` (cosa/chi), `docs/DOMAIN.md` (entità e regole con esempi), `docs/DECISIONS.md` (decisioni).
+
+## Sessioni successive e parallele
+
+- A inizio sessione: `/start` (legge `docs/STATUS.md`, `docs/BACKLOG.md`, `docs/WORKFLOW.md`). A fine sessione: `/handoff`.
+- Comandi in `.claude/commands/`: `/start`, `/plan-feature`, `/check`, `/new-migration`, `/handoff`.
+- Un branch per sessione; marca l'elemento `doing` nel backlog prima di lavorare; una sola feature alla volta può toccare `prisma/schema.prisma`. Dettagli in `docs/WORKFLOW.md`.
+- Non lasciare lavoro non pushato: l'ambiente cloud è effimero.
