@@ -1,4 +1,6 @@
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 import { requireUser } from "@/lib/auth";
 import { createOrder, listOrders } from "@/services/orders";
 import { Field, SubmitButton } from "@/components/ui/form";
@@ -6,21 +8,39 @@ import { Field, SubmitButton } from "@/components/ui/form";
 const eur = (cents: number) =>
   (cents / 100).toLocaleString("it-IT", { style: "currency", currency: "EUR" });
 
-export default async function Dashboard() {
+const orderInput = z.object({
+  subtotal: z.coerce.number().finite().min(0).max(1_000_000),
+  discount: z.coerce.number().finite().min(0).max(100),
+});
+
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
   const user = await requireUser();
   const orders = await listOrders(user.id);
 
   async function add(formData: FormData) {
     "use server";
     const u = await requireUser();
-    const subtotal = Math.round(Number(formData.get("subtotal")) * 100);
-    const discount = Number(formData.get("discount") || 0);
-    await createOrder(u.id, subtotal, discount);
+    const parsed = orderInput.safeParse({
+      subtotal: formData.get("subtotal"),
+      discount: formData.get("discount") || 0,
+    });
+    if (!parsed.success) redirect("/dashboard?error=1");
+    await createOrder(u.id, Math.round(parsed.data.subtotal * 100), parsed.data.discount);
     revalidatePath("/dashboard");
   }
 
   return (
     <div className="space-y-6">
+      {error && (
+        <p role="alert" className="text-sm text-red-600">
+          Importo o sconto non validi.
+        </p>
+      )}
       <h1 className="text-2xl font-bold">Ciao {user.name ?? user.email}</h1>
       <form action={add} className="max-w-sm space-y-3">
         <h2 className="font-semibold">Nuovo ordine (esempio di regola di dominio)</h2>
