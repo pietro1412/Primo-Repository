@@ -42,4 +42,5 @@ Next.js (App Router) + TypeScript strict · Tailwind · PostgreSQL + Prisma 6 ·
 - A inizio sessione: `/start` (legge `docs/STATUS.md`, `docs/BACKLOG.md`, `docs/WORKFLOW.md`). A fine sessione: `/handoff`.
 - Comandi in `.claude/commands/`: `/start`, `/plan-feature`, `/check`, `/new-migration`, `/handoff`.
 - Un branch per sessione (convenzioni in `docs/WORKFLOW.md`); marca l'elemento `doing` nel backlog prima di lavorare; una sola feature alla volta può toccare `prisma/schema.prisma`. Dettagli in `docs/WORKFLOW.md`.
+- Hook `SessionStart` (`.claude/hooks/session-start.sh`) mostra `docs/STATUS.md` e, nel cloud, installa le dipendenze. Permessi in `.claude/settings.json`.
 - Non lasciare lavoro non pushato: l'ambiente cloud è effimero.

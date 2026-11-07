@@ -40,7 +40,14 @@ Test a freddo: l'agente ha risposto correttamente su stack, comandi, posizione d
 | Nome file test, struttura dominio, setup completo, `build`, criterio e2e, CI, "non banale" | Chiariti in `CLAUDE.md` / `WORKFLOW.md`                                                                           |
 | Slash command visibili come skill                                                          | OK (`start`, `check`, `handoff`, `plan-feature`, `new-migration`) — mai eseguiti end-to-end in una sessione reale |
 
-## Non fatto / proposto
+## Completamenti successivi
 
-- Simulazione con due worktree e conflitti reali: non eseguita; le regole sono verificate solo a livello documentale.
-- `.claude/settings.json` (permessi) e hook SessionStart che stampa `STATUS.md`: proposti, non aggiunti.
+- **Simulazione parallela (due worktree):** due feature aggiungono una colonna a `User` con migrazioni distinte. Il merge dà conflitti SOLO su `prisma/schema.prisma` e `docs/STATUS.md` (le cartelle di migrazione non confliggono: timestamp diversi). Risolti conservando entrambe le versioni; `prisma migrate diff` dopo l'unione: nessuna differenza. Le regole di `WORKFLOW.md` reggono; la colonna "Schema?" rende il rischio visibile in anticipo.
+- **Hook SessionStart** (`.claude/hooks/session-start.sh`, registrato in `.claude/settings.json`): stampa `docs/STATUS.md` a ogni sessione; nel cloud crea `.env` da `.env.example` (se manca) e fa `npm install` solo se cambiano manifest, lockfile o schema (secondo avvio: ~7 ms). Sincrono.
+- **Permessi** in `.claude/settings.json`: consentiti lint, typecheck, test, build, db, prisma, playwright e git di sola lettura; negati push forzati e `prisma migrate reset`.
+
+## Ancora aperto
+
+- Impostare `main` come branch di default su GitHub (azione del proprietario).
+- `/start` e `/handoff` provati solo a livello documentale, non come comandi eseguiti in una sessione reale.
+- Docker Compose non provato (Docker assente nell'ambiente).
