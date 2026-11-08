@@ -17,16 +17,16 @@ Next.js (App Router) + TypeScript strict · Tailwind · PostgreSQL + Prisma 6 ·
 
 ## Architettura e convenzioni
 
-- `src/domain/<area>/<regola>.ts`: logica di business PURA (funzioni, nessun import da DB/UI/Next; imposto da ESLint). Test Vitest accanto: `<regola>.test.ts`. Modello: `src/domain/example/pricing.ts`.
+- `src/domain/<area>/<regola>.ts`: logica di business PURA (funzioni, nessun import da DB/UI/Next; imposto da ESLint). Test Vitest accanto: `<regola>.test.ts`. Modello: `src/domain/mantra/validation.ts`.
 - `src/services/`: orchestrano dominio + Prisma. Niente regole di business qui.
 - `src/app/`: route e server actions, sottili. Validare gli input con zod.
 - `src/lib/`: infrastruttura (prisma, auth). `auth.config.ts` è edge-safe, `auth.ts` usa il DB.
 - Importi di denaro: interi in centesimi.
-- Schema DB solo tramite migrazioni Prisma (`prisma migrate dev`); mai modificare il DB a mano.
+- Schema DB solo tramite migrazioni Prisma (`prisma migrate dev`); mai modificare il DB a mano. Se `migrate dev` rifiuta l'ambiente non interattivo: `prisma migrate diff --from-migrations prisma/migrations --to-schema-datamodel prisma/schema.prisma --shadow-database-url <db vuoto> --script` in una nuova cartella `prisma/migrations/<timestamp>_<nome>/migration.sql`, poi `prisma migrate deploy`.
 - Autorizzazione: `requireUser(role?)` nelle pagine/azioni + `src/proxy.ts` per i prefissi protetti.
 - Nessun segreto nel repo: solo variabili d'ambiente (`.env` è ignorato).
 - Ogni funzionalità: branch dedicato, piano prima, test insieme al codice, commit piccoli.
-- `Order` e `domain/example` sono ESEMPI: sostituiscili con le entità della piattaforma reale.
+- Prodotto: piattaforma **Mantra** (vedi `docs/PRODUCT.md`, `docs/DOMAIN.md`). Gli ID delle regole (R1…) nei test rimandano a `docs/DOMAIN.md`.
 - Aggiorna `docs/` e questo file quando prendi una decisione o scopri un'insidia.
 
 ## Altri file per agenti

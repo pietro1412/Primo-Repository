@@ -12,6 +12,31 @@ async function main() {
     create: { email, name: "Admin", role: "ADMIN", passwordHash: await bcrypt.hash(password, 12) },
   });
   console.log(`Seed ok: admin ${email}`);
+
+  if ((await prisma.category.count({ where: { isCatalog: true } })) === 0) {
+    const catalog: Record<string, Record<string, string[]>> = {
+      Sport: {
+        Tennis: ["Guarda la palla", "Alza il gomito", "Gira le spalle", "Piega le ginocchia"],
+        Calcio: ["Testa alta", "Passa e muoviti", "Controllo e guarda"],
+        Corsa: ["Respira dal naso", "Spalle rilassate", "Passo leggero"],
+      },
+      Studio: { Concentrazione: ["Un compito alla volta", "Respira e riparti", "Ora sono qui"] },
+    };
+    for (const [parentName, kids] of Object.entries(catalog)) {
+      const parent = await prisma.category.create({ data: { name: parentName, isCatalog: true } });
+      for (const [kidName, phrases] of Object.entries(kids)) {
+        await prisma.category.create({
+          data: {
+            name: kidName,
+            isCatalog: true,
+            parentId: parent.id,
+            mantras: { create: phrases.map((text, position) => ({ text, position })) },
+          },
+        });
+      }
+    }
+    console.log("Seed ok: catalogo base");
+  }
 }
 
 main().finally(() => prisma.$disconnect());

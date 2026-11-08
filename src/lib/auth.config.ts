@@ -11,7 +11,9 @@ export const authConfig = {
       const isProtected = path.startsWith("/dashboard") || path.startsWith("/admin");
       if (!isProtected) return true;
       if (!auth?.user) return false;
-      if (path.startsWith("/admin") && auth.user.role !== "ADMIN") return false;
+      if (path.startsWith("/admin") && auth.user.role !== "ADMIN") {
+        return Response.redirect(new URL("/dashboard", nextUrl));
+      }
       return true;
     },
     jwt({ token, user }) {

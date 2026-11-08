@@ -20,8 +20,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <nav className="flex items-center gap-4 text-sm">
             {session?.user ? (
               <>
-                <Link href="/dashboard">Dashboard</Link>
-                {session.user.role === "ADMIN" && <Link href="/admin">Admin</Link>}
+                <Link href="/library">Mantra</Link>
+                {session.user.role === "ADMIN" && <Link href="/admin/catalog">Catalogo</Link>}
                 <form
                   action={async () => {
                     "use server";

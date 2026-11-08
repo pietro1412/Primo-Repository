@@ -20,18 +20,33 @@ model User {
   role         Role     @default(USER)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  orders       Order[]
+  categories   Category[]
 }
 
-// Entità di ESEMPIO: sostituiscila con quelle della tua piattaforma.
-model Order {
+model Category {
+  id        String     @id @default(cuid())
+  name      String
+  parentId  String?
+  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Category[] @relation("CategoryTree")
+  // null + isCatalog = categoria del catalogo gestito dagli ADMIN
+  ownerId   String?
+  owner     User?      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  isCatalog Boolean    @default(false)
+  mantras   Mantra[]
+  createdAt DateTime   @default(now())
+
+  @@index([ownerId])
+  @@index([parentId])
+}
+
+model Mantra {
   id         String   @id @default(cuid())
-  userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subtotal   Int // centesimi
-  discount   Int // centesimi
-  total      Int // centesimi
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  text       String
+  position   Int      @default(0)
   createdAt  DateTime @default(now())
 
-  @@index([userId])
+  @@index([categoryId])
 }
