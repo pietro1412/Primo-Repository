@@ -28,6 +28,7 @@
 
 ## Log sessioni (più recente in alto)
 
+- 2026-11-08 — CI sistemata: i test di integrazione richiedono il DB migrato prima di `npm test`.
 - 2026-11-08 — player + conteggi (B-011): migrazione `playback`, dominio stili/sequenza/sessione, SpeechEngine, pagina /play.
 - 2026-11-08 — definito il prodotto Mantra (docs), implementata la libreria (B-010) e rimosso l'esempio Order.
 - 2026-11-07 — audit eseguito (`docs/AUDIT.md`) e fix applicati; scaffold, docs e comandi verificati da clone pulito.
