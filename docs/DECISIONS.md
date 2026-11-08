@@ -13,3 +13,4 @@ Formato: data · decisione · motivo.
 - 2026-11-08 · Voce: MVP con Web Speech API del browser dietro l'interfaccia `SpeechEngine` (`src/lib/speech/`); TTS cloud in seguito (B-014) senza toccare player e dominio.
 - 2026-11-08 · Orari: l'audio automatico in background non è affidabile sul web mobile → notifica push che apre la sessione. Il job di dispatch richiede uno scheduler ogni minuto (hosting da decidere in B-012).
 - 2026-11-08 · Conteggi aggregati per utente/mantra/giorno e inviati dal client a blocchi, per evitare una riga per riproduzione.
+- 2026-11-08 · Test e2e del player con `?engine=fake` (FakeSpeechEngine): la sintesi reale del browser non è disponibile/deterministica in Chromium headless.

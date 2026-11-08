@@ -8,7 +8,9 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const path = nextUrl.pathname;
-      const isProtected = path.startsWith("/dashboard") || path.startsWith("/admin");
+      const isProtected = ["/dashboard", "/admin", "/library", "/play"].some((p) =>
+        path.startsWith(p),
+      );
       if (!isProtected) return true;
       if (!auth?.user) return false;
       if (path.startsWith("/admin") && auth.user.role !== "ADMIN") {

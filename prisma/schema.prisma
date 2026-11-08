@@ -12,41 +12,87 @@ enum Role {
   USER
 }
 
+enum VoiceStyle {
+  CALM
+  ENERGETIC
+  SHOUT
+  WHISPER
+}
+
+enum PlaybackTrigger {
+  MANUAL
+  SCHEDULE
+}
+
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id           String            @id @default(cuid())
+  email        String            @unique
   name         String?
   passwordHash String
-  role         Role     @default(USER)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  role         Role              @default(USER)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
   categories   Category[]
+  sessions     PlaybackSession[]
+  playCounts   MantraPlayCount[]
 }
 
 model Category {
-  id        String     @id @default(cuid())
+  id        String            @id @default(cuid())
   name      String
   parentId  String?
-  parent    Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
-  children  Category[] @relation("CategoryTree")
+  parent    Category?         @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Category[]        @relation("CategoryTree")
   // null + isCatalog = categoria del catalogo gestito dagli ADMIN
   ownerId   String?
-  owner     User?      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  isCatalog Boolean    @default(false)
+  owner     User?             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  isCatalog Boolean           @default(false)
   mantras   Mantra[]
-  createdAt DateTime   @default(now())
+  sessions  PlaybackSession[]
+  createdAt DateTime          @default(now())
 
   @@index([ownerId])
   @@index([parentId])
 }
 
 model Mantra {
-  id         String   @id @default(cuid())
+  id         String            @id @default(cuid())
   categoryId String
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category   Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   text       String
-  position   Int      @default(0)
-  createdAt  DateTime @default(now())
+  position   Int               @default(0)
+  playCounts MantraPlayCount[]
+  createdAt  DateTime          @default(now())
 
   @@index([categoryId])
+}
+
+model PlaybackSession {
+  id             String          @id @default(cuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId     String
+  category       Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  style          VoiceStyle
+  plannedMinutes Int
+  pauseSeconds   Int
+  trigger        PlaybackTrigger @default(MANUAL)
+  totalPlays     Int             @default(0)
+  startedAt      DateTime        @default(now())
+  endedAt        DateTime?
+
+  @@index([userId, startedAt])
+}
+
+// Contatore aggregato: una riga per utente, mantra e giorno (data locale dell'utente, DOMAIN R6).
+model MantraPlayCount {
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mantraId String
+  mantra   Mantra   @relation(fields: [mantraId], references: [id], onDelete: Cascade)
+  day      DateTime @db.Date
+  count    Int      @default(0)
+
+  @@id([userId, mantraId, day])
+  @@index([userId, day])
 }
