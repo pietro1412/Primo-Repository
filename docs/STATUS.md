@@ -9,9 +9,9 @@
 
 ## In corso
 
-| Feature   | Branch | Sessione/chi | Stato |
-| --------- | ------ | ------------ | ----- |
-| (nessuna) |        |              |       |
+| Feature   | Branch | Sessione/chi | Schema? | Stato |
+| --------- | ------ | ------------ | ------- | ----- |
+| (nessuna) |        |              |         |       |
 
 ## Prossimi passi immediati
 
