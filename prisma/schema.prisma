@@ -1,6 +1,3 @@
-// Prisma schema for Daily Todo App
-// Uses Prisma Accelerate for connection pooling
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,32 +5,94 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum VoiceStyle {
+  CALM
+  ENERGETIC
+  SHOUT
+  WHISPER
+}
+
+enum PlaybackTrigger {
+  MANUAL
+  SCHEDULE
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
-  passwordHash String   @map("password_hash")
-  createdAt    DateTime @default(now()) @map("created_at")
-  tasks        Task[]
-
-  @@map("users")
+  id           String            @id @default(cuid())
+  email        String            @unique
+  name         String?
+  passwordHash String
+  role         Role              @default(USER)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  categories   Category[]
+  sessions     PlaybackSession[]
+  playCounts   MantraPlayCount[]
 }
 
-model Task {
-  id            Int       @id @default(autoincrement())
-  userId        Int       @map("user_id")
-  title         String
-  description   String?
-  status        String    @default("pending")
-  scheduledDate DateTime? @map("scheduled_date") @db.Date
-  createdAt     DateTime  @default(now()) @map("created_at")
-  completedAt   DateTime? @map("completed_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Category {
+  id        String            @id @default(cuid())
+  name      String
+  parentId  String?
+  parent    Category?         @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Category[]        @relation("CategoryTree")
+  // null + isCatalog = categoria del catalogo gestito dagli ADMIN
+  ownerId   String?
+  owner     User?             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  isCatalog Boolean           @default(false)
+  mantras   Mantra[]
+  sessions  PlaybackSession[]
+  createdAt DateTime          @default(now())
 
-  @@index([userId])
-  @@index([scheduledDate])
-  @@map("tasks")
+  @@index([ownerId])
+  @@index([parentId])
+}
+
+model Mantra {
+  id         String            @id @default(cuid())
+  categoryId String
+  category   Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  text       String
+  position   Int               @default(0)
+  playCounts MantraPlayCount[]
+  createdAt  DateTime          @default(now())
+
+  @@index([categoryId])
+}
+
+model PlaybackSession {
+  id             String          @id @default(cuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId     String
+  category       Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  style          VoiceStyle
+  plannedMinutes Int
+  pauseSeconds   Int
+  trigger        PlaybackTrigger @default(MANUAL)
+  totalPlays     Int             @default(0)
+  startedAt      DateTime        @default(now())
+  endedAt        DateTime?
+
+  @@index([userId, startedAt])
+}
+
+// Contatore aggregato: una riga per utente, mantra e giorno (data locale dell'utente, DOMAIN R6).
+model MantraPlayCount {
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mantraId String
+  mantra   Mantra   @relation(fields: [mantraId], references: [id], onDelete: Cascade)
+  day      DateTime @db.Date
+  count    Int      @default(0)
+
+  @@id([userId, mantraId, day])
+  @@index([userId, day])
 }
