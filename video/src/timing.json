@@ -4,116 +4,116 @@
  "scenes": [
   {
    "id": "intro",
-   "frames": 212,
+   "frames": 227,
    "audio": "audio/intro.mp3",
    "sentences": [
     {
      "text": "Benvenuti al recap settimanale delle criptovalute.",
      "start": 0.0,
-     "end": 2.662
+     "end": 2.901
     },
     {
      "text": "In pochi istanti vediamo cosa è successo al mercato.",
-     "start": 3.012,
-     "end": 5.836
+     "start": 3.251,
+     "end": 6.345
     }
    ]
   },
   {
    "id": "bitcoin",
-   "frames": 341,
+   "frames": 377,
    "audio": "audio/bitcoin.mp3",
    "sentences": [
     {
      "text": "Bitcoin ha chiuso la settimana a settantaduemila e quattrocento dollari, in rialzo di quasi tredici per cento.",
      "start": 0.0,
-     "end": 5.548
+     "end": 6.272
     },
     {
      "text": "Il grafico mostra un trend rialzista: i minimi e i massimi sono sempre più alti.",
-     "start": 5.898,
-     "end": 10.151
+     "start": 6.622,
+     "end": 11.358
     }
    ]
   },
   {
    "id": "dominance",
-   "frames": 236,
+   "frames": 263,
    "audio": "audio/dominance.mp3",
    "sentences": [
     {
      "text": "La dominance misura il peso di ogni moneta sul valore totale del mercato.",
      "start": 0.0,
-     "end": 3.453
+     "end": 4.117
     },
     {
      "text": "Bitcoin ne vale più della metà, ed Ethereum è la seconda.",
-     "start": 3.803,
-     "end": 6.656
+     "start": 4.467,
+     "end": 7.539
     }
    ]
   },
   {
    "id": "movers",
-   "frames": 367,
+   "frames": 372,
    "audio": "audio/movers.mp3",
    "sentences": [
     {
      "text": "Tra le principali, Solana guida con quasi più quattordici per cento, seguita da Ethereum.",
      "start": 0.0,
-     "end": 4.813
+     "end": 4.864
     },
     {
      "text": "Ripple è l'unica in calo.",
-     "start": 5.163,
-     "end": 6.681
+     "start": 5.214,
+     "end": 6.835
     },
     {
      "text": "La variazione percentuale indica quanto un prezzo è cambiato in un periodo.",
-     "start": 7.031,
-     "end": 11.016
+     "start": 7.185,
+     "end": 11.196
     }
    ]
   },
   {
    "id": "fear",
-   "frames": 331,
+   "frames": 358,
    "audio": "audio/fear.mp3",
    "sentences": [
     {
      "text": "L'indice di paura e avidità riassume il sentimento degli investitori.",
      "start": 0.0,
-     "end": 3.397
+     "end": 3.819
     },
     {
      "text": "Oggi segna sessantacinque: avidità.",
-     "start": 3.747,
-     "end": 5.955
+     "start": 4.169,
+     "end": 6.473
     },
     {
      "text": "Valori alti possono precedere correzioni, quindi serve cautela.",
-     "start": 6.305,
-     "end": 9.818
+     "start": 6.823,
+     "end": 10.705
     }
    ]
   },
   {
    "id": "outro",
-   "frames": 248,
+   "frames": 266,
    "audio": "audio/outro.mp3",
    "sentences": [
     {
      "text": "Questo è solo un esempio: con Remotion lo stesso video si genera in automatico, con dati reali.",
      "start": 0.0,
-     "end": 4.897
+     "end": 5.291
     },
     {
      "text": "Non è consulenza finanziaria.",
-     "start": 5.247,
-     "end": 7.062
+     "start": 5.641,
+     "end": 7.646
     }
    ]
   }
  ],
- "totalFrames": 1735
+ "totalFrames": 1863
 }

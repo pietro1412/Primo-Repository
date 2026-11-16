@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
-"""Genera voce narrante (espeak-ng + MBROLA it4), musica di sottofondo e src/timing.json.
-Requisiti: apt install espeak-ng mbrola mbrola-it4 ffmpeg ; pip: numpy"""
+"""Genera voce narrante (Kokoro TTS neurale, voce it "if_sara"), musica di sottofondo e src/timing.json.
+Requisiti: ffmpeg ; pip install numpy kokoro-onnx soundfile
+Modelli (non nel repo, ~350MB) in $KOKORO_DIR (default /tmp/claude-0/kokoro):
+  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
+  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin"""
 import json, subprocess, os, wave, tempfile
 import numpy as np
+import soundfile as sf
+from kokoro_onnx import Kokoro
+
+KDIR = os.environ.get('KOKORO_DIR', '/tmp/claude-0/kokoro')
+TTS = Kokoro(f'{KDIR}/kokoro-v1.0.onnx', f'{KDIR}/voices-v1.0.bin')
+VOICE = os.environ.get('VOICE', 'if_sara')
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'public', 'audio')
@@ -35,7 +44,7 @@ for sid, sentences in SCENES:
     parts, sents, t = [], [], 0.0
     for i, s in enumerate(sentences):
         raw = f'{tmp}/{sid}{i}.wav'
-        subprocess.run(['espeak-ng','-v','mb-it4','-s','175','-p','55','-w',raw,s], check=True, stderr=subprocess.DEVNULL)
+        a, sr = TTS.create(s, voice=VOICE, speed=1.05, lang='it'); sf.write(raw, a, sr)
         norm = f'{tmp}/{sid}{i}n.wav'
         subprocess.run(['ffmpeg','-y','-v','error','-i',raw,'-ar','44100','-ac','2','-af','loudnorm=I=-16:TP=-1.5','-t','60',norm], check=True)
         d = dur(norm)
