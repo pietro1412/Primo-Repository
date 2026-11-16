@@ -1,0 +1,119 @@
+{
+ "fps": 30,
+ "lead": 12,
+ "scenes": [
+  {
+   "id": "intro",
+   "frames": 212,
+   "audio": "audio/intro.mp3",
+   "sentences": [
+    {
+     "text": "Benvenuti al recap settimanale delle criptovalute.",
+     "start": 0.0,
+     "end": 2.662
+    },
+    {
+     "text": "In pochi istanti vediamo cosa è successo al mercato.",
+     "start": 3.012,
+     "end": 5.836
+    }
+   ]
+  },
+  {
+   "id": "bitcoin",
+   "frames": 341,
+   "audio": "audio/bitcoin.mp3",
+   "sentences": [
+    {
+     "text": "Bitcoin ha chiuso la settimana a settantaduemila e quattrocento dollari, in rialzo di quasi tredici per cento.",
+     "start": 0.0,
+     "end": 5.548
+    },
+    {
+     "text": "Il grafico mostra un trend rialzista: i minimi e i massimi sono sempre più alti.",
+     "start": 5.898,
+     "end": 10.151
+    }
+   ]
+  },
+  {
+   "id": "dominance",
+   "frames": 236,
+   "audio": "audio/dominance.mp3",
+   "sentences": [
+    {
+     "text": "La dominance misura il peso di ogni moneta sul valore totale del mercato.",
+     "start": 0.0,
+     "end": 3.453
+    },
+    {
+     "text": "Bitcoin ne vale più della metà, ed Ethereum è la seconda.",
+     "start": 3.803,
+     "end": 6.656
+    }
+   ]
+  },
+  {
+   "id": "movers",
+   "frames": 367,
+   "audio": "audio/movers.mp3",
+   "sentences": [
+    {
+     "text": "Tra le principali, Solana guida con quasi più quattordici per cento, seguita da Ethereum.",
+     "start": 0.0,
+     "end": 4.813
+    },
+    {
+     "text": "Ripple è l'unica in calo.",
+     "start": 5.163,
+     "end": 6.681
+    },
+    {
+     "text": "La variazione percentuale indica quanto un prezzo è cambiato in un periodo.",
+     "start": 7.031,
+     "end": 11.016
+    }
+   ]
+  },
+  {
+   "id": "fear",
+   "frames": 331,
+   "audio": "audio/fear.mp3",
+   "sentences": [
+    {
+     "text": "L'indice di paura e avidità riassume il sentimento degli investitori.",
+     "start": 0.0,
+     "end": 3.397
+    },
+    {
+     "text": "Oggi segna sessantacinque: avidità.",
+     "start": 3.747,
+     "end": 5.955
+    },
+    {
+     "text": "Valori alti possono precedere correzioni, quindi serve cautela.",
+     "start": 6.305,
+     "end": 9.818
+    }
+   ]
+  },
+  {
+   "id": "outro",
+   "frames": 248,
+   "audio": "audio/outro.mp3",
+   "sentences": [
+    {
+     "text": "Questo è solo un esempio: con Remotion lo stesso video si genera in automatico, con dati reali.",
+     "start": 0.0,
+     "end": 4.897
+    },
+    {
+     "text": "Non è consulenza finanziaria.",
+     "start": 5.247,
+     "end": 7.062
+    }
+   ]
+  }
+ ],
+ "totalFrames": 1735
+}
